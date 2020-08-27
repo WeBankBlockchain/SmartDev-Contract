@@ -1,0 +1,44 @@
+### common ###
+log/
+src/main/resources
+src/test/resources
+
+### gradle ###
+.gradle/
+build
+dist/
+
+## eclipse ##
+.classpath
+.project
+.settings
+bin/
+out/
+conf/
+
+## integration test files
+nodes/
+src/integration-test/resources/
+build_chain.sh
+
+### STS ###
+.apt_generated
+.factorypath
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### repo ###
