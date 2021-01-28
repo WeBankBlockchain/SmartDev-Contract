@@ -1,3 +1,19 @@
+/*
+ * Copyright 2014-2019 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * */
+ 
 pragma solidity ^0.6.10;
 
 import "./LibSafeMathForUint256Utils.sol";
@@ -36,7 +52,7 @@ library LibArrayForUint256Utils {
         return (false, 0);
     }
 
-    function indexOf(uint256[] storage array, uint256 key) internal view returns (bool, uint256) {
+    function firstIndexOf(uint256[] storage array, uint256 key) internal view returns (bool, uint256) {
 
     	if(array.length == 0){
     		return (false, 0);
@@ -84,7 +100,7 @@ library LibArrayForUint256Utils {
     function removeByValue(uint256[] storage array, uint256 value) internal{
         uint index;
         bool isIn;
-        (isIn, index) = indexOf(array, value);
+        (isIn, index) = firstIndexOf(array, value);
         if(isIn){
           removeByIndex(array, index);
         }
@@ -93,7 +109,7 @@ library LibArrayForUint256Utils {
     function addValue(uint256[] storage array, uint256 value) internal{
     	uint index;
         bool isIn;
-        (isIn, index) = indexOf(array, value);
+        (isIn, index) = firstIndexOf(array, value);
         if(!isIn){
         	array.push(value);
         }
@@ -111,7 +127,7 @@ library LibArrayForUint256Utils {
         bool contains;
         uint index;
         for (uint i = 0; i < array.length; i++) {
-            (contains, index) = indexOf(array, array[i]);
+            (contains, index) = firstIndexOf(array, array[i]);
             if (contains && index > i) {
                 for (uint j = index; j < array.length - 1; j++){
                     array[j] = array[j + 1];
@@ -128,17 +144,13 @@ library LibArrayForUint256Utils {
     }
 
     function qsort(uint256[] storage array, uint256 begin, uint256 end) private {
-        if(end <= begin){
-            return;
-        }
-        uint256 pivot = array[begin];
-        array[begin] = array[end];
-        array[end] = pivot;
+        if(start >= end) return;
+        uint256 pivot = array[end];
 
         uint256 store = begin;
         uint256 i = begin;
         for(;i<end;i++){
-            if(array[i] <= pivot){
+            if(array[i] < pivot){
                 uint256 tmp = array[i];
                 array[i] = array[store];
                 array[store] = tmp;
