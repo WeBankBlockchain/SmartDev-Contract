@@ -21,19 +21,18 @@ library LibQueue{
 
     struct Queue{
         uint256 first;
-        uint256 last;
+        uint256 next;
         mapping(uint => bytes32) queue;
 
     }
 
     function enqueue(Queue storage queue, bytes32 data) public {
-        queue.last++;
-        queue.queue[queue.last] = data;
+        queue.queue[queue.next++] = data;
     }
 
     function dequeue(Queue storage queue) public returns (bytes32) {
         uint256 first = queue.first;
-        require(queue.last >= first);  // non-empty queue
+        require(queue.next > first);  // non-empty queue
 
         bytes32 data = queue.queue[first];
         delete queue.queue[first];
@@ -43,13 +42,13 @@ library LibQueue{
 
     function element(Queue storage queue) public view returns (bytes32) {
         uint256 first = queue.first;
-        require(queue.last >= first);  // non-empty queue
+        require(queue.next > first);  // non-empty queue
         bytes32 data = queue.queue[first];
         return data;
     }
 
 
     function getSize(Queue storage self) internal view returns(uint256){
-        return self.last - self.first + 1;
+        return self.next - self.first;
     }
 }

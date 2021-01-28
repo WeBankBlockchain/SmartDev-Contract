@@ -36,14 +36,14 @@ library LibArrayForUint256Utils {
         }
 
         uint256 low = 0;
-        uint256 high = array.length;
+        uint256 high = array.length-1;
 
-        while(low < high){
+        while(low <= high){
         	uint256 mid = LibSafeMathForUint256Utils.average(low, high);
         	if(array[mid] == key){
         		return (true, mid);
         	}else if (array[mid] > key) {
-                high = mid;
+                high = mid - 1;
             } else {
                 low = mid + 1;
             }
@@ -116,7 +116,7 @@ library LibArrayForUint256Utils {
     }
 
     function extend(uint256[] storage a, uint256[] storage b) internal {
-    	if(!(b.length == 0)){
+    	if(b.length != 0){
     		for(uint i = 0; i < b.length; i++){
     			a.push(b[i]);
     		}
@@ -144,7 +144,7 @@ library LibArrayForUint256Utils {
     }
 
     function qsort(uint256[] storage array, uint256 begin, uint256 end) private {
-        if(start >= end) return;
+        if(begin >= end) return;
         uint256 pivot = array[end];
 
         uint256 store = begin;
