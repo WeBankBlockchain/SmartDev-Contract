@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25; 
+pragma solidity ^0.6.10; 
 
 import "./RequestRepository.sol";
 import "./EvidenceRepository.sol";
@@ -11,7 +11,7 @@ contract EvidenceController{
     event VoteSaveRequest(bytes32 indexed hash, address voter, bool complete);
     event EvidenceSaved(bytes32 indexed hash);
 
-    constructor(uint8 threshold, address[] voterArray) public{
+    constructor(uint8 threshold, address[] memory voterArray) public{
         _requestRepo = new RequestRepository(threshold, voterArray);
         _evidenceRepo = new EvidenceRepository();
     }
@@ -21,7 +21,7 @@ contract EvidenceController{
       _;
     }
 
-    function createSaveRequest(bytes32 hash, bytes ext) public validateHash(hash){
+    function createSaveRequest(bytes32 hash, bytes memory ext) public validateHash(hash){
         _requestRepo.createSaveRequest(hash, msg.sender, ext);
         emit CreateSaveRequest(hash, msg.sender);
     }

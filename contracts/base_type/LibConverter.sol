@@ -1,40 +1,5 @@
-/*
-#    Copyright (C) 2017  alianse777
+pragma solidity ^0.6.10;
 
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
-#
-#    You should have received a copy of the GNU General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-pragma solidity ^0.4.25;
-
-
-/**
- * @dev Wrappers over Solidity's uintXX casting operators with added overflow
- * checks.
- *
- * Downcasting from uint256 in Solidity does not revert on overflow. This can
- * easily result in undesired exploitation or bugs, since developers usually
- * assume that overflows raise errors. `SafeCast` restores this intuition by
- * reverting the transaction when such an operation overflows.
- *
- * Using this library instead of the unchecked operations eliminates an entire
- * class of bugs, so it's recommended to use it always.
- *
- * Can be combined with {SafeMath} to extend it to smaller types, by performing
- * all math on `uint256` and then downcasting.
- *
- * _Available since v2.5.0._
- */
 library LibConverter {
 
     /**
@@ -117,12 +82,12 @@ library LibConverter {
     * @param v - uint to convert.
     * @return bytes.
     */
-    function uintToBytes(uint v) internal pure returns (bytes) {
+    function uintToBytes(uint v) internal pure returns (bytes memory) {
         uint maxlength = 100; 
         bytes memory reversed = new bytes(maxlength);
         uint i = 0; 
         while (v != 0) { 
-            uint remainder = v % 10; 
+            uint8 remainder = uint8(v % 10); 
             v = v / 10; 
             reversed[i % maxlength] = byte(48 + remainder); 
             i++;
@@ -135,7 +100,7 @@ library LibConverter {
     }
     
 
-    function bytesToInt(bytes b) internal pure returns (int result) {
+    function bytesToInt(bytes memory b) internal pure returns (int result) {
         uint i = 0;
         uint tr = 0;
         result = 0;
@@ -146,11 +111,11 @@ library LibConverter {
         } else if(b[i] == "+") {
             i++;
         }
-        while(uint(b[b.length - tr - 1]) == 0x00) {
+        while(uint8(b[b.length - tr - 1]) == 0x00) {
             tr++;
         }
         for (;i < b.length - tr; i++) { 
-            uint c = uint(b[i]); 
+            uint8 c = uint8(b[i]); 
             if (c >= 48 && c <= 57) { 
                 result *= 10;
                 result = result + int(c - 48);
@@ -161,7 +126,7 @@ library LibConverter {
         } 
     }
     
-    function intToBytes(int v) internal pure returns (bytes) {
+    function intToBytes(int v) internal pure returns (bytes memory) {
         uint maxlength = 100; 
         bytes memory reversed = new bytes(maxlength);
         uint i = 0;
@@ -171,7 +136,7 @@ library LibConverter {
         else
             x = uint(v);
         while (x != 0) { 
-            uint remainder = uint(x % 10); 
+            uint8 remainder = uint8(x % 10); 
             x = x / 10; 
             reversed[i % maxlength] = byte(48 + remainder); 
             i++;

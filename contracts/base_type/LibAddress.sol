@@ -1,20 +1,5 @@
-/*
- * Copyright 2014-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * */
 
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 library LibAddress{
     
@@ -25,7 +10,7 @@ library LibAddress{
      */
     function isContract(address account) internal view returns(bool) {
         uint256 size;
-        assembly { size := extcodesize(addr) }  
+        assembly { size := extcodesize(account) }  
         return size > 0;
     }
 
@@ -42,14 +27,14 @@ library LibAddress{
         }
         return rtn;
     }
+ 
     
-    
-    function bytesToAddress(bytes addrBytes) internal pure returns (address){
-        require(isAddressType(addrBytes));
+    function bytesToAddress(bytes memory addrBytes) internal pure returns (address){
+        require(addrBytes.length == 20);
         //Convert binary to uint160
         uint160 intVal = 0;
-        intVal += uint8(addrBytes[0]);
-        for(uint8 i=1;i<20;i++){
+
+        for(uint8 i=0;i<20;i++){
             intVal <<= 8;
             intVal += uint8(addrBytes[i]);
         }
@@ -57,7 +42,7 @@ library LibAddress{
     }
 
 
-    function addressToString(address addr) internal pure returns(string){
+    function addressToString(address addr) internal pure returns(string memory){
         //Convert addr to bytes
         bytes20 value = bytes20(uint160(addr));
         bytes memory strBytes = new bytes(42);
@@ -67,13 +52,13 @@ library LibAddress{
         //Encode bytes usig hex encoding
         for(uint i=0;i<20;i++){
             uint8 byteValue = uint8(value[i]);
-            strBytes[2 + (i<<1)] = encode(byteValue >> 4);
+            strBytes[2 + (i<<1)] = encode((byteValue >> 4) & 0x0f);
             strBytes[3 + (i<<1)] = encode(byteValue & 0x0f);
         }
         return string(strBytes);
     }
 
-    function stringToAddress(string data) internal returns(address){
+    function stringToAddress(string memory data) internal returns(address){
         bytes memory strBytes = bytes(data);
         require(strBytes.length >= 39 && strBytes.length <= 42, "Not hex string");
         //Skip prefix

@@ -14,7 +14,7 @@
  * limitations under the License.
  * */
 
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 
 library LibLinkedList {
@@ -40,7 +40,7 @@ library LibLinkedList {
         return self.size;
     }
 
-    function addNode(LinkedList storage self, bytes32 data) internal returns(LinkedList) {
+    function addNode(LinkedList storage self, bytes32 data) internal returns(LinkedList storage) {
         require(data != bytes32(0));
         require(!self.indexs[data].exist);
         if(self.size == 0){
@@ -74,7 +74,7 @@ library LibLinkedList {
     }
 
     
-    function removeNode(LinkedList storage self, bytes32 data) internal returns(LinkedList){
+    function removeNode(LinkedList storage self, bytes32 data) internal returns(LinkedList storage){
         Node storage node = extractNode(self, data);
         require(node.exist);
         Node storage prev = extractNode(self, node.prev);

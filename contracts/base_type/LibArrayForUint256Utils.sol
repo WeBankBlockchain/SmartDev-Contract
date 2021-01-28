@@ -1,20 +1,4 @@
-/*
- * Copyright 2014-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * */
-
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibSafeMathForUint256Utils.sol";
 
@@ -75,7 +59,7 @@ library LibArrayForUint256Utils {
         }
     }
 
-    function equals(uint256[] a, uint256[] b) internal pure returns (bool){
+    function equals(uint256[] storage a, uint256[] storage b) internal view returns (bool){
     	if(a.length != b.length){
     		return false;
     	}
@@ -94,7 +78,7 @@ library LibArrayForUint256Utils {
             array[index] = array[index + 1];
             index++;
         }
-        array.length--;
+        array.pop();
     }
     
     function removeByValue(uint256[] storage array, uint256 value) internal{
@@ -128,23 +112,22 @@ library LibArrayForUint256Utils {
         uint index;
         for (uint i = 0; i < array.length; i++) {
             (contains, index) = indexOf(array, array[i]);
-            if (i > index) {
-                for (uint j = i; j < array.length - 1; j++){
+            if (contains && index > i) {
+                for (uint j = index; j < array.length - 1; j++){
                     array[j] = array[j + 1];
                 }
-                delete array[array.length - 1];
-                array.length--;
+                array.pop();
                 i--;
             }
         }
         length = array.length;
     }
 
-    function qsort(uint256[] storage array) internal view {
+    function qsort(uint256[] storage array) internal {
         qsort(array, 0, array.length-1);
     }
 
-    function qsort(uint256[] storage array, uint256 begin, uint256 end) private view{
+    function qsort(uint256[] storage array, uint256 begin, uint256 end) private {
         if(end <= begin){
             return;
         }

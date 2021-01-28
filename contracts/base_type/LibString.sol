@@ -1,25 +1,9 @@
-/*
- * Copyright 2014-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * */
-
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 library LibString{
     
 
-    function lenOfChars(string src) internal pure returns(uint){
+    function lenOfChars(string memory src) internal pure returns(uint){
         uint i=0;
         uint length = 0;
         bytes memory string_rep = bytes(src);
@@ -32,13 +16,13 @@ library LibString{
         return length;
     }
 
-    function lenOfBytes(string src) internal pure returns(uint){
+    function lenOfBytes(string memory src) internal pure returns(uint){
         bytes memory srcb = bytes(src);
         return srcb.length;
     }
     
     
-    function startWith(string src, string prefix) internal pure returns(bool){
+    function startWith(string memory src, string memory prefix) internal pure returns(bool){
         bytes memory src_rep = bytes(src);
         bytes memory prefix_rep = bytes(prefix);
         
@@ -54,7 +38,7 @@ library LibString{
         return true;
     }
     
-    function endWith(string src, string tail) internal pure returns(bool){
+    function endWith(string memory src, string memory tail) internal pure returns(bool){
         bytes memory src_rep = bytes(src);
         bytes memory tail_rep = bytes(tail);
         
@@ -71,7 +55,7 @@ library LibString{
     }
     
 
-    function equal(string self, string other) internal pure returns(bool){
+    function equal(string memory self, string memory other) internal pure returns(bool){
         bytes memory self_rep = bytes(self);
         bytes memory other_rep = bytes(other);
         
@@ -85,23 +69,23 @@ library LibString{
         return true;           
     }
 
-    function equalNocase(string self, string other) internal pure returns(bool){
+    function equalNocase(string memory self, string memory other) internal pure returns(bool){
         return compareNocase(self, other) == 0;
     }
     
-    function empty(string src) internal pure returns(bool){
+    function empty(string memory src) internal pure returns(bool){
         bytes memory src_rep = bytes(src);
         if(src_rep.length == 0) return true;
 
         for(uint i=0;i<src_rep.length;i++){
             byte b = src_rep[i];
-            if(b != 0x20 && b != 0x9 && b!=0xA && b!=0xD) return false;
+            if(b != 0x20 && b != byte(0x09) && b!=byte(0x0A) && b!=byte(0x0D)) return false;
         }
 
         return true;
     }
 
-    function concat(string memory self, string memory str) internal returns (string _ret)  {
+    function concat(string memory self, string memory str) internal returns (string memory  _ret)  {
         _ret = new string(bytes(self).length + bytes(str).length);
 
         uint selfptr;
@@ -118,7 +102,7 @@ library LibString{
     }
     
     //start is char index, not byte index
-    function substrByCharIndex(string memory self, uint start, uint len) internal returns (string) {
+    function substrByCharIndex(string memory self, uint start, uint len) internal returns (string memory) {
         if(len == 0) return "";
         //start - bytePos
         //len - byteLen
@@ -160,7 +144,7 @@ library LibString{
         return ret;
     }
 
-    function compare(string self, string other) internal pure returns(int8){
+    function compare(string memory self, string memory other) internal pure returns(int8){
         bytes memory selfb = bytes(self);
         bytes memory otherb = bytes(other);
         //byte by byte
@@ -176,7 +160,7 @@ library LibString{
         return 0;
     }
 
-    function compareNocase(string self, string other) internal pure returns(int8){
+    function compareNocase(string memory self, string memory other) internal pure returns(int8){
         bytes memory selfb = bytes(self);
         bytes memory otherb = bytes(other);
         for(uint i=0;i<selfb.length && i<otherb.length;i++){
@@ -199,19 +183,19 @@ library LibString{
         return 0;
     }
     
-    function toUppercase(string src) internal pure returns(string){
+    function toUppercase(string memory src) internal pure returns(string memory){
         bytes memory srcb = bytes(src);
         for(uint i=0;i<srcb.length;i++){
             byte b = srcb[i];
             if(b >= 'a' && b <= 'z'){
-                b &= ~0x20;
-                srcb[i] = b;
+                b &= byte(0xDF);// -32
+                srcb[i] = b ;
             }
         }
         return src;
     }
     
-    function toLowercase(string src) internal pure returns(string){
+    function toLowercase(string memory src) internal pure returns(string memory){
         bytes memory srcb = bytes(src);
         for(uint i=0;i<srcb.length;i++){
             byte b = srcb[i];
@@ -236,7 +220,7 @@ library LibString{
      * @return int The position of the needle starting from 0 and returning -1
      *             in the case of no matches found
      */
-    function indexOf(string  src, string  value)
+    function indexOf(string memory src, string memory value)
         internal
         pure
         returns (int) {
@@ -259,7 +243,7 @@ library LibString{
      * @return int The position of the needle starting from 0 and returning -1
      *             in the case of no matches found
      */
-    function indexOf(string  src, string  value, uint offset)
+    function indexOf(string  memory src, string memory value, uint offset)
         internal
         pure
         returns (int) {
@@ -276,25 +260,11 @@ library LibString{
 
         return -1;
     }
-    
-     /**
-     * String Split (Very high gas cost)
-     *
-     * Splits a string into an array of strings based off the delimiter value.
-     * Please note this can be quite a gas expensive function due to the use of
-     * storage so only use if really required.
-     *
-     * @param src When being used for a data type this is the extended object
-     *               otherwise this is the string value to be split.
-     * @param separator The delimiter to split the string on which must be a single
-     *               character
-     * @return string[] An array of values split based off the delimiter, but
-     *                  do not container the delimiter.
-     */
-    function split(string  src, string  separator)
+
+    function split(string memory src, string memory separator)
         internal
         pure
-        returns (string[]  splitArr) {
+        returns (string[] memory splitArr) {
         bytes memory srcBytes = bytes(src);
 
         uint offset = 0;
@@ -315,7 +285,7 @@ library LibString{
         splitsCount = 0;
         while (offset < srcBytes.length - 1) {
 
-            limit = indexOf(src, separator, offset);
+            int limit = indexOf(src, separator, offset);
             if (limit == - 1) {
                 limit = int(srcBytes.length);
             }
@@ -335,14 +305,15 @@ library LibString{
 
     //------------HELPER FUNCTIONS----------------
     
-    function utf8CharBytesLength(bytes stringRep, uint ptr) internal pure returns(uint){
-            if (stringRep[ptr]>>7==0)
+    function utf8CharBytesLength(bytes memory stringRep, uint ptr) internal pure returns(uint){
+            
+            if ((stringRep[ptr]>>7)==byte(0))
                 return 1;
-            if (stringRep[ptr]>>5==0x6)
+            if ((stringRep[ptr]>>5)==byte(0x06))
                 return 2;
-            if (stringRep[ptr]>>4==0xE)
+            if ((stringRep[ptr]>>4)==byte(0x0e))
                 return 3;
-            if (stringRep[ptr]>>3==0x1E)
+            if ((stringRep[ptr]>>3)==byte(0x1e))
                 return 4;
             return 1;
     }

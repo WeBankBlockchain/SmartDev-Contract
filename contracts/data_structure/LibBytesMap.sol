@@ -14,7 +14,7 @@
  * limitations under the License.
  * */
 
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 library LibBytesMap{
 
@@ -24,7 +24,7 @@ library LibBytesMap{
         bytes[] values;
     }
 
-    function put(Map storage map, bytes key, bytes value) internal {
+    function put(Map storage map, bytes memory key, bytes memory value) internal {
         uint256 idx = map.index[key];
         if(idx == 0){
             map.keys.push(key);
@@ -36,13 +36,13 @@ library LibBytesMap{
         }
     }
 
-    function getKey(Map storage map, uint256 index) internal view returns(bytes){
+    function getKey(Map storage map, uint256 index) internal view returns(bytes memory){
         require(map.keys.length > index);
         bytes memory key = map.keys[index - 1];
         return key;
     }    
 
-    function getValue(Map storage map, bytes key) internal view returns(bytes){
+    function getValue(Map storage map, bytes memory key) internal view returns(bytes memory){
         uint256 idx = map.index[key];
         bytes memory value = map.values[idx - 1];
         return value;

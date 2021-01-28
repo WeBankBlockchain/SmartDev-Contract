@@ -14,7 +14,7 @@
  * limitations under the License.
  * */
  
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 
 library LibAddressSet {
@@ -25,7 +25,7 @@ library LibAddressSet {
     }
 
 	function add(AddressSet storage self, address value) internal {
-        require(value != 0x0, "LibAddressSet: value can't be 0x0");
+        require(value != address(0x0), "LibAddressSet: value can't be 0x0");
         require(!contains(self, value), "LibAddressSet: value already exists in the set.");
         self.values.push(value);
         self.indexMapping[value] = self.values.length;
@@ -42,8 +42,7 @@ library LibAddressSet {
         address lastValue = self.values[lastindexMapping];
         self.values[toDeleteindexMapping] = lastValue;
         self.indexMapping[lastValue] = toDeleteindexMapping; 
-        delete self.indexMapping[value];
-        self.values.length--;
+        self.values.pop();
     }
 
     function getSize(AddressSet storage self) internal view returns (uint256) {
@@ -54,7 +53,7 @@ library LibAddressSet {
         return self.values[index];
     }
 
-    function getAll(AddressSet storage self) internal view returns(address[]) {
+    function getAll(AddressSet storage self) internal view returns(address[] memory) {
     	address[] memory output = new address[](self.values.length);
     	for (uint256 i; i < self.values.length; i++){
             output[i] = self.values[i];

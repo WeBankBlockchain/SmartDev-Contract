@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./Authentication.sol";
 
@@ -14,14 +14,14 @@ contract RequestRepository is Authentication{
     mapping(bytes32=>SaveRequest) private _saveRequests;
     mapping(address=>bool) private _voters;
     
-    constructor(uint8 threshold, address[] voterArray) public{
+    constructor(uint8 threshold, address[] memory voterArray) public{
         _threshold = threshold;
         for(uint i=0;i<voterArray.length;i++){
             _voters[voterArray[i]] = true;
         }
     }
 
-    function createSaveRequest(bytes32 hash, address owner, bytes ext) public auth{
+    function createSaveRequest(bytes32 hash, address owner, bytes memory ext) public auth{
         require(_saveRequests[hash].hash == 0, "request already existed");
         _saveRequests[hash].hash = hash;
         _saveRequests[hash].creator = owner;

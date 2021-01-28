@@ -14,7 +14,7 @@
  * limitations under the License.
  * */
 
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 library LibMinHeapUint256{
 
@@ -48,8 +48,8 @@ library LibMinHeapUint256{
         require(heap.data.length > 0);
         top = heap.data[0];
         uint256 last = heap.data[heap.data.length - 1];
-        heap.data.length--;
-        if(heap.data.length == 0) return;
+        heap.data.pop();
+
         
         heap.data[0] = last;
         uint256 index = 0;
