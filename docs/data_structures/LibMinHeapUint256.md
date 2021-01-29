@@ -8,7 +8,7 @@ LibMinHeapUint256提供了最小堆的实现。
 
 ```
 
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibMinHeapUint256.sol";
 

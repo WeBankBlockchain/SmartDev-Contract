@@ -7,7 +7,7 @@ LibConverter提供各类solidity数据基本类型的转换，包括uint256转ui
 首先需要通过import引入LibConverter类库，调用库的相关方法：
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibConverter.sol"
 

@@ -7,7 +7,7 @@ LibBytes32Set 提供了存储bytes32类型的Set数据结构，支持包括add, 
 首先需要通过import引入LibBytes32Set类库，然后通过"."进行方法调用，如下为调用LibBytes32Set方法的例子：
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibBytes32Set.sol";
 
@@ -53,7 +53,7 @@ contract TestSet {
 #### 实例
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibBytes32Set.sol";
 

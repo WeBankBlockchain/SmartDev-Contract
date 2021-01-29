@@ -7,7 +7,7 @@ LibString提供了常用的字符串操作。这些操作是基于字符的，�
 首先需要通过import引入LibString类库, 以下为使用示例
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibString.sol";
 

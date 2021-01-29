@@ -6,7 +6,7 @@ LibLinkedList提供了双向链表操作，包括链表更新、查询、迭代�
 
 首先需要通过import引入LibLinkedList类库，然后通过"."进行方法调用，如下为添加元素的例子：
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 import "./LibLinkedList.sol";
 
 contract Test {

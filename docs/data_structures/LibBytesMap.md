@@ -7,7 +7,7 @@ LibBytesMap提供了基于bytes的可迭代、可查询的映射.
 首先需要通过import引入LibBytesMap类库，然后通过"."进行方法调用，如下为调用例子：
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibBytesMap.sol";
 

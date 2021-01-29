@@ -7,7 +7,7 @@ LibArrayForUint256Utils提供了Uint256数组的相关操作，包括查找、�
 首先需要通过import引LibArrayForUint256Utils类库，然后通过"."进行方法调用，如下为调用indexOf方法的例子：
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibArrayForUint256Utils.sol"
 

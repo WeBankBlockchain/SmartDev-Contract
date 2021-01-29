@@ -7,7 +7,7 @@ LibAddress提供了address数据类型的基本操作，相关API列表如下。
 首先需要通过import引入LibAddresss类库，然后通过"."进行方法调用，如下为调用isEmptyAddress方法的例子：
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity ^0.6.10;
 
 import "./LibAddress.sol"
 
