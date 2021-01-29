@@ -1,7 +1,15 @@
 # 组件介绍
 
-智能合约库模板，涵盖了从基础类型到上层业务的常见代码，用户可根据实际需要进行参考、复用。
+智能合约库模板，涵盖了从基础类型到上层业务的常见代码，用户可根据实际需要进行参考、复用。内部包含几个模块：
 
+[](https://toolkit-doc.readthedocs.io/zh_CN/latest/_images/wescott.png)
+
+## 环境要求
+
+| 依赖软件 | 说明 |备注|
+| --- | --- | --- |
+| Solidity | >= 0.6.10 | 需使用0.6.10版本编译|
+| Git | 下载需要使用Git | |
 
 ## 文档
 - [**中文**](https://toolkit-doc.readthedocs.io/zh_CN/latest/docs/WeBankBlockchain-Toolkit-Contract/index.html)
