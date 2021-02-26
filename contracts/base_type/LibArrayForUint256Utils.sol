@@ -70,8 +70,8 @@ library LibArrayForUint256Utils {
         uint256 temp;
         for (uint i = 0; i < array.length / 2; i++) {
             temp = array[i];
-            array[i] = array[array.length - i];
-            array[array.length - i] = temp;
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temp;
         }
     }
 
