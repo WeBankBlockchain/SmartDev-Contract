@@ -15,7 +15,7 @@ contract test {
     
     function f() public view{
         uint256 a = 25;
-        uint16 b = LibConverter.uint256ToUint16(a);
+        uint16 b = LibConverter.toUint16(a);
         //TODO:
     }
 }
@@ -26,18 +26,18 @@ contract test {
 
 编号 | API | API描述
 ---|---|---
-1 | *uint256ToUint128(uint256 value) internal pure returns (uint128)* | 将uint256转为uint128类型
-2 | *uint256ToUint64(uint256 value) internal pure returns (uint64)* | 将uint256转为uint64类型
-3 | *uint256ToUint32(uint256 value) internal pure returns (uint32)* | 将uint256转为uint32类型
-4 | *uint256ToUint16(uint256 value) internal pure returns (uint16)* | 将uint256转为uint16类型
-5 | *uint256ToUint8(uint256 value) internal pure returns (uint8)* | 将uint256转为uint8类型
+1 | *toUint128(uint256 value) internal pure returns (uint128)* | 将uint256转为uint128类型
+2 | *toUint64(uint256 value) internal pure returns (uint64)* | 将uint256转为uint64类型
+3 | *toUint32(uint256 value) internal pure returns (uint32)* | 将uint256转为uint32类型
+4 | *toUint16(uint256 value) internal pure returns (uint16)* | 将uint256转为uint16类型
+5 | *toUint8(uint256 value) internal pure returns (uint8)* | 将uint256转为uint8类型
 6 | *uintToBytes(uint v) internal pure returns (bytes)* | 将uint转为bytes类型
 7 | *bytesToInt(bytes b) internal pure returns (int result)* | 将bytes转为int类型
 8 | *intToBytes(int v) internal pure returns (bytes)* | 将int转为bytes类型
 
 ## API详情
 
-### ***1. uint256ToUint128 方法***
+### ***1. toUint128 方法***
 
 将uint256转为uint128类型，如超出uint128的最大值，则报错退出。
 
@@ -54,12 +54,12 @@ contract test {
 ```
 function f() public view{
     uint256 a = 25;
-    uint128 b = LibConverter.uint256ToUint128(a);
+    uint128 b = LibConverter.toUint128(a);
     //TODO:
 }
 ```
 
-### ***2. uint256ToUint64 方法***
+### ***2. toUint64 方法***
 
 将uint256转为uint64类型，如超出uint64的最大值，则报错退出。
 
@@ -76,12 +76,12 @@ function f() public view{
 ```
 function f() public view{
     uint256 a = 25;
-    uint64 b = LibConverter.uint256ToUint64(a);
+    uint64 b = LibConverter.toUint64(a);
     //TODO:
 }
 ```
 
-### ***3. uint256ToUint32 方法***
+### ***3. toUint32 方法***
 
 将uint256转为uint32类型，如超出uint32的最大值，则报错退出。
 
@@ -98,12 +98,12 @@ function f() public view{
 ```
 function f() public view{
     uint256 a = 25;
-    uint32 b = LibConverter.uint256ToUint32(a);
+    uint32 b = LibConverter.toUint32(a);
     //TODO:
 }
 ```
 
-### ***4. uint256ToUint16 方法***
+### ***4. toUint16 方法***
 
 将uint256转为uint16类型，如超出uint16的最大值，则报错退出。
 
@@ -120,12 +120,12 @@ function f() public view{
 ```
 function f() public view{
     uint256 a = 25;
-    uint16 b = LibConverter.uint256ToUint16(a);
+    uint16 b = LibConverter.toUint16(a);
     //TODO:
 }
 ```
 
-### ***5. uint256ToUint8 方法***
+### ***5. toUint8 方法***
 
 将uint256转为uint8类型，如超出uint8的最大值，则报错退出。
 
@@ -142,12 +142,12 @@ function f() public view{
 ```
 function f() public view{
     uint256 a = 25;
-    uint8 b = LibConverter.uint256ToUint8(a);
+    uint8 b = LibConverter.toUint8(a);
     //TODO:
 }
 ```
 
-### ***5. uintToBytes 方法***
+### ***5. toBytes 方法***
 
 将uint256转为bytes类型。
 
