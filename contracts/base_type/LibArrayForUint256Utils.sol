@@ -127,8 +127,16 @@ library LibArrayForUint256Utils {
         bool contains;
         uint index;
         for (uint i = 0; i < array.length; i++) {
-            (contains, index) = firstIndexOf(array, array[i]);
-            if (contains && index > i) {
+            bool contains = false;
+            uint256 index = 0;
+            for(uint j = i+1;j < array.length; j++){
+                if(array[j] == array[i]){
+                    contains =true;
+                    index = i;
+                    break;
+                }
+            }
+            if (contains) {
                 for (uint j = index; j < array.length - 1; j++){
                     array[j] = array[j + 1];
                 }
@@ -144,7 +152,7 @@ library LibArrayForUint256Utils {
     }
 
     function qsort(uint256[] storage array, uint256 begin, uint256 end) private {
-        if(begin >= end) return;
+        if(begin >= end || end == uint256(-1)) return;
         uint256 pivot = array[end];
 
         uint256 store = begin;
