@@ -35,6 +35,11 @@ library LibStack{
         return data;
     }
 
+    function peek(Stack storage self) internal returns(bytes32){
+        require(self.datas.length > 0);
+        bytes32 data = self.datas[self.datas.length - 1];
+        return data;
+    }
     function getSize(Stack storage self) internal view returns(uint256){
         return self.datas.length;
     }
