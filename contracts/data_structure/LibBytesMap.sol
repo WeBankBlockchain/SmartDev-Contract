@@ -48,7 +48,7 @@ library LibBytesMap{
         return value;
     }
 
-    function size(Map storage self) internal view returns(uint256) {
+    function getSize(Map storage self) internal view returns(uint256) {
         return self.keys.length;
     }
     
@@ -64,19 +64,8 @@ library LibBytesMap{
     function iterate_next(Map storage self, uint256 idx) internal pure returns(uint256){
         return idx+1;
     }
+    function getKeyByIndex(Map storage map, uint256 idx) internal view returns(bytes memory){
+        bytes memory key = map.keys[idx - 1];
+        return key;
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
