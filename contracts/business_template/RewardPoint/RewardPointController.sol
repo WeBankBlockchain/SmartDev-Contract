@@ -78,7 +78,7 @@ contract RewardPointController is BasicAuth {
         return _rewardPointData.getBalance(addr);
     }
 
-    function transfer(address toAddress, uint256 value) accountExist(msg.sender) accountExist(toAddress) checkAccount(toAddress)
+    function transfer(address toAddress, uint256 value) accountExist(msg.sender) accountExist(toAddress)
         public returns(bool b, uint256 balanceOfFrom, uint256 balanceOfTo) {
             uint256 balance1 = _rewardPointData.getBalance(msg.sender);
             balanceOfFrom = balance1.sub(value);
@@ -102,7 +102,7 @@ contract RewardPointController is BasicAuth {
     }
 
 
-    function issue(address account, uint256 value) public onlyIssuer accountExist(account) returns (bool) {
+    function issue(address account, uint256 value) public accountExist(account) returns (bool) {
         uint256 totalAmount = _rewardPointData._totalAmount();
         totalAmount = totalAmount.add(value);
         _rewardPointData.setTotalAmount(totalAmount);
@@ -117,7 +117,7 @@ contract RewardPointController is BasicAuth {
         return _rewardPointData.isIssuer(account);
     }
 
-    function addIssuer(address account) public onlyIssuer returns (bool) {
+    function addIssuer(address account) public returns (bool) {
         _rewardPointData.addIssuer(account);
         return true;
     }

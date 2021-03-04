@@ -26,11 +26,11 @@ library LibQueue{
 
     }
 
-    function enqueue(Queue storage queue, bytes32 data) public {
+    function enqueue(Queue storage queue, bytes32 data) internal {
         queue.queue[queue.next++] = data;
     }
 
-    function dequeue(Queue storage queue) public returns (bytes32) {
+    function dequeue(Queue storage queue) internal returns (bytes32) {
         uint256 first = queue.first;
         require(queue.next > first);  // non-empty queue
 
@@ -40,7 +40,7 @@ library LibQueue{
         return data;
     }
 
-    function element(Queue storage queue) public view returns (bytes32) {
+    function element(Queue storage queue) internal view returns (bytes32) {
         uint256 first = queue.first;
         require(queue.next > first);  // non-empty queue
         bytes32 data = queue.queue[first];

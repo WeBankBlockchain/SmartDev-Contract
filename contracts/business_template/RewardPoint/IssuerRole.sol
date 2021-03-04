@@ -39,7 +39,7 @@ contract IssuerRole {
         return _issuers.has(account);
     }
 
-    function addIssuer(address account) public onlyIssuer {
+    function addIssuer(address account) public {
         _issuers.add(account);
         emit IssuerAdded(account);
     }
