@@ -7,7 +7,8 @@ LibStack提供了栈数据结构。
 首先需要通过import引入LibStack类库，然后通过"."进行方法调用，如下为调用LibStack方法的例子：
 
 ```
-pragma solidity ^0.6.10;
+
+pragma solidity >=0.4.24 <0.6.11;
 
 import "./LibStack.sol";
 
@@ -17,14 +18,15 @@ contract Test {
     
     LibStack.Stack private stack;
     
-    function f() public {
-        stack.push(1);
-        stack.push(2);
+    function f() public returns(bytes32, uint) {
+        stack.push(bytes32(uint(1)));
+        stack.push(bytes32(uint(2)));
         bytes32 pop = stack.pop();//Expect to be 2
         uint size = stack.getSize();//Expected to be 1
+        return (pop, size);
     }
-    
 }
+
 ```
 
 
@@ -55,7 +57,24 @@ contract Test {
 #### 实例
 
 ```
-stack.push(1);
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibStack.sol";
+
+contract Test {
+    
+    using LibStack for LibStack.Stack;
+    
+    LibStack.Stack private stack;
+    
+    function f() public returns(uint ) {
+        
+        stack.push(bytes32(uint(2)));
+        uint size = stack.getSize();//Expected to be 1
+        return size;
+    }
+    
+}
 ```
 ### ***2. pop 函数***
 
@@ -72,9 +91,26 @@ stack.push(1);
 #### 实例
 
 ```
-    stack.push(1);
-    stack.push(2);
-    bytes32 pop = stack.pop();//Expect to be 2
+
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibStack.sol";
+
+contract Test {
+    
+    using LibStack for LibStack.Stack;
+    
+    LibStack.Stack private stack;
+    
+    function f() public returns(bytes32, uint) {
+        stack.push(bytes32(uint(1)));
+        stack.push(bytes32(uint(2)));
+        bytes32 pop = stack.pop();//Expect to be 2
+        uint size = stack.getSize();//Expected to be 1
+        return (pop, size);
+    }
+}
+
 ```
 
 ### ***3. peek 函数***
@@ -92,9 +128,25 @@ stack.push(1);
 #### 实例
 
 ```
-    stack.push(1);
-    stack.push(2);
-    bytes32 pop = stack.peek();//Expected to be 2
+
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibStack.sol";
+
+contract Test {
+    
+    using LibStack for LibStack.Stack;
+    
+    LibStack.Stack private stack;
+    
+    function f() public returns(bytes32, uint) {
+        stack.push(bytes32(uint(1)));
+        stack.push(bytes32(uint(2)));
+        bytes32 top = stack.peek();//Expect to be 2
+        uint size = stack.getSize();//Expected to be 2
+        return (top, size);
+    }
+}
 ```
 
 

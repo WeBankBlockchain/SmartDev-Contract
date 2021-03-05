@@ -7,7 +7,7 @@ LibBytesMap提供了基于bytes的可迭代、可查询的映射.
 首先需要通过import引入LibBytesMap类库，然后通过"."进行方法调用，如下为调用例子：
 
 ```
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 
 import "./LibBytesMap.sol";
 
@@ -18,12 +18,15 @@ contract Test {
     LibBytesMap.Map private map;
     
     
-    function f(string key, string value) public {
-
+    event Log(uint256 size);
+    function f() public {
+        string memory key = "key";
+        string memory value = "value";
         map.put(bytes(key),bytes(value));
-        
+        emit Log(map.getSize());
         
     }
+}
 ```
 
 
@@ -51,17 +54,6 @@ contract Test {
 - bytes key: 键
 - bytes value：值
 
-
-
-#### 实例
-
-```
-    function putExample(string key, string value) public {
-
-        map.put(bytes(key),bytes(value));
-        
-    }
-```
 ### ***2. getValue 函数***
 
 查询值
@@ -77,35 +69,66 @@ contract Test {
 #### 实例
 
 ```
-    function getExample(string key) public returns(bytes){
-        bytes memory value =  map.getValue(bytes(key));
-        return value;
-    }
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibBytesMap.sol";
+
+contract Test {
     
+    using LibBytesMap for LibBytesMap.Map;
+    
+    LibBytesMap.Map private map;
+    
+    event Log(string val);
+    function f() public {
+        string memory key = "k";
+        string memory value = "v";
+        map.put(bytes(key),bytes(value));
+        emit Log(string(map.getValue(bytes(key))));//Expected to be v
+    }
+}
 ```
+
 ### ***3. 迭代函数 与 getKey函数***
 
 #### 实例
 
 ```
-    event Log(bytes key);
-    function iterate() public {
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibBytesMap.sol";
+
+contract Test {
+    
+    using LibBytesMap for LibBytesMap.Map;
+    
+    LibBytesMap.Map private map;
+    
+    
+    event Log(bytes key, uint256 index);
+    event Debug(uint256 index, bool can);
+    function f() public {
+        map.put(bytes("k1"),bytes("v1"));
+        map.put(bytes("k2"),bytes("v2"));
+        map.put(bytes("k3"),bytes("v3"));
+    
         uint256 i = map.iterate_start();
+        
         while(map.can_iterate(i)){
-            emit Log(map.getKey(i));
+            emit Log(map.getKeyByIndex(i), i);
             i = map.iterate_next(i);
         }
-        
     }
+}
 ```
 
-### ***4. size函数***
+### ***4. getSize***
 
 #### 实例
 
 ```
     function iterate() public {
-        uint256 i = map.size();
+        uint256 i = map.getSize();
         
     }
 ```

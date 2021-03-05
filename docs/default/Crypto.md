@@ -5,7 +5,7 @@ Crypto提供了密码学操作
 ## 使用方法
 
 ```
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 
 pragma experimental ABIEncoderV2;
 

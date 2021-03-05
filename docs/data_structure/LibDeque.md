@@ -11,16 +11,16 @@ pragma solidity >=0.4.22 <0.7.0;
 
 import "./LibDeque.sol";
 
-contract Example{
+contract Test{
     
     using LibDeque for LibDeque.Deque;
     
     LibDeque.Deque private _deque;
     
     event Log(uint size);
-    function example() public returns(bytes32, bytes32){
-        _deque.offerFirst(1);
-        _deque.offerLast(2);
+    function f() public returns(bytes32, bytes32){
+        _deque.offerFirst(bytes32(uint256(1)));
+        _deque.offerLast(bytes32(uint256(2)));
         emit Log(_deque.getSize());//Should be 2
         bytes32 first =_deque.pollFirst();//Shoud be 0x1
         bytes32 last = _deque.pollLast();//Should be 0x2
@@ -97,9 +97,24 @@ contract Example{
 #### 实例
 
 ```
-    _deque.offerFirst(1);
-    _deque.offerFirst(2);
-    uint256 size = _deque.getSize();//Should be 2
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+
+    function f() public{
+        _deque.offerFirst(bytes32(uint256(1)));
+        emit Log(_deque.getSize());//Should be 1
+    }
+}
+
 ```
 
 ### ***4. offerLast 函数***
@@ -114,9 +129,24 @@ contract Example{
 #### 实例
 
 ```
-    _deque.offerLast(1);
-    _deque.offerLast(2);
-    uint256 size = _deque.getSize();//Should be 2
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+
+    function f() public{
+        _deque.offerLast(bytes32(uint256(2)));
+        emit Log(_deque.getSize());//Should be 1
+    }
+}
+
 ```
 
 ### ***5. pollFirst 函数***
@@ -135,10 +165,25 @@ contract Example{
 #### 实例
 
 ```
-    _deque.offerLast(1);
-    _deque.offerLast(2);
-    bytes32 first = _deque.pollFirst();//Should be 0x1
-    uint size = _deque.getSize();//Should be 1
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        _deque.offerFirst(bytes32(uint256(1)));
+        _deque.offerLast(bytes32(uint256(2)));
+        bytes32 r = _deque.pollFirst();//Should be 1
+        emit Log(_deque.getSize());//Should be 1
+        return (r);
+    }
+}
 ```
 
 ### ***6. pollLast 函数***
@@ -156,10 +201,25 @@ contract Example{
 #### 实例
 
 ```
-    _deque.offerLast(1);
-    _deque.offerLast(2);
-    bytes32 first = _deque.pollLast();//Should be 0x2
-    uint size = _deque.getSize();//Should be 1
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        _deque.offerFirst(bytes32(uint256(1)));
+        _deque.offerLast(bytes32(uint256(2)));
+        bytes32 r = _deque.pollLast();//Should be 2
+        emit Log(_deque.getSize());//Should be 1
+        return (r);
+    }
+}
 ```
 
 
@@ -178,10 +238,25 @@ contract Example{
 #### 实例
 
 ```
-    _deque.offerLast(1);
-    _deque.offerLast(2);
-    bytes32 first = _deque.peekFirst();//Should be 0x1
-    uint size = _deque.getSize();//Should be 2
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        _deque.offerFirst(bytes32(uint256(1)));
+        _deque.offerLast(bytes32(uint256(2)));
+        bytes32 r = _deque.peekFirst();//Should be 1
+        emit Log(_deque.getSize());//Should be 2
+        return (r);
+    }
+}
 ```
 
 ### ***8. peekLast 函数***
@@ -199,10 +274,25 @@ contract Example{
 #### 实例
 
 ```
-    _deque.offerLast(1);
-    _deque.offerLast(2);
-    bytes32 first = _deque.peekLast();//Should be 0x2
-    uint size = _deque.getSize();//Should be 2
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        _deque.offerFirst(bytes32(uint256(1)));
+        _deque.offerLast(bytes32(uint256(2)));
+        bytes32 r = _deque.peekLast();//Should be 2
+        emit Log(_deque.getSize());//Should be 2
+        return (r);
+    }
+}
 ```
 
 ### ***9. push 函数***
@@ -217,7 +307,23 @@ contract Example{
 #### 实例
 
 ```
-    _deque.push(1);
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        _deque.push(bytes32(uint256(1)));
+        _deque.push(bytes32(uint256(2)));
+        emit Log(_deque.getSize());//Should be 2
+    }
+}
 ```
 
 ### ***10. pop 函数***
@@ -235,10 +341,25 @@ contract Example{
 #### 实例
 
 ```
-    _deque.push(1);
-    _deque.push(2);
-    bytes32 value = _deque.pop();//Should be 0x2
-    bytes32 value2 = _deque.pop();//Should be 0x1
+pragma solidity >=0.4.22 <0.7.0;
+
+import "./LibDeque.sol";
+
+contract Test{
+    
+    using LibDeque for LibDeque.Deque;
+    
+    LibDeque.Deque private _deque;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        _deque.push(bytes32(uint256(1)));
+        _deque.push(bytes32(uint256(2)));
+        bytes32 pop = _deque.pop();//Should be 2
+        emit Log(_deque.getSize());//Should be 1
+        return pop;
+    }
+}
 ```
 
 

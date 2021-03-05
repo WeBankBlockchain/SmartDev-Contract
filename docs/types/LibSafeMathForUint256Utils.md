@@ -7,7 +7,7 @@ LibSafeMathForUint256Utils提供了Uint256类型的相关计算操作，且保�
 首先需要通过import引LibSafeMathForUint256Utils类库，然后通过"."进行方法调用，如下为调用add方法的例子：
 
 ```
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 
 import "./LibSafeMathForUint256Utils.sol"
 

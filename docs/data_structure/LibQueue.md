@@ -7,7 +7,7 @@ LibQueue提供了FIFO队列数据结构。
 首先需要通过import引入LibQueue类库，然后通过"."进行方法调用，如下为调用LibQueue方法的例子：
 
 ```
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 
 import "./LibQueue.sol";
 
@@ -18,8 +18,8 @@ contract Test {
     LibQueue.Queue private queue;
     
     function f() public {
-        queue.enqueue(1);
-        queue.enqueue(2);
+        queue.enqueue(bytes32(uint(1)));
+        queue.enqueue(bytes32(uint(1)));
         bytes32 pop = queue.dequeue();//Expected to be 1
         uint size = queue.getSize();//Expected to be 1
     }
@@ -54,8 +54,24 @@ contract Test {
 #### 实例
 
 ```
-    queue.enqueue(1);
-    queue.enqueue(2);
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibQueue.sol";
+
+contract Test {
+    
+    using LibQueue for LibQueue.Queue;
+    
+    LibQueue.Queue private queue;
+    
+    function f() public returns(uint) {
+        queue.enqueue(bytes32(uint(1)));
+        queue.enqueue(bytes32(uint(2)));
+        uint size = queue.getSize();//Expected to be 2
+        return (size);
+    }
+    
+}
 ```
 ### ***2. dequeue 函数***
 
@@ -72,9 +88,25 @@ contract Test {
 #### 实例
 
 ```
-    queue.enqueue(1);
-    queue.enqueue(2);
-    bytes32 pop = queue.dequeue();//Expected to be 1
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibQueue.sol";
+
+contract Test {
+    
+    using LibQueue for LibQueue.Queue;
+    
+    LibQueue.Queue private queue;
+    
+    function f() public returns(bytes32, uint) {
+        queue.enqueue(bytes32(uint(1)));
+        queue.enqueue(bytes32(uint(2)));
+        bytes32 head = queue.dequeue();//Expteced to be 1
+        uint size = queue.getSize();//Expected to be 1
+        return (head, size);
+    }
+    
+}
 ```
 
 ### ***3. getSize 函数***
@@ -92,8 +124,6 @@ contract Test {
 #### 实例
 
 ```
-    stack.push(1);
-    stack.push(2);
     uint size = queue.getSize();//Expected to be 2
 ```
 
@@ -112,8 +142,24 @@ contract Test {
 #### 实例
 
 ```
-    queue.enqueue(1);
-    queue.enqueue(2);
-    bytes32 pop = queue.element();//Expected to be 1
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibQueue.sol";
+
+contract Test {
+    
+    using LibQueue for LibQueue.Queue;
+    
+    LibQueue.Queue private queue;
+    
+    function f() public returns(bytes32, uint) {
+        queue.enqueue(bytes32(uint(1)));
+        queue.enqueue(bytes32(uint(2)));
+        bytes32 head = queue.element();//Expteced to be 1
+        uint size = queue.getSize();//Expected to be 2
+        return (head, size);
+    }
+    
+}
 ```
 

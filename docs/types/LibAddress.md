@@ -7,7 +7,7 @@ LibAddress提供了address数据类型的基本操作，相关API列表如下。
 首先需要通过import引入LibAddresss类库，然后通过"."进行方法调用，如下为调用isEmptyAddress方法的例子：
 
 ```
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 
 import "./LibAddress.sol"
 
@@ -50,7 +50,7 @@ isContract方法用于判断一个address是否为合约地址。
 #### 实例
 
 ```
-address myContract = "0x2177482819289293288f8d8s88f99f99s";
+address myContract = 0xE0f5206BBD039e7b0592d8918820024e2a7437b9;
 if(LibAddress.isContract(myContract)){
     //TODO:
 }
@@ -70,7 +70,8 @@ isEmptyAddress方法用于判断一个address是否为空地址。
 #### 实例
 
 ```
-address addr = "0x00";
+    
+address addr = address(0);
 if(!LibAddress.isEmptyAddress(addr)){
     //TODO:
 }
@@ -90,8 +91,8 @@ addressToBytes方法可以把一个地址类型转化为bytes类型。
 #### 实例
 
 ```
-address addr = "0xdfe34njfdkajfej9890f";
-bytes bs = LibAddress.addressToBytes(addr);
+address addr = 0xE0f5206BBD039e7b0592d8918820024e2a7437b9;
+bytes memory bs = LibAddress.addressToBytes(addr);
 //TODO:
 ```
 
@@ -101,7 +102,7 @@ bytesToAddress方法可以把一个bytes类型转化为address类型。
 
 #### 参数
 
-- bytes：字节数组
+- bytes：字节数组。要求20字节。
 
 #### 返回值
 
@@ -110,7 +111,7 @@ bytesToAddress方法可以把一个bytes类型转化为address类型。
 #### 实例
 
 ```
-bytes bs = "0xdfe34njfdkajfej9890f";
+bytes memory bs = new bytes(20);
 address addr = LibAddress.bytesToAddress(bs);
 //TODO:
 ```
@@ -130,8 +131,8 @@ addressToString方法可以把一个address类型转化为string类型。
 #### 实例
 
 ```
-address addr = "0xdfe34njfdkajfej9890f";
-string addrStr = LibAddress.addressToString(addr);
+address addr = 0xE0f5206BBD039e7b0592d8918820024e2a7437b9;
+string memory addrStr = LibAddress.addressToString(addr);
 //TODO:
 ```
 
@@ -150,7 +151,7 @@ stringToAddress方法可以把一个string类型转化为address类型。
 #### 实例
 
 ```
-string str = "0xdfe34njfdkajfej9890f";
+string memory str = "0xE0f5206BBD039e7b0592d8918820024e2a7437b9";
 address addr = LibAddress.stringToAddress(str);
 //TODO:
 ```

@@ -8,7 +8,7 @@ LibMaxHeapUint256提供了最大堆的实现。
 
 ```
 
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 
 import "./LibMaxHeapUint256.sol";
 

@@ -6,7 +6,7 @@ LibLinkedList提供了双向链表操作，包括链表更新、查询、迭代�
 
 首先需要通过import引入LibLinkedList类库，然后通过"."进行方法调用，如下为添加元素的例子：
 ```
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 import "./LibLinkedList.sol";
 
 contract Test {
@@ -16,8 +16,8 @@ contract Test {
     LibLinkedList.LinkedList  self;
     
     
-    function add(uint256 d) public{
-        self.addNode(bytes32(d));
+    function add() public{
+        self.addNode(bytes32(uint(2)));
     }
 }
 ```
@@ -56,7 +56,7 @@ contract Test {
 #### 实例
 
 ```
-uint256 size = self.listSize();
+uint256 size = self.getSize();
 ```
 ### ***2. addNode 函数***
 
@@ -74,7 +74,22 @@ addNode函数用于添加一个元素，时间复杂度O(1)
 #### 实例
 
 ```
-self.addNode(bytes32(1));
+pragma solidity >=0.4.24 <0.6.11;
+import "./LibLinkedList.sol";
+
+contract Test {
+    
+    using LibLinkedList for LibLinkedList.LinkedList;
+    
+    LibLinkedList.LinkedList  self;
+    
+    event Log(uint size);
+    function f() public{
+        self.addNode(bytes32(uint(2)));
+        uint size = self.getSize();
+        emit Log(size);//Expected to be 1
+    }
+}
 ```
 
 ### ***3. removeNode 函数***
@@ -93,9 +108,23 @@ removeNode函数用于从链表中删除一个元素,时间复杂度O（1）
 #### 实例
 
 ```
-self.addNode(bytes32(1));
-self.addNode(bytes32(2));
-self.removeNode(bytes32(2));
+pragma solidity >=0.4.24 <0.6.11;
+import "./LibLinkedList.sol";
+
+contract Test {
+    
+    using LibLinkedList for LibLinkedList.LinkedList;
+    
+    LibLinkedList.LinkedList  self;
+    
+    event Log(uint size);
+    function f() public{
+        self.addNode(bytes32(uint(2)));
+        self.removeNode(bytes32(uint(2)));
+        uint size = self.getSize();
+        emit Log(size);//Expected to be 0
+    }
+}
 ```
 
 ### ***4. getPrev 函数***
@@ -114,9 +143,23 @@ getPrev用于取得一个元素的前一个元素。时间复杂度O（1）
 #### 实例
 
 ```
-self.addNode(bytes32(1));
-self.addNode(bytes32(2));
-self.getPrev(bytes32(2));//Exptected to be 1
+pragma solidity >=0.4.24 <0.6.11;
+import "./LibLinkedList.sol";
+
+contract Test {
+    
+    using LibLinkedList for LibLinkedList.LinkedList;
+    
+    LibLinkedList.LinkedList  self;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        self.addNode(bytes32(uint(1)));
+        self.addNode(bytes32(uint(2)));
+        bytes32 prev = self.getPrev(bytes32(uint(2)));//Expected to be 1
+        return prev;
+    }
+}
 ```
 
 ### ***5. getNext 函数***
@@ -135,9 +178,23 @@ getNext用于取得一个元素的下一个函数。时间复杂度O（1）
 #### 实例
 
 ```
-self.addNode(bytes32(1));
-self.addNode(bytes32(2));
-self.getNext(bytes32(1));//Exptected to be 2
+pragma solidity >=0.4.24 <0.6.11;
+import "./LibLinkedList.sol";
+
+contract Test {
+    
+    using LibLinkedList for LibLinkedList.LinkedList;
+    
+    LibLinkedList.LinkedList  self;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        self.addNode(bytes32(uint(1)));
+        self.addNode(bytes32(uint(2)));
+        bytes32 next = self.getNext(bytes32(uint(1)));//Expected to be 2
+        return next;
+    }
+}
 ```
 
 ### ***6. getTail 函数***
@@ -155,9 +212,23 @@ getTail用于取得链表元素的尾部元素。时间复杂度O（1）
 #### 实例
 
 ```
-self.addNode(bytes32(1));
-self.addNode(bytes32(2));
-self.getTail();//Exptected to be 2
+pragma solidity >=0.4.24 <0.6.11;
+import "./LibLinkedList.sol";
+
+contract Test {
+    
+    using LibLinkedList for LibLinkedList.LinkedList;
+    
+    LibLinkedList.LinkedList  self;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        self.addNode(bytes32(uint(1)));
+        self.addNode(bytes32(uint(2)));
+        bytes32 next = self.getTail();//Expected to be 2
+        return next;
+    }
+}
 ```
 
 ### ***7. getHead 函数***
@@ -175,9 +246,23 @@ getHead用于取得链表元素的头部元素。时间复杂度O（1）
 #### 实例
 
 ```
-self.addNode(bytes32(1));
-self.addNode(bytes32(2));
-self.getHead();//Exptected to be 1
+pragma solidity >=0.4.24 <0.6.11;
+import "./LibLinkedList.sol";
+
+contract Test {
+    
+    using LibLinkedList for LibLinkedList.LinkedList;
+    
+    LibLinkedList.LinkedList  self;
+    
+    event Log(uint size);
+    function f() public returns(bytes32){
+        self.addNode(bytes32(uint(1)));
+        self.addNode(bytes32(uint(2)));
+        bytes32 next = self.getHead();//Expected to be 1
+        return next;
+    }
+}
 ```
 
 ### ***8. 迭代函数***
@@ -187,10 +272,25 @@ self.getHead();//Exptected to be 1
 #### 实例
 
 ```
+pragma solidity >=0.4.24 <0.6.11;
+import "./LibLinkedList.sol";
+
+contract Test {
+    
+    using LibLinkedList for LibLinkedList.LinkedList;
+    
+    LibLinkedList.LinkedList  self;
+    
+    event Log(bytes32 val);
+    function f() public{
+        self.addNode(bytes32(uint(1)));
+        self.addNode(bytes32(uint(2)));
+        self.addNode(bytes32(uint(3)));  
         bytes32 start = self.iterate_start();
         while(self.can_iterate(start)){
-            //DO BIZ
-            
+            emit Log(start);//Shoud be 1 ,2, 3
             start = self.iterate_next(start);
         }
+    }
+}
 ```

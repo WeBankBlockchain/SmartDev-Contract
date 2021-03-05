@@ -7,7 +7,7 @@ LibConverter提供各类solidity数据基本类型的转换，包括uint256转ui
 首先需要通过import引入LibConverter类库，调用库的相关方法：
 
 ```
-pragma solidity ^0.6.10;
+pragma solidity >=0.4.24 <0.6.11;
 
 import "./LibConverter.sol"
 
@@ -164,7 +164,7 @@ function f() public view{
 ```
 function f() public view{
     uint256 a = 25;
-    bytes b = LibConverter.uintToBytes(a);
+    bytes memory b = LibConverter.uintToBytes(a);
     //TODO:
 }
 ```
@@ -185,7 +185,7 @@ function f() public view{
 
 ```
 function f() public view{
-    bytes a = "25";
+    bytes memory a = "25";
     int b = LibConverter.bytesToInt(a);
     //TODO:
 }
@@ -208,7 +208,7 @@ function f() public view{
 ```
 function f() public view{
     int a = 25;
-    bytes b = LibConverter.intToBytes(a);
+    bytes memory b = LibConverter.intToBytes(a);
     //TODO:
 }
 ```
