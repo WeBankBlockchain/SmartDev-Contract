@@ -7,20 +7,23 @@ LibArrayForUint256Utils提供了Uint256数组的相关操作，包括查找、�
 首先需要通过import引LibArrayForUint256Utils类库，然后通过"."进行方法调用，如下为调用indexOf方法的例子：
 
 ```
-pragma solidity ^0.4.25;
+pragma solidity >=0.4.24 <0.6.11;
 
-import "./LibArrayForUint256Utils.sol"
+import "./LibArrayForUint256Utils.sol";
 
 contract test {
     
-    function f(uint256[] storage array) public view returns(bool) {
-        uint256 key = 25;
+    uint[] private array;
+    
+    function f() public returns(bool, uint) {
+        array = new uint[](3);
+        array[0] = 1;
+        array[1] = 2;
+        array[2] = 3;
+        uint256 key = 3;
         bool flag;
         uint index;
-        (flag, index) = LibArrayForUint256Utils.indexOf(array, key);
-        if(flag){
-            //TODO:
-        }
+        return LibArrayForUint256Utils.firstIndexOf(array, key);//Expected (true, 2)
     }
 }
 ```
@@ -63,19 +66,29 @@ binarySearch对一个升序排列的数组进行二分查找，如果找到，�
 #### 实例
 
 ```
-function f(uint256[] storage array) public view returns(bool) {
-    uint256 key = 25;
-    bool flag;
-    uint index;
-    (flag, index) = LibArrayForUint256Utils.binarySearch(array, key);
-    if(flag){
-        //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+    
+    function f() public returns(bool, uint) {
+        array = new uint[](3);
+        array[0] = 1;
+        array[1] = 2;
+        array[2] = 3;
+        uint256 key = 3;
+        bool flag;
+        uint index;
+        return LibArrayForUint256Utils.binarySearch(array, key);//Expected (true, 2)
     }
 }
 ```
-### ***2. indexOf 方法***
+### ***2. firstIndexOf 方法***
 
-indexOf对任意数组进行查找，如果找到，则返回true，并返回第一个匹配的元素索引；反之，返回(false,0)
+对任意数组进行查找，如果找到，则返回true，并返回第一个匹配的元素索引；反之，返回(false,0)
 
 #### 参数
 
@@ -90,13 +103,23 @@ indexOf对任意数组进行查找，如果找到，则返回true，并返回第
 #### 实例
 
 ```
-function f(uint256[] storage array) public view returns(bool) {
-    uint256 key = 25;
-    bool flag;
-    uint index;
-    (flag, index) = LibArrayForUint256Utils.indexOf(array, key);
-    if(flag){
-        //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+    
+    function f() public returns(bool, uint) {
+        array = new uint[](3);
+        array[0] = 1;
+        array[1] = 2;
+        array[2] = 3;
+        uint256 key = 3;
+        bool flag;
+        uint index;
+        return LibArrayForUint256Utils.firstIndexOf(array, key);//Expected (true, 2)
     }
 }
 ```
@@ -116,9 +139,21 @@ reverse方法对任意数组进行元素翻转。
 #### 实例
 
 ```
-function f(uint256[] storage array) public view returns(bool) {
-    LibArrayForUint256Utils.reverse(array);
-    //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+    
+    function f() public  {
+        array = new uint[](3);
+        array[0] = 1;
+        array[1] = 2;
+        array[2] = 3;
+        LibArrayForUint256Utils.reverse(array);//array becomes 3 2 1
+    }
 }
 ```
 
@@ -138,10 +173,24 @@ equals方法用于判断两个数组是否相等，当两个数组的元素完�
 #### 实例
 
 ```
-function f(uint256[] storage a, uint256[] storage b) public view returns(bool) {
-    bool flag = LibArrayForUint256Utils.equals(array);
-    if(flag){
-         //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array1;
+    uint[] private array2;
+    
+    function f() public returns(bool) {
+        array1 = new uint[](3);
+        array1[0] = 1;
+        array1[1] = 2;
+    
+        array2 = new uint[](3);
+        array2[0] = 1;
+        array2[1] = 2;    
+        return LibArrayForUint256Utils.equals(array1, array2);
     }
 }
 ```
@@ -162,10 +211,22 @@ removeByIndex方法用于根据索引删除数组元素。当数据越界时报�
 #### 实例
 
 ```
-function f(uint256[] storage a) public view returns(bool) {
-    uint index = 10;
-    LibArrayForUint256Utils.removeByIndex(array，index);
-    //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+
+    function f() public returns(uint) {
+        array = new uint[](3);
+        array[0] = 1;
+        array[1] = 2;
+        array[2] = 3;
+        LibArrayForUint256Utils.removeByIndex(array,0);
+        return array.length;//Expect 2
+    }
 }
 ```
 
@@ -185,10 +246,22 @@ removeByValue方法用于根据元素值删除数组元素。当数据越界时�
 #### 实例
 
 ```
-function f(uint256[] storage a) public view returns(bool) {
-    uint256 value = 100;
-    LibArrayForUint256Utils.removeByValue(array，value);
-    //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+
+    function f() public returns(uint) {
+        array = new uint[](3);
+        array[0] = 1;
+        array[1] = 2;
+        array[2] = 2;
+        LibArrayForUint256Utils.removeByValue(array,2);
+        return array.length;//Expect 2
+    }
 }
 ```
 
@@ -208,10 +281,19 @@ addValue方法用于向数组中添加元素，且保持数组的元素唯一。
 #### 实例
 
 ```
-function f(uint256[] storage a) public view returns(bool) {
-    uint256 value = 100;
-    LibArrayForUint256Utils.addValue(array，value);
-    //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+
+    function f() public returns(uint) {
+        array = new uint[](0);
+        LibArrayForUint256Utils.addValue(array,2);
+        return array.length;//Expect 1
+    }
 }
 ```
 
@@ -231,9 +313,21 @@ extend方法用于合并两个数组，将第二个数组中的元素按照顺�
 #### 实例
 
 ```
-function f(uint256[] storage a, uint256[] storage b) public view returns(bool) {
-    LibArrayForUint256Utils.extend(a，b);
-    //TODO:
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+    uint[] private array2;
+
+    function f() public returns(uint) {
+        array = new uint[](2);
+        array2 = new uint[](2);
+        LibArrayForUint256Utils.extend(array,array2);
+        return array.length;//Expect 4
+    }
 }
 ```
 
@@ -252,10 +346,22 @@ distinct方法用于对数组进行去重操作。
 #### 实例
 
 ```
-function f() public view returns(bool) {
-    uint256 array = [1,2,1,3,4,5,4,7,10];
-    LibArrayForUint256Utils.distinct(array);
-    //array = [1,2,3,4,5,7,10]
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+
+    function f() public returns(uint) {
+        array = new uint[](3);
+        array[0] = 2;
+        array[1] = 2;
+        array[2] = 2;
+        LibArrayForUint256Utils.distinct(array);
+        return array.length;//Expect 1
+    }
 }
 ```
 
@@ -274,10 +380,22 @@ qsort方法用于对数组进行快速排序。
 #### 实例
 
 ```
-function f() public view returns(bool) {
-    uint256 array = [1,5,3,7,4];
-    LibArrayForUint256Utils.qsort(array);
-    //array = [1,3,4,5,7]
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+
+    function f() public returns(uint,uint,uint) {
+        array = new uint[](3);
+        array[0] = 3;
+        array[1] = 2;
+        array[2] = 1;
+        LibArrayForUint256Utils.qsort(array);
+        return (array[0], array[1], array[2]);//expect 1,2,3
+    }
 }
 ```
 
@@ -297,10 +415,21 @@ function f() public view returns(bool) {
 #### 实例
 
 ```
-function f(uint256[] storage array) public view returns(bool) {
-    uint256 value;
-    uint256 index;
-    (value, index) = LibArrayForUint256Utils.max(array);
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+
+    function f() public returns(uint, uint) {
+        array = new uint[](3);
+        array[0] = 3;
+        array[1] = 2;
+        array[2] = 1;
+        return LibArrayForUint256Utils.max(array);//3 , 0
+    }
 }
 ```
 
@@ -320,9 +449,20 @@ function f(uint256[] storage array) public view returns(bool) {
 #### 实例
 
 ```
-function f(uint256[] storage array) public view returns(bool) {
-    uint256 value;
-    uint256 index;
-    (value, index) = LibArrayForUint256Utils.min(array);
+pragma solidity >=0.4.24 <0.6.11;
+
+import "./LibArrayForUint256Utils.sol";
+
+contract test {
+    
+    uint[] private array;
+
+    function f() public returns(uint, uint) {
+        array = new uint[](3);
+        array[0] = 3;
+        array[1] = 2;
+        array[2] = 1;
+        return LibArrayForUint256Utils.min(array);//1 , 2
+    }
 }
 ```
