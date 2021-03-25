@@ -1,3 +1,6 @@
+[![GitHub All Releases](https://img.shields.io/github/downloads/WeBankBlockchain/SmartDev-Contract/total.svg)](https://github.com/WeBankBlockchain/SmartDev-Contract)
+
+
 # 组件介绍
 
 智能合约库模板，涵盖了从基础类型到上层业务的常见代码，用户可根据实际需要进行参考、复用。内部包含几个模块：
