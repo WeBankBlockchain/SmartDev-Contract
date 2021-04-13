@@ -48,7 +48,7 @@ library LibMinHeapUint256{
         require(heap.data.length > 0);
         top = heap.data[0];
         uint256 last = heap.data[heap.data.length - 1];
-        heap.data.pop();
+        heap.data.length--;
 
         
         heap.data[0] = last;

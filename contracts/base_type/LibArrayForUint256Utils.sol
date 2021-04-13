@@ -94,7 +94,7 @@ library LibArrayForUint256Utils {
             array[index] = array[index + 1];
             index++;
         }
-        array.pop();
+        array.length--;
     }
     
     function removeByValue(uint256[] storage array, uint256 value) internal{
@@ -127,9 +127,10 @@ library LibArrayForUint256Utils {
         bool contains;
         uint index;
         for (uint i = 0; i < array.length; i++) {
-            bool contains = false;
-            uint256 index = 0;
-            for(uint j = i+1;j < array.length; j++){
+            contains = false;
+            index = 0;
+            uint j = i+1;
+            for(;j < array.length; j++){
                 if(array[j] == array[i]){
                     contains =true;
                     index = i;
@@ -137,10 +138,10 @@ library LibArrayForUint256Utils {
                 }
             }
             if (contains) {
-                for (uint j = index; j < array.length - 1; j++){
+                for (j = index; j < array.length - 1; j++){
                     array[j] = array[j + 1];
                 }
-                array.pop();
+                array.length--;
                 i--;
             }
         }
