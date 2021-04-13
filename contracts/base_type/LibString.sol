@@ -285,8 +285,9 @@ library LibString{
 
         uint offset = 0;
         uint splitsCount = 1;
+        int limit = -1;
         while (offset < srcBytes.length - 1) {
-            int limit = indexOf(src, separator, offset);
+            limit = indexOf(src, separator, offset);
             if (limit == -1)
                 break;
             else {
@@ -301,7 +302,7 @@ library LibString{
         splitsCount = 0;
         while (offset < srcBytes.length - 1) {
 
-            int limit = indexOf(src, separator, offset);
+            limit = indexOf(src, separator, offset);
             if (limit == - 1) {
                 limit = int(srcBytes.length);
             }
