@@ -41,7 +41,7 @@ library LibAddressSet {
         uint256 lastindexMapping = self.values.length - 1;
         address lastValue = self.values[lastindexMapping];
         self.values[toDeleteindexMapping] = lastValue;
-        self.indexMapping[lastValue] = toDeleteindexMapping; 
+        self.indexMapping[lastValue] = toDeleteindexMapping + 1; 
         self.values.pop();
     }
 
