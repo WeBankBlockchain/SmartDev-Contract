@@ -42,6 +42,7 @@ library LibAddressSet {
         address lastValue = self.values[lastindexMapping];
         self.values[toDeleteindexMapping] = lastValue;
         self.indexMapping[lastValue] = toDeleteindexMapping + 1;
+        delete self.indexMapping[value];
         self.values.length--;
     }
 
