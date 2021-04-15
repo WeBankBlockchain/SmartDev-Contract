@@ -14,7 +14,7 @@
  * limitations under the License.
  * */
  
-pragma solidity >=0.4.24 <0.6.11;
+pragma solidity ^0.4.25;
 
 
 library LibAddressSet {
@@ -41,8 +41,8 @@ library LibAddressSet {
         uint256 lastindexMapping = self.values.length - 1;
         address lastValue = self.values[lastindexMapping];
         self.values[toDeleteindexMapping] = lastValue;
-        self.indexMapping[lastValue] = toDeleteindexMapping + 1; 
-        self.values.pop();
+        self.indexMapping[lastValue] = toDeleteindexMapping + 1;
+        self.values.length--;
     }
 
     function getSize(AddressSet storage self) internal view returns (uint256) {

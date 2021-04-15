@@ -14,7 +14,7 @@
  * limitations under the License.
  * */
 
-pragma solidity >=0.4.24 <0.6.11;
+pragma solidity ^0.4.25;
 
 library LibStack{
     
@@ -31,7 +31,7 @@ library LibStack{
     function pop(Stack storage self) internal returns(bytes32){
         require(self.datas.length > 0);
         bytes32 data = self.datas[self.datas.length - 1];
-        self.datas.pop();
+        self.datas.length--;
         return data;
     }
 
