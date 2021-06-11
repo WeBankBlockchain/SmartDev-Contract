@@ -1,4 +1,4 @@
-pragma solidity ^0.6.10;
+pragma solidity ^0.4.25;
 pragma experimental ABIEncoderV2;
 
 import "./Goods.sol";
@@ -26,9 +26,9 @@ contract Traceability{
         return traceGoods;
     }
     
-    function changeGoodsStatus(uint64 goodsId, int16 eventType, string calldata remark) public{
+    function changeGoodsStatus(uint64 goodsId, int16 goodsStatus, string calldata remark) public{
         require(_goods[goodsId].valid, "not exists");
-         _goods[goodsId].traceGoods.changeStatus(eventType, remark);
+         _goods[goodsId].traceGoods.changeStatus(goodsStatus, remark);
     }
       
      function getStatus(uint64 goodsId)public view returns(int16){
