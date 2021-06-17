@@ -1,4 +1,4 @@
-pragma solidity^0.6.0;
+pragma solidity^0.6.10;
 
 //定义接口
 interface IERC20 {

@@ -1,4 +1,4 @@
-pragma solidity^0.6.0;
+pragma solidity^0.6.10;
 import "./IERC20.sol";
 
 //负责接受token合约的授权，以完成token转移
