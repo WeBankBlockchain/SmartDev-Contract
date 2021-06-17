@@ -29,10 +29,4 @@ library LibCryptoHash {
         return a;
     }
 
-    function getSha3(string memory s1) public returns(bytes32 result){
-        bytes32 a =  sha3(bytes(s1));
-        emit TestLog(a);
-        return a;
-
-    }
 }

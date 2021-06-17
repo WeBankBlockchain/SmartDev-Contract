@@ -4,18 +4,17 @@ LibCryptoHash 提供了solidity内置函数keccak256、sha3、ripemd160等计算
 
 ## 使用方法
 ```shell script
- 
  pragma solidity ^0.4.25;
  import "./LibCryptoHash.sol";
 
  contract test {
-    function t_keccak(string memory s1) public  returns (bytes32 result) {
+    function t_keccak(string memory s1) public view returns (bytes32 result) {
         return LibCryptoHash.getKeccak256(s1);
     } 
     function t_sha3(string memory s1) public view returns (bytes32 result) {
         return LibCryptoHash.getSha3(s1);
     } 
-    function t_sha256(string memory s1) public  returns (bytes32 result) {
+    function t_sha256(string memory s1) public view returns (bytes32 result) {
         return LibCryptoHash.getSha256(s1);
     } 
     function t_ripemd160(string memory s1) public view returns (bytes20 result) {
