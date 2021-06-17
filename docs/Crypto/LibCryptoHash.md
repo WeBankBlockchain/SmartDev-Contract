@@ -18,7 +18,7 @@ LibCryptoHash 提供了solidity内置函数keccak256、sha3、ripemd160等计算
     function t_sha256(string memory s1) public  returns (bytes32 result) {
         return LibCryptoHash.getSha256(s1);
     } 
-    function setripemd160(string memory s1) public view returns (bytes20 result) {
+    function t_ripemd160(string memory s1) public view returns (bytes20 result) {
          return LibCryptoHash.getRipemd160(s1);
     } 
 }
