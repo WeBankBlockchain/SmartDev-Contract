@@ -1,9 +1,9 @@
 pragma solidity^0.6.10;
 import "./IERC20.sol";
 
-//负责接受token合约的授权，以完成token转移
+//负责接受积分合约的授权，以完成积分转移
 contract proxy {
-    IERC20 token;
+    IERC20 point;
     address owner;
     constructor() public {
        owner = msg.sender; 
@@ -14,20 +14,20 @@ contract proxy {
         _;
     }
     
-    function setTokenAddr(address _addr) public onlyOwner {
-        token = IERC20(_addr);
+    function setPointAddr(address _addr) public onlyOwner {
+        point = IERC20(_addr);
     }
     
     function transfer(address _from, address _to, uint256 _value) external returns (bool success) {
-        token.transferFrom(_from, _to, _value);
+        point.transferFrom(_from, _to, _value);
     }
     
     function allowance(address _from) public view returns (uint256) {
-        return token.allowance(_from, address(this));
+        return point.allowance(_from, address(this));
     }
     
     function balanceOf(address _who) public view returns (uint256) {
-        return token.balanceOf(_who);
+        return point.balanceOf(_who);
     }
     
     function addr() public view returns (address) {

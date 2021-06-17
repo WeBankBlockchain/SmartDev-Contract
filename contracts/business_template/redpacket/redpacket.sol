@@ -1,4 +1,5 @@
 pragma solidity^0.6.10;
+import "./SafeMath.sol";
 import "./proxy.sol";
 
 contract redpacket {
@@ -20,7 +21,7 @@ contract redpacket {
         
     }
     
-    //调用前，用户需要先调用token合约的授权给本合约
+    //调用前，用户需要先调用积分合约的授权给本合约
     function sendRedPacket(uint256 c, bool ok, address addr, uint256 amount) public {
         require(count == 0, "the red packet already exists");
         require(address(0) != addr, "addr is 0");
@@ -28,7 +29,7 @@ contract redpacket {
         require(c > 0, "c is 0");
         isEqual = ok;
         count   = c;
-        proxyContract.setTokenAddr(addr);//绑定要发送的token合约地址
+        proxyContract.setPointAddr(addr);//绑定要发送的积分合约地址
         require(proxyContract.balanceOf(msg.sender) > 0, "user's balance not enough");
         leftAmount = totalAmount = amount;
         theRich = msg.sender;

@@ -5,12 +5,12 @@ import "./SafeMath.sol";
 
 
 //定义接口
-contract mytoken is  IERC20 {
+contract mypoints is  IERC20 {
     using SafeMath for uint256;
     //定义name
-    string tokenName;
-    string tokenSymbol;
-    uint256 tokenTotalSupply;
+    string pointName;
+    string pointSymbol;
+    uint256 pointTotalSupply;
     address owner;
     //user's balance 
     mapping(address=>uint256) balances;
@@ -18,8 +18,8 @@ contract mytoken is  IERC20 {
     mapping(address=>mapping(address=>uint256)) allows;
     
     constructor(string memory n, string memory s) public {
-        tokenName = n;
-        tokenSymbol = s;
+        pointName = n;
+        pointSymbol = s;
         owner = msg.sender;
     }
     
@@ -28,22 +28,21 @@ contract mytoken is  IERC20 {
         require(address(0) != _to, "to must a valid address");
         require(msg.sender == owner, "only owner can do");
         
-        //balances[_to] += _value;
+      
         balances[_to] = balances[_to].add(_value);
-        //tokenTotalSupply += _value;
-        tokenTotalSupply = tokenTotalSupply.add(_value);
+        pointTotalSupply = pointTotalSupply.add(_value);
         emit Transfer(address(0), _to, _value);
         success = true;
     }
     
    function name() override external view returns (string memory) {
-       return tokenName;
+       return pointName;
    }
    function symbol() override external view returns (string memory) {
-       return tokenSymbol;
+       return pointSymbol;
    }
    function totalSupply() override external view returns (uint256) {
-       return tokenTotalSupply;
+       return pointTotalSupply;
    }
    function balanceOf(address _owner) override external view returns (uint256 balance) {
        return balances[_owner];
