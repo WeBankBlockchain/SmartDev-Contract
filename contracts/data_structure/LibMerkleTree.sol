@@ -1,4 +1,4 @@
-pragma solidity ^0.4.22;
+pragma solidity ^0.4.25;
 
 library LibMerkleTree {
     bytes32 constant private NULL = bytes32(0);
