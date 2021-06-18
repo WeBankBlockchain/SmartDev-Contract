@@ -78,7 +78,7 @@ contracts/solidity/redpacket/
 
 
 
-####1.1   需要先部署积分合约，并且给“土豪”发一点积分
+#### 1.1   需要先部署积分合约，并且给“土豪”发一点积分
 
 部署积分合约
 
@@ -116,7 +116,7 @@ Event: {"Transfer":[[100000]]}
 
 
 
-####1.2 部署redpacket合约
+#### 1.2 部署redpacket合约
 
 部署redpacket合约
 
