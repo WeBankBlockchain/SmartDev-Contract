@@ -1,6 +1,6 @@
 pragma solidity >=0.4.16 <0.9.0;
 
-contract FiatShamirZK {
+contract FiatShamir {
     //============Phase 0: Agreed parameters===================
     // prime
     uint public n = 8269;
@@ -35,7 +35,7 @@ contract FiatShamirZK {
     }
 
     function randomgen() private view returns (uint) {
-    return uint(keccak256(abi.encodePacked(block.difficulty, now))) % n;
+    return uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp))) % n;
     }
     //=======================================================================================
     

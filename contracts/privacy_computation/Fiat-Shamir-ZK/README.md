@@ -33,7 +33,11 @@ val=(g^r)(y^c) mod n
 然后判断val与t是否相等，若相等，则Peggy证明了自己知道密码，然后允许Peggy登录。
 
 ## 使用  
-在remix上部署 FiatShamir.sol，然后按顺序执行Step1_register，Step2_login，Step3_randomchallenge，Step45_verify
+1. 在链下使用contract_step1.py 计算 y值，然后在FiatShamir.sol中调用Step1_register 将y值登记。
+2. 在链下使用contract_step2.py 计算 t值, 然后在FiatShamir.sol中调用Step2_login 传递t值。
+3. 在FiatShamir.sol中调用Step3_randomchallenge 生成c值。
+4. 查看c值并使用contract_step45.py 计算r值。
+5. 在FiatShamir.sol中调用Step45_verify ，输入r值，输出true 或 false，表示验证通过与否。
 
 其中各个函数的输入通过 链下运行 contract_step1.py 计算 y，contract_step2.py 计算t,  contract_step45.py 计算r 。
 
