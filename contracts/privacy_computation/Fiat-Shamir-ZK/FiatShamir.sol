@@ -36,8 +36,7 @@ contract FiatShamir {
 
     //TODO : NOT secure , low entropy ,change random source.
     function randomgen() private view returns (uint) {
-        uint temp = uint(keccak256(abi.encodePacked(y, t)));
-        return (temp - ((temp /n)*n)) ;  //
+        return uint(keccak256(abi.encodePacked(block.timestamp))) % n;
     }
     //=======================================================================================
     
