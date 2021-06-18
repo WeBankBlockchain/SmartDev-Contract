@@ -19,14 +19,14 @@ library LibMerkleTree {
     //参数： _leafs 所有原始叶子节点数据，双sha256哈希生成的结果
     //参数： _tree  用于存储生成的默克尔树，必须是空的
     // ------------------------------------------------------------------------
-    function constructMerkleTree(bytes32[] memory leafs, MerkleTree storage _tree) public {
+    function constructMerkleTree(bytes32[] memory _leafs, MerkleTree storage _tree) internal {
 		require(isEmpty(_tree));
 		
-        MerkleNode[] memory nodeList = new MerkleNode[](leafs.length);
+        MerkleNode[] memory nodeList = new MerkleNode[](_leafs.length);
 		uint nodeListSize = 0;
 		
-        for(uint i=0; i<leafs.length; i++) {
-            nodeList[nodeListSize].value = leafs[i];
+        for(uint i=0; i<_leafs.length; i++) {
+            nodeList[nodeListSize].value = _leafs[i];
 			nodeList[nodeListSize].left  = NULL;
 			nodeList[nodeListSize].right = NULL;
 			nodeListSize++;
@@ -34,7 +34,6 @@ library LibMerkleTree {
 		
         MerkleNode[] memory resultNodeList = new MerkleNode[]((nodeListSize+1)/2);
         for(;;) {
-            //MerkleNode[] memory resultNodeList = new MerkleNode[]((nodeListSize+1)/2);
 			uint resultNodeListSize = 0;
 			
             for(i=0; i<nodeListSize; i+=2) {
@@ -78,7 +77,7 @@ library LibMerkleTree {
     // 参数： root 默克尔树根节点
     // 返回： 默克尔树是否正确
     // ------------------------------------------------------------------------
-    function verifyMerkleTree(MerkleTree storage _tree) public view returns(bool) {
+    function verifyMerkleTree(MerkleTree storage _tree) internal view returns(bool) {
         MerkleNode[] memory nodeList =  new MerkleNode[](_tree.nodesCount);
 		uint nodeListSize = 0;
         
@@ -111,7 +110,7 @@ library LibMerkleTree {
     // 参数： root 默克尔树根节点
     // 返回： 默克尔树是否正确
     // ------------------------------------------------------------------------
-	function isEmpty(MerkleTree storage _tree) public view returns(bool) {
+	function isEmpty(MerkleTree storage _tree) internal view returns(bool) {
         return _tree.nodesCount == 0;
     }
     
