@@ -5,7 +5,7 @@ n=8269
 g=11
 
 password = "Hello"
-x = int(hashlib.md5(password.encode()).hexdigest()[:8], 16) % n
+x = int(hashlib.sha256(password.encode()).hexdigest()[:8], 16) % n
 
 
 print('\n======Phase 4: Peggy recieves c and calculate r=v-cx, sends r to Victor==================')
