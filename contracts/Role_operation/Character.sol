@@ -1,38 +1,6 @@
 pragma solidity^0.4.25;
 
-library Roles{
-    struct Role{
-        mapping(address=>bool) bearer;
-        mapping(address=>string) summary;
-    }
-    //判断角色
-    function has(Role storage role,address amount)internal view returns(bool){
-        require(amount!=address(0),"Address is zero address");
-        return role.bearer[amount];
-    }
-    //添加角色
-    function add(Role storage role,address amount,string _summary)internal{
-        require(!has(role,amount),"Address already exists");
-        role.bearer[amount] = true;
-        role.summary[amount] = _summary;
-    }
-    //删除角色
-    function remove(Role storage role,address amount)internal{
-        require(has(role,amount),"Address does not exist");
-        role.bearer[amount] = false;
-    }
-    //修改角色
-    function revise(Role storage role,address amount,string _summary)internal {
-        require(has(role,amount),"Address does not exist");
-        role.summary[amount] = _summary;
-    }
-    //查询角色
-    function seek(Role storage role,address amount)internal view returns(string){
-        require(has(role,amount),"Address does not exist");
-        return role.summary[amount];
-    }
-    
-}
+import "./Roles.sol";
 
 contract Character{
     using Roles for Roles.Role;
@@ -62,6 +30,7 @@ contract Character{
     
     function _addCharacter(address amount,string _summary)internal{
         _character.add(amount,_summary);
+        characters.push(amount);
         emit characterAdded(amount,_summary);
     }
     
@@ -80,17 +49,24 @@ contract Character{
         emit characterSeeked(amount);
     }
     
+    function _removeCharacterByAddress(address amount)internal{
+        for (uint i = 0; i < characters.length; i++) {
+            if (amount == characters[i])
+                for (uint j = i; j < characters.length-1; j++) 
+                    characters[j] = characters[j+1];
+            characters.length--;
+            }
+    }   
+    
     function addCharacter(address amount,string _summary)public onlyOwner{
         require(!isCharacter(amount),"The character already exist");
-        characters.push(amount);
         _addCharacter(amount,_summary);
     }
     
     function removeCharacter(address amount)public onlyOwner{
         require(isCharacter(amount),"The character does not exist");
-        uint index;
-        _removeCharacterByAddress(amount);
         _removeCharacter(amount);
+        _removeCharacterByAddress(amount);
     }
     
     function reviseCharacter(address amount,string _summary)public onlyOwner{
@@ -98,22 +74,9 @@ contract Character{
         _reviseCharacter(amount,_summary);
     }
     
-    function seekCharacter(address amount)public view returns(string){
+    function seekCharacter(address amount)public view returns(string) {
         require(isCharacter(amount),"The character does not exist");
         return _seekCharacter(amount);
-    }
-    
-    function _removeCharacterByAddress(address amount)internal view returns(address[]){
-        for (uint i = 0; i < characters.length-1; i++) {
-            if (amount == characters[i]){
-                for (uint j = i; j < characters.length-1; j++) {
-                    characters[j] = characters[j+1];
-                }
-                delete characters[characters.length-1];
-                characters.length--;
-                return characters;
-            }
-        }   
     }
     
     function getAllCharater()public view returns(address[]){
