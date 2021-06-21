@@ -39,9 +39,108 @@ val=(g^r)(y^c) mod n
 4. 查看c值并使用contract_step45.py 计算r值。
 5. 在FiatShamir.sol中调用Step45_verify ，输入r值，输出true 或 false，表示验证通过与否。
 
-其中各个函数的输入通过 链下运行 contract_step1.py 计算 y，contract_step2.py 计算t,  contract_step45.py 计算r 。
-
 fiat_shamir_1.py 为整个交互过程的参考代码 
+
+## 示例
+首先部署合约
+```
+[group:1]> deploy FiatShamir
+transaction hash: 0xc45b3db5a918f5429b229483cf03c2f83d11ff9a2d1b2b8cdba2f2602f787abb
+contract address: 0x6cf6561542325f82c4858bebb39c1ac6d6447737
+currentAccount: 0x795bb191fc91a56ca428dd11bcaeec2fb07b5ea0
+```
+
+1. 使用contract_step1.py 计算 y值
+```
+bob@bob-vm:~/code/Fiat-Shamir-ZK$ python3 contract_step1.py
+Password:		 Hello
+Password hash(x):	 5060 	 (last 8 bits)
+
+======Phase 1: Peggy sends y to Victor,Victor store y as Peggy' token==================
+y= g^x mod P=		 2889
+```
+在FiatShamir.sol中调用Step1_register 将y值登记。  
+```
+[group:1]> call FiatShamir 0x6cf6561542325f82c4858bebb39c1ac6d6447737 Step1_register 2889
+transaction hash: 0x92a78ab957a0274a0105275cf37937a76a0a53830b18eb68afa802af409c1736
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return values:[]
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {}
+```
+2. 使用contract_step2.py 计算 t值
+```
+bob@bob-vm:~/code/Fiat-Shamir-ZK$ python3 contract_step2.py
+
+======Phase 2: Peggy wants to login , She send t to Victor==================
+v= 7878 	(Peggy's random value)
+t=g**v % n =		 8220
+```
+在FiatShamir.sol中调用Step2_login 传递t值
+```
+[group:1]> call FiatShamir 0x6cf6561542325f82c4858bebb39c1ac6d6447737 Step2_login 8220
+transaction hash: 0x7d1d489b61ce0243be09e551f8881b184f3e3e56dc91b7aac92e9d9a8a7b482b
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return values:[]
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {}
+```
+
+3. 在FiatShamir.sol中调用Step3_randomchallenge 生成c值。
+```
+[group:1]> call FiatShamir 0x6cf6561542325f82c4858bebb39c1ac6d6447737 Step3_randomchallenge
+transaction hash: 0x663469ac6e761f86b4a001906b399601f4ac315869d9fc4a0be98e3c580f5f68
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return value size:1
+Return types: (UINT)
+Return values:(5457)
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {}
+```
+4. 查看c值并使用contract_step45.py 计算r值。
+```
+bob@bob-vm:~/code/Fiat-Shamir-ZK$ python3 contract_step45.py
+
+======Phase 4: Peggy recieves c and calculate r=v-cx, sends r to Victor==================
+c= 5457
+v= 7878
+r=v-cx =		 2310
+```
+5. 在FiatShamir.sol中调用Step45_verify ，输入r值，输出true 或 false，表示验证通过与否。
+```
+[group:1]> call FiatShamir 0x6cf6561542325f82c4858bebb39c1ac6d6447737 Step45_verify 2310
+transaction hash: 0xd8e408bf68fd5555ff894858928d1486aab31762fe17535057c755ef1a644751
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return value size:1
+Return types: (BOOL)
+Return values:(true)
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {}
+```
 
 ## 参考文献
 [1] Fiat, Amos, and Adi Shamir. "How to prove yourself: Practical solutions to identification and signature problems." Conference on the Theory and Application of Cryptographic Techniques. Springer, Berlin, Heidelberg, 1986.
