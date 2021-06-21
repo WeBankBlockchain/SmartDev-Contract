@@ -45,7 +45,7 @@ contract Test {
 
 ## API详情
 
-### ***1. kw_keccak256 函数***
+### ***1. decode 函数***
 
 解码签名地址
 
