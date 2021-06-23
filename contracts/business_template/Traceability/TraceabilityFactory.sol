@@ -1,7 +1,6 @@
 pragma solidity ^0.4.25;
-pragma experimental ABIEncoderV2;
 
-import "Traceability.sol";
+import "./Traceability.sol";
 
 contract TraceabilityFactory{
     struct GoodsTrace{
@@ -33,7 +32,7 @@ contract TraceabilityFactory{
     }
     
     //Change product status
-    function changeTraceGoods(bytes32  goodsGroup, uint64 goodsId, int16 goodsStatus, string calldata remark)public{
+    function changeTraceGoods(bytes32  goodsGroup, uint64 goodsId, int16 goodsStatus, string memory remark)public{
          Traceability category = getTraceability(goodsGroup);
          category.changeGoodsStatus(goodsId, goodsStatus, remark);
     }
@@ -45,8 +44,8 @@ contract TraceabilityFactory{
     }
     
     //The whole process of querying goods
-     function getTraceInfo(bytes32 goodsGroup, uint64 goodsId)public view returns(TraceData[] memory _data){
+     function getTraceInfo(bytes32 goodsGroup, uint64 goodsId)public view returns(Goods){
          Traceability category = getTraceability(goodsGroup);
-         return category.getTraceInfo(goodsId);
+         return category.getGoods(goodsId);
     }
 }

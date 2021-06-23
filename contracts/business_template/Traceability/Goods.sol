@@ -20,7 +20,7 @@ contract Goods{
         emit newStatus(msg.sender, 0, now, "create");
     }
     
-    function changeStatus(int16 goodsStatus, string  remark) public {
+    function changeStatus(int16 goodsStatus, string memory remark) public {
         _status = goodsStatus;
          _traceData.push(TraceData({addr:msg.sender, status:goodsStatus, timestamp:now, remark:remark}));
           emit newStatus(msg.sender, goodsStatus, now, remark);
