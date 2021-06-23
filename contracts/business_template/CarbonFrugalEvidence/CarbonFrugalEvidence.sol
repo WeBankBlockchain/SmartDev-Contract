@@ -14,21 +14,21 @@ contract AuthService{
  
     AuthUsersRepository.AuthUser private _authUsers;
 
-     //1¡¢»ù´¡Éí·İ ²¿·Ö
+     //1ã€åŸºç¡€èº«ä»½ éƒ¨åˆ†
       
-      //Éè¶¨³¬¼¶¹ÜÀíÔ±
+      //è®¾å®šè¶…çº§ç®¡ç†å‘˜
     address internal _admin;
  
-      //ÊÚÈ¨Ğí¿É¹ÜÀíÕßÓÃ»§¼¯ºÏ
+      //æˆæƒè®¸å¯ç®¡ç†è€…ç”¨æˆ·é›†åˆ
     mapping(address=>bool) internal permitManagerMapping;
   
    
     modifier onlyAdmin(){
-        require(tx.origin == _admin, "AuthService onlyAdmin£ºÄã²»ÊÇ³¬¼¶¹ÜÀíÔ±£¬ÎŞ·¨½øĞĞ¶ÔÓ¦²Ù×÷£¡");      
+        require(tx.origin == _admin, "AuthService onlyAdminï¼šä½ ä¸æ˜¯è¶…çº§ç®¡ç†å‘˜ï¼Œæ— æ³•è¿›è¡Œå¯¹åº”æ“ä½œï¼");      
         _;
     }
     modifier onlyManager(){
-        require(permitManagerMapping[tx.origin] ==true, "AuthService onlyManager£ºÄã²»ÊÇÊÚÈ¨¹ÜÀíÕß£¬ÎŞ·¨½øĞĞ¶ÔÓ¦²Ù×÷£¡");      
+        require(permitManagerMapping[tx.origin] ==true, "AuthService onlyManagerï¼šä½ ä¸æ˜¯æˆæƒç®¡ç†è€…ï¼Œæ— æ³•è¿›è¡Œå¯¹åº”æ“ä½œï¼");      
         _;
     }
     
@@ -66,7 +66,7 @@ contract AuthService{
     return _authUsers.balance(account);
    }
 
-    //×¢ÏúÓÃ»§£¬ÊÚÈ¨Õß²Ù×÷
+    //æ³¨é”€ç”¨æˆ·ï¼Œæˆæƒè€…æ“ä½œ
     function renounceAuthUser(address account) public  onlyManager{
         _removeAuthUser(account);
     }
@@ -81,24 +81,24 @@ contract AuthService{
         emit AuthUserRemoved(account);
     }
     
-        //ĞŞ¸ÄÊÚÈ¨£¬address userAddress ÓÃ»§µØÖ· .bool permitState ÊÚÈ¨×´Ì¬ true ¿ªÆô£¬false¹Ø±Õ
+        //ä¿®æ”¹æˆæƒï¼Œaddress userAddress ç”¨æˆ·åœ°å€ .bool permitState æˆæƒçŠ¶æ€ true å¼€å¯ï¼Œfalseå…³é—­
     function changePermitManager(address userAddress,bool permitState) public onlyAdmin returns(uint256){
-         require(userAddress != address(0), "AuthService changePermitManager: ÕË»§Îª¿ÕµØÖ·£¡");
+         require(userAddress != address(0), "AuthService changePermitManager: è´¦æˆ·ä¸ºç©ºåœ°å€ï¼");
           uint256 state=0;
          string memory stateMessage="";
          permitManagerMapping[userAddress]=permitState;
          if(permitManagerMapping[userAddress]==permitState){
                 state=1;
-               stateMessage="AuthService addAuthUser:ÊÚÈ¨×´Ì¬ĞŞ¸Ä³É¹¦!";
+               stateMessage="AuthService addAuthUser:æˆæƒçŠ¶æ€ä¿®æ”¹æˆåŠŸ!";
             }else{
-               stateMessage="AuthService addAuthUser:ÊÚÈ¨×´Ì¬ĞŞ¸ÄÊ§°Ü!";
+               stateMessage="AuthService addAuthUser:æˆæƒçŠ¶æ€ä¿®æ”¹å¤±è´¥!";
          }
           emit  SetPermitUserEvent(tx.origin,userAddress,state,permitState,now,stateMessage);
           return state;
     }
 }
 
-//³äµç½ÚÄÜ´æÖ¤»ı·ÖºÏÔ¼
+//å……ç”µèŠ‚èƒ½å­˜è¯ç§¯åˆ†åˆçº¦
 contract CarbonFrugalEvidence is AuthService {
 
 
@@ -108,105 +108,105 @@ contract CarbonFrugalEvidence is AuthService {
     event EvidenceAdded(address indexed operaAccount,address indexed account,bytes32 indexed dataHash, string dataJson,bytes signStr,string timeCertificate,uint256 value);
     event EvidenceRemoved(address indexed operaAccount, address indexed account,bytes32 indexed dataHash);
     
-     //¸øÓÃ»§Óà¶îÌí¼Ó»ı·ÖÄÜÁ¿£¬Ö»ÓĞ´æÖ¤³É¹¦ºóµ÷ÓÃ
+     //ç»™ç”¨æˆ·ä½™é¢æ·»åŠ ç§¯åˆ†èƒ½é‡ï¼Œåªæœ‰å­˜è¯æˆåŠŸåè°ƒç”¨
      event AddBalanced(address indexed operaAccount,address indexed to, uint256 value, bytes32 dataHash);
-     //×ªÈÃ
+     //è½¬è®©
      event Send(address indexed from, address indexed to, bytes32 dataHash, string dataJson,bytes signStr,string timeCertificate);
-     //Ïú»Ù£¬Æ½Ì¨³Ğ¶ÒÓÃ»§£¬½øĞĞÏú»Ù£¬ĞèÒªÓÃ»§µÄÇ©Ãû
+     //é”€æ¯ï¼Œå¹³å°æ‰¿å…‘ç”¨æˆ·ï¼Œè¿›è¡Œé”€æ¯ï¼Œéœ€è¦ç”¨æˆ·çš„ç­¾å
      event Destroy(address indexed operaAccount, address indexed account, bytes32 indexed dataHash,string dataJson,bytes signStr,string timeCertificate);
      
     EvidencesRepository.Evidence private _evidence;
     
-    //ÊÚÈ¨³äµçÉè±¸
+    //æˆæƒå……ç”µè®¾å¤‡
     mapping(address=>bool) private _authDevice;
 
-    //±£Ö¤ÊÇ×¢²áÓÃ»§
+    //ä¿è¯æ˜¯æ³¨å†Œç”¨æˆ·
     modifier onlyUser(address account){
-        require(AuthService.isAuthUser(account)==true, "CarbonFrugalEvidence onlyUser:±ØĞëÊÇ×¢²áÓÃ»§,²Å¿ÉÒÔ½øĞĞÌ¼½ÚÄÜ´æÖ¤£¡");      
+        require(AuthService.isAuthUser(account)==true, "CarbonFrugalEvidence onlyUser:å¿…é¡»æ˜¯æ³¨å†Œç”¨æˆ·,æ‰å¯ä»¥è¿›è¡Œç¢³èŠ‚èƒ½å­˜è¯ï¼");      
         _;
     }
     
      modifier onlyAuthDevice(){
-         require(_authDevice[msg.sender] ==true, "CarbonFrugalEvidence onlyAuthDevice£ºÎ´ÊÚÈ¨Éè±¸£¬ÎŞ·¨½øĞĞ¶ÔÓ¦²Ù×÷£¡");      
+         require(_authDevice[msg.sender] ==true, "CarbonFrugalEvidence onlyAuthDeviceï¼šæœªæˆæƒè®¾å¤‡ï¼Œæ— æ³•è¿›è¡Œå¯¹åº”æ“ä½œï¼");      
         _;
     }
     
 
-    //±£Ö¤ÓÃ»§´æ´¢Êı¾İÇ©ÃûºÍÖ¸¶¨ÕË»§ÊÇÆ¥ÅäµÄ
+    //ä¿è¯ç”¨æˆ·å­˜å‚¨æ•°æ®ç­¾åå’ŒæŒ‡å®šè´¦æˆ·æ˜¯åŒ¹é…çš„
       modifier signVerify(address account,bytes32 dataHash,bytes signStr){
        address  retAddr= ECDSA.recover(dataHash,signStr);
-        require(retAddr==account,"CarbonFrugalEvidence signVerify:Êı¾İÇ©ÃûºÍµ±Ç°ĞèÒª´æÖ¤ÓÃ»§²»Ò»ÖÂ!");
+        require(retAddr==account,"CarbonFrugalEvidence signVerify:æ•°æ®ç­¾åå’Œå½“å‰éœ€è¦å­˜è¯ç”¨æˆ·ä¸ä¸€è‡´!");
         _;
     }
     
-    //¿ÉÀ©Õ¹¹¹Ôìº¯Êı´«µİ
+    //å¯æ‰©å±•æ„é€ å‡½æ•°ä¼ é€’
     constructor() AuthService() public {
     
     }
     
-    //ÎªÉè±¸ÊÚÈ¨
+    //ä¸ºè®¾å¤‡æˆæƒ
     function setAuthDevice(address account) public onlyManager{
-         require(account != address(0), "CarbonFrugalEvidence  setAuthDevice: ÊÚÈ¨Éè±¸Îª¿ÕµØÖ·£¡");
+         require(account != address(0), "CarbonFrugalEvidence  setAuthDevice: æˆæƒè®¾å¤‡ä¸ºç©ºåœ°å€ï¼");
         _authDevice[account]=true;
       emit authDeviceOperation(msg.sender,account,true);
     }
-    //¹Ø±ÕÉè±¸È¨ÏŞ
+    //å…³é—­è®¾å¤‡æƒé™
     function changeAuthDevice(address account) public onlyManager{
-         require(account != address(0), "CarbonFrugalEvidence  changeAuthDevice: ÊÚÈ¨Éè±¸Îª¿ÕµØÖ·£¡");
+         require(account != address(0), "CarbonFrugalEvidence  changeAuthDevice: æˆæƒè®¾å¤‡ä¸ºç©ºåœ°å€ï¼");
         _authDevice[account]=false;
     emit authDeviceOperation(msg.sender,account,false);
     }
     
     
     /**
-     * Ìí¼Ó´æÖ¤,Æ½Ì¨·½²Ù×÷
-     * account      : ÓÃ»§µØÖ·
-     * dataHash     : dataJsonµÄsha256
-     * dataJson     : ÒµÎñÊı¾İ
-     * signStr      : ÓÃ»§Ë½Ô¿¶ÔdataHashµÄÇ©ÃûÊı¾İ
-     * timeCertificate  : Ê±¼äÊÚÊ±SN
-     * value        : »ı·ÖÊı¶î
+     * æ·»åŠ å­˜è¯,å¹³å°æ–¹æ“ä½œ
+     * account      : ç”¨æˆ·åœ°å€
+     * dataHash     : dataJsonçš„sha256
+     * dataJson     : ä¸šåŠ¡æ•°æ®
+     * signStr      : ç”¨æˆ·ç§é’¥å¯¹dataHashçš„ç­¾åæ•°æ®
+     * timeCertificate  : æ—¶é—´æˆæ—¶SN
+     * value        : ç§¯åˆ†æ•°é¢
      * 
     **/
    function addEvidence(address account,bytes32 dataHash, string dataJson,bytes signStr,string timeCertificate,uint256 value)  public onlyUser(account) onlyAuthDevice signVerify(account,dataHash,signStr) {
            
          _evidence.add(account,dataHash,dataJson,signStr,timeCertificate);
-        require(_evidence.has(account,dataHash),"CarbonFrugalEvidence addEvidence£º ´æÖ¤Ê§°Ü£¬´æÈëÇø¿éÁ´Òì³££¡"); 
+        require(_evidence.has(account,dataHash),"CarbonFrugalEvidence addEvidenceï¼š å­˜è¯å¤±è´¥ï¼Œå­˜å…¥åŒºå—é“¾å¼‚å¸¸ï¼"); 
         emit EvidenceAdded(msg.sender,account,dataHash,dataJson,signStr,timeCertificate,value);
-        //²úÉúÄÜÁ¿¼ÇÂ¼
+        //äº§ç”Ÿèƒ½é‡è®°å½•
         AuthService.addBalance(account,value);
         emit AddBalanced(msg.sender,account,value,dataHash);
       
    }
    
     
-     //²éÕÒ ¿ª·Å¸øËùÓĞÈË²éÑ¯,Ìá¹©Ïà¹ØÕªÒªĞÅÏ¢£¬ÒµÎñ¶ËĞèÒª¿ª·¢¸øÖ¸¶¨µÄÓÃ»§²éÑ¯£¬»òÕßºóÌ¨ºË²é
+     //æŸ¥æ‰¾ å¼€æ”¾ç»™æ‰€æœ‰äººæŸ¥è¯¢,æä¾›ç›¸å…³æ‘˜è¦ä¿¡æ¯ï¼Œä¸šåŠ¡ç«¯éœ€è¦å¼€å‘ç»™æŒ‡å®šçš„ç”¨æˆ·æŸ¥è¯¢ï¼Œæˆ–è€…åå°æ ¸æŸ¥
      function selectEvidence(address account,bytes32 dataHash)  public view returns(string) {
         return _evidence.selectEvidence(account,dataHash);
      }
      
-     //É¾³ı´æÖ¤£¬ÊÚÈ¨¹ÜÀíÕß²Ù×÷
+     //åˆ é™¤å­˜è¯ï¼Œæˆæƒç®¡ç†è€…æ“ä½œ
       function removeEvidence(address account, bytes32 dataHash) public onlyUser(account) onlyManager{
-         require(_evidence.has(account,dataHash),"CarbonFrugalEvidence removeEvidence£º²»´æÔÚ¶ÔÓ¦µÄ´æÖ¤Êı¾İ£¡");
+         require(_evidence.has(account,dataHash),"CarbonFrugalEvidence removeEvidenceï¼šä¸å­˜åœ¨å¯¹åº”çš„å­˜è¯æ•°æ®ï¼");
           _evidence.remove(account,dataHash);
           emit EvidenceRemoved(msg.sender,account,dataHash);
      }
     
     
-    //ÓÃ»§×ªÈÃ£¬ÓÃ»§²Ù×÷
+    //ç”¨æˆ·è½¬è®©ï¼Œç”¨æˆ·æ“ä½œ
     function sendTransaction(address to, uint256 value, bytes32 dataHash, string dataJson,bytes signStr,string timeCertificate) public onlyUser(msg.sender) signVerify(msg.sender,dataHash,signStr){
         AuthService.send(msg.sender, to, value);
        emit Send(msg.sender, to, dataHash, dataJson, signStr, timeCertificate);
     }
     
-    //ÓÃ»§ºË¶Ô£¬Ïú»Ù
-    //Æ½Ì¨²Ù×÷£¬ĞèÒªÓÃ»§Ç©Ãû
+    //ç”¨æˆ·æ ¸å¯¹ï¼Œé”€æ¯
+    //å¹³å°æ“ä½œï¼Œéœ€è¦ç”¨æˆ·ç­¾å
     function destroyTransaction(address account, uint256 value, bytes32 dataHash, string dataJson,bytes signStr,string timeCertificate) public onlyUser(account) onlyManager  signVerify(account,dataHash,signStr){
         AuthService.destroy(account, value);
        emit Destroy(msg.sender, account, dataHash, dataJson, signStr, timeCertificate);
     }
     
-    //²é¿´ÓÃ»§Óà¶î£¬¿ª·ÅÎŞÈ¨ÏŞÏŞÖÆ£¬ĞèÒªÒµÎñ¶ËÓĞÑ¡ÔñĞÔ¿ª·Å¸øÖ¸¶¨ÓÃ»§²éÑ¯
+    //æŸ¥çœ‹ç”¨æˆ·ä½™é¢ï¼Œå¼€æ”¾æ— æƒé™é™åˆ¶ï¼Œéœ€è¦ä¸šåŠ¡ç«¯æœ‰é€‰æ‹©æ€§å¼€æ”¾ç»™æŒ‡å®šç”¨æˆ·æŸ¥è¯¢
      function selectBalance(address account) public  view returns(uint256){
        return AuthService.balance(account);
      }
