@@ -2,7 +2,7 @@ pragma solidity ^0.4.25;
 
 import "./LibAscii.sol";
 
-contract LibAsciiTest{
+contract LibAsciiDemo{
 
     function str2ascii() public view returns(string,string){
         string memory result= LibAscii.str2ascii("55",10);
