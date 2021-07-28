@@ -1,6 +1,6 @@
 pragma solidity ^0.4.25;
 
-contract Coin{
+contract PointDemo{
     
     address public minter;
     
