@@ -1,4 +1,4 @@
-    pragma solidity ^0.6.10;
+pragma solidity ^0.6.10;
 
 /**
  * @author SomeJoker
@@ -10,7 +10,7 @@ contract InternalFunction{
      * @param uint256 blockNumber
      * @return bytes32  区块的hash值
      */
-    function getBlockhash(uint256 blockNumber) constant public returns(bytes32){
+    function getBlockhash(uint256 blockNumber) view public returns(bytes32){
         return blockhash(blockNumber);
     }
 
@@ -58,7 +58,7 @@ contract InternalFunction{
      * @notice 获取当前区块的gasPrice
      * @return uint256 gasPrice
      */
-    function getGasprice() view public returns(uint) {
+    function getGasprice() view public returns(uint256) {
         return tx.gasprice;
     }
     
@@ -67,7 +67,7 @@ contract InternalFunction{
      * @param  address account 待查询地址
      * @return uint256 eth余额
      */
-    function getEthBalance(address payable account) view public returns(uint) {
+    function getEthBalance(address payable account) view public returns(uint256) {
         return account.balance;
     }
 }
