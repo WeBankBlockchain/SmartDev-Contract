@@ -35,7 +35,7 @@ function reject(string _infoID, string _rejectEndorseCmID, string _rejectEndorse
 
 ```
 // 插入数据
-function insert(string memory _s) public returns(int)
+function insert(string memory _s) public onlyOwner returns(int)
 
 // 通过infoID查询数据
 function getDetail(string memory _infoID) public view returns(string memory _json)
@@ -44,13 +44,13 @@ function getDetail(string memory _infoID) public view returns(string memory _jso
 function getHoldrCmID(string memory _infoID) public view returns(string memory _holdrCmID)
 
 // 更新背书人信息
-function updateEndorse(string memory _infoID, string memory _waitEndorseCmID, string memory _waitEndorseAcct) public returns(int256)
+function updateEndorse(string memory _infoID, string memory _waitEndorseCmID, string memory _waitEndorseAcct) public onlyOwner returns(int256)
 
 // 更新持票人信息
-function updateEccept(string memory _infoID, string memory _holdrCmID, string memory _holdrAcct) public returns(int256)
+function updateEccept(string memory _infoID, string memory _holdrCmID, string memory _holdrAcct) public onlyOwner returns(int256)
 
 // 更新待背书人信息
-function updateReject(string memory _infoID, string memory _rejectEndorseCmID, string memory _rejectEndorseAcct) public returns(int256)
+function updateReject(string memory _infoID, string memory _rejectEndorseCmID, string memory _rejectEndorseAcct) public onlyOwner returns(int256)
 
 // 通过holdrCmID查询数据
 function selectListByHoldrCmID(string memory _holdrCmID) public view returns(string[])
@@ -65,7 +65,7 @@ function selectListByWaitEndorseCmID(string memory _waitEndorseCmID) public view
 
 ```
 // 插入数据，已有数据不添加
-function put(string memory _key, string memory _value) public returns(int)
+function put(string memory _key, string memory _value) public onlyOwner returns(int)
 
 // 通过key获取value，可以存在多个value
 function get(string memory _key) public view returns(string[] memory)

@@ -1,11 +1,12 @@
 pragma solidity ^0.4.25;
 pragma experimental ABIEncoderV2;
 
+import "../utils/Ownable.sol";
 import "../utils/Table.sol";
 import "../utils/LibString.sol";
 import "./MapStorage.sol";
 
-contract BillStorage {
+contract BillStorage is Ownable {
     
     using LibString for string;
     
@@ -63,7 +64,7 @@ contract BillStorage {
     * BOC103,3000,11,20110101,20110105,11,11,11,11,11,11,BBB,BID
     * @notice 插入数据
     */
-    function insert(string memory _s) public returns(int) {
+    function insert(string memory _s) public onlyOwner returns(int) {
 
         string[] memory ss = _s.split(",");
         //创建空数组
@@ -128,7 +129,7 @@ contract BillStorage {
     * @param _waitEndorseAcct 
     * @return int 提交成功数量
     */
-    function updateEndorse(string memory _infoID, string memory _waitEndorseCmID, string memory _waitEndorseAcct) public returns(int256) {
+    function updateEndorse(string memory _infoID, string memory _waitEndorseCmID, string memory _waitEndorseAcct) public onlyOwner returns(int256) {
         // 更改票据状态, 票据待背书人信息, 删除拒绝背书人信息
         Table table = tf.openTable(TABLE_NAME);
         Entry entry = table.newEntry();
@@ -155,7 +156,7 @@ contract BillStorage {
     * @param _holdrAcct 
     * @return int 提交成功数量
     */
-    function updateEccept(string memory _infoID, string memory _holdrCmID, string memory _holdrAcct) public returns(int256) {
+    function updateEccept(string memory _infoID, string memory _holdrCmID, string memory _holdrAcct) public onlyOwner returns(int256) {
         // 更改票据信息: 票据状态, 当前持票人信息, 待背书人信息
         Table table = tf.openTable(TABLE_NAME);
         Entry entry = table.newEntry();
@@ -177,7 +178,7 @@ contract BillStorage {
     * @param _rejectEndorseAcct 
     * @return int 提交成功数量
     */
-    function updateReject(string memory _infoID, string memory _rejectEndorseCmID, string memory _rejectEndorseAcct) public returns(int256) {
+    function updateReject(string memory _infoID, string memory _rejectEndorseCmID, string memory _rejectEndorseAcct) public onlyOwner returns(int256) {
         // 修改票据信息: 票据状态, 待背书人信息, 拒绝背书人信息
         Table table = tf.openTable(TABLE_NAME);
         Entry entry = table.newEntry();

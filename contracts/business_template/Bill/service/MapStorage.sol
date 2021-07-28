@@ -1,10 +1,11 @@
 pragma solidity ^0.4.25;
 pragma experimental ABIEncoderV2;
 
+import "../utils/Ownable.sol";
 import "../utils/LibString.sol";
 import "../utils/Table.sol";
 
-contract MapStorage {
+contract MapStorage is Ownable {
 
     using LibString for string;
     
@@ -30,7 +31,7 @@ contract MapStorage {
     /**
     * @notice 插入数据，已有数据不添加
     */
-    function put(string memory _key, string memory _value) public returns(int) {
+    function put(string memory _key, string memory _value) public onlyOwner returns(int) {
         int count = int(0);
         Table table = tf.openTable(TABLE_NAME);
         if(!_key.empty() && !_value.empty() && !_isExist(table, _key, _value)){
