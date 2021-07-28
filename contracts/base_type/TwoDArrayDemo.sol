@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 import "./Lib2DArrayForUint256.sol";
 
-contract ArrayTest {
+contract TwoDArrayDemo {
 
     uint256[][] private array;
     uint256[][] private array2;
