@@ -79,10 +79,11 @@ contract DateTimeContract {
     ///get date time according to timestamp(like block.timestamp)
     function timestampToDate(uint timestamp) public view returns (uint _year, uint _month,uint _days,uint _hours , uint _minute ,uint _second){
        
-        // test
-        timestamp = now; 
+        
         _second = timestamp % SECONDS_PER_MINUTE;
+		
         _minute = (timestamp % SECONDS_PER_HOUR) / SECONDS_PER_MINUTE ;
+		
         while (timestamp >= SECONDS_PER_FOUR_YEAR ){
             
             _year ++;
