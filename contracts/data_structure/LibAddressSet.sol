@@ -19,12 +19,12 @@ pragma solidity ^0.4.25;
 
 library LibAddressSet {
 
-	struct AddressSet {
+    struct AddressSet {
         mapping (address => uint256) indexMapping;
         address[] values;
     }
 
-	function add(AddressSet storage self, address value) internal {
+    function add(AddressSet storage self, address value) internal {
         require(value != address(0x0), "LibAddressSet: value can't be 0x0");
         require(!contains(self, value), "LibAddressSet: value already exists in the set.");
         self.values.push(value);
