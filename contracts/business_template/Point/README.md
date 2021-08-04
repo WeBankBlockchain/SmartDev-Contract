@@ -1,14 +1,14 @@
 ## 功能说明
-本合约为积分合约demo，挖矿和转账功能。
+本合约为积分合约demo，获取积分和转账积分功能。
 
 ## 接口
-提供了PointDemo合约,主要是挖矿和转账功能
-- mint(address receiver,uint amount):挖矿
-- send(address receiver,uint amount): 转账
+提供了PointDemo合约,主要是获取积分和转账积分功能
+- mint(address receiver,uint amount):获取积分
+- send(address receiver,uint amount): 转账积分
 
 
 ## 使用示例
-积分合约挖矿和转账，整个过程如下：
+积分合约获取积分和转账积分，整个过程如下：
 
 合约初始化：
 
@@ -16,5 +16,5 @@
 
 合约调用：
 
-    - 调用PointDemo.mint 挖矿
-    - 调用PointDemo.send 转账
+    - 调用PointDemo.mint 获取积分
+    - 调用PointDemo.send 转账积分
