@@ -22,8 +22,8 @@ contract Goods{
     
     function changeStatus(int16 goodsStatus, string memory remark) public {
         _status = goodsStatus;
-         _traceData.push(TraceData({addr:msg.sender, status:goodsStatus, timestamp:now, remark:remark}));
-          emit newStatus(msg.sender, goodsStatus, now, remark);
+         _traceData.push(TraceData({addr:tx.origin, status:goodsStatus, timestamp:now, remark:remark}));
+          emit newStatus(tx.origin, goodsStatus, now, remark);
     }
       
     function getStatus()public view returns(int16){
