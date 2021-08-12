@@ -23,7 +23,7 @@ TraceabilityFactory合约：对外服务的唯一接口。包含：
 
     - 获取商品分析哈希值  goodsGroup = getGoodsGroup("商品标识")
     - 创建自己的溯源商品类  createTraceability(goodsGroup)
-    - 在商品类下创建商品    createTraceGoods(goodsGroup), "100000001")
+    - 在商品类下创建商品    createTraceGoods(goodsGroup, "100000001")
     - 商品状态变更          changeTraceGoods(goodsGroup, "100000001", 1, "环节信息")
     - 查询商品的当前状态    getStatus(goodsGroup, "100000001")
     - 查询商品的全流程信息  getTraceInfo(goodsGroup, "100000001")
