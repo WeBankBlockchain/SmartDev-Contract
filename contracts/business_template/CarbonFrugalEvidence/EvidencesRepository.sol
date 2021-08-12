@@ -6,17 +6,17 @@ library EvidencesRepository {
     }
     
     struct EvidenceInfo{
-       string dataJson;//Ô­Ê¼ÕªÒªÊı¾İ
-       bytes signStr;//ÕªÒªÊı¾İHashÇ©Ãû
-       string timeCertificate;//ÊÚÊ±Æ¾Ö¤
-       bool existState;// true Õı³££¬flase ¹Ø±Õ
-       uint createTimeStamp;//´´½¨Ê±¼ä´Á
-       bool removeState;//ÒÆ³ı ±êÊ¶£¬´æÔÚÎªtrue
-       uint removeTimeStamp;//É¾³ıÊ±¼ä´Á
+       string dataJson;//åŸå§‹æ‘˜è¦æ•°æ®
+       bytes signStr;//æ‘˜è¦æ•°æ®Hashç­¾å
+       string timeCertificate;//æˆæ—¶å‡­è¯
+       bool existState;// true æ­£å¸¸ï¼Œflase å…³é—­
+       uint createTimeStamp;//åˆ›å»ºæ—¶é—´æˆ³
+       bool removeState;//ç§»é™¤ æ ‡è¯†ï¼Œå­˜åœ¨ä¸ºtrue
+       uint removeTimeStamp;//åˆ é™¤æ—¶é—´æˆ³
    }
     
     function add(Evidence storage evidence, address account,bytes32 dataHash, string dataJson,bytes signStr,string timeCertificate) internal {
-        require(!has(evidence, account,dataHash), "EvidencesRepositorys add: µ±Ç°´æÖ¤HashÒÑ¾­´æÔÚ£¡");
+        require(!has(evidence, account,dataHash), "EvidencesRepositorys add: å½“å‰å­˜è¯Hashå·²ç»å­˜åœ¨ï¼");
       
          evidence.bearer[account][dataHash].dataJson = dataJson;
          evidence.bearer[account][dataHash].signStr = signStr;
@@ -26,17 +26,17 @@ library EvidencesRepository {
     }
 
     function remove(Evidence storage evidence, address account,bytes32 dataHash) internal {
-        require(has(evidence, account,dataHash), "EvidencesRepositorys remove: ²»´æÔÚµ±Ç°µÄ×¢²áÓÃ»§!");
+        require(has(evidence, account,dataHash), "EvidencesRepositorys remove: ä¸å­˜åœ¨å½“å‰çš„æ³¨å†Œç”¨æˆ·!");
         evidence.bearer[account][dataHash].removeState= true;
         evidence.bearer[account][dataHash].removeTimeStamp = now;
     }
 
     function has(Evidence storage evidence, address account,bytes32 dataHash) internal view returns (bool) {
-        require(account != address(0), "EvidencesRepositorys has: ÕË»§Îª¿ÕµØÖ·£¡");
+        require(account != address(0), "EvidencesRepositorys has: è´¦æˆ·ä¸ºç©ºåœ°å€ï¼");
         return evidence.bearer[account][dataHash].existState;
     }
     
-    //²éÕÒ¶ÔÓ¦µÄÓÃ»§´æÖ¤
+    //æŸ¥æ‰¾å¯¹åº”çš„ç”¨æˆ·å­˜è¯
     function selectEvidence(Evidence storage evidence,address account,bytes32 dataHash) internal view returns(string){
         return evidence.bearer[account][dataHash].dataJson;
     }

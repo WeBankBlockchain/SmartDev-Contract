@@ -13,13 +13,13 @@ library AuthUsersRepository {
        string cardNo;
        string name;
        uint256 balance;
-       bool authorityState;// true Õı³££¬flase ¹Ø±Õ
-       uint createTimeStamp;//´´½¨Ê±¼ä´Á
-       uint removeTimeStamp;//É¾³ıÊ±¼ä´Á
+       bool authorityState;// true æ­£å¸¸ï¼Œflase å…³é—­
+       uint createTimeStamp;//åˆ›å»ºæ—¶é—´æˆ³
+       uint removeTimeStamp;//åˆ é™¤æ—¶é—´æˆ³
    }
     
     function add(AuthUser storage user, address account,string cardNo,string name) internal {
-        require(!has(user, account), "AuthUsers add: ÕË»§ÒÑ¾­´æÔÚ£¡");
+        require(!has(user, account), "AuthUsers add: è´¦æˆ·å·²ç»å­˜åœ¨ï¼");
          user.bearer[account].cardNo = cardNo;
          user.bearer[account].name = name;
          user.bearer[account].authorityState = true;
@@ -27,42 +27,42 @@ library AuthUsersRepository {
     }
 
     function remove(AuthUser storage user, address account) internal {
-        require(has(user, account), "AuthUsers remove: ²»´æÔÚÖ¸¶¨ÕË»§£¡");
+        require(has(user, account), "AuthUsers remove: ä¸å­˜åœ¨æŒ‡å®šè´¦æˆ·ï¼");
         user.bearer[account].authorityState= false;
         user.bearer[account].removeTimeStamp = now;
     }
 
     function has(AuthUser storage user, address account) internal view returns (bool) {
-        require(account != address(0), "AuthUsers has: ÕË»§Îª¿ÕµØÖ·£¡");
+        require(account != address(0), "AuthUsers has: è´¦æˆ·ä¸ºç©ºåœ°å€ï¼");
         return user.bearer[account].authorityState;
     }
     
-    //Ìí¼ÓÓà¶î
+    //æ·»åŠ ä½™é¢
     function addBalance(AuthUser storage user,address to,uint256 value) internal{
         
-         require(has(user, to), "AuthUsers addBalance: ½ÓÊÜ·½²»ÊÇ×¢²áÓÃ»§£¡");
+         require(has(user, to), "AuthUsers addBalance: æ¥å—æ–¹ä¸æ˜¯æ³¨å†Œç”¨æˆ·ï¼");
           user.bearer[to].balance = user.bearer[to].balance.add(value);
     }
     
-    //×ªÕË
+    //è½¬è´¦
    function send(AuthUser storage user,address from, address to, uint256 value) internal {
-        require(to != address(0), "AuthUsers send: ½ÓÊÕ·½ÕË»§Îª¿ÕµØÖ·£¡");
-         require(has(user, from), "AuthUsers send: ×ª³ö·½²»ÊÇ×¢²áÓÃ»§£¡");
-         require(has(user, to), "AuthUsers send: ½ÓÊÕ·½²»ÊÇ×¢²áÓÃ»§£¡");
+        require(to != address(0), "AuthUsers send: æ¥æ”¶æ–¹è´¦æˆ·ä¸ºç©ºåœ°å€ï¼");
+         require(has(user, from), "AuthUsers send: è½¬å‡ºæ–¹ä¸æ˜¯æ³¨å†Œç”¨æˆ·ï¼");
+         require(has(user, to), "AuthUsers send: æ¥æ”¶æ–¹ä¸æ˜¯æ³¨å†Œç”¨æˆ·ï¼");
         user.bearer[from].balance = user.bearer[from].balance.sub(value);
          user.bearer[to].balance  = user.bearer[to].balance.add(value);
        
     }
     
-    //Ïú»Ù
+    //é”€æ¯
     function destroy(AuthUser storage user,address from, uint256 value) internal {
-         require(has(user, from), "AuthUsers destroy: Ö¸¶¨ÕË»§²»´æÔÚ£¡");
+         require(has(user, from), "AuthUsers destroy: æŒ‡å®šè´¦æˆ·ä¸å­˜åœ¨ï¼");
         user.bearer[from].balance = user.bearer[from].balance.sub(value);
     }
     
-    //²é¿´Óà¶î
+    //æŸ¥çœ‹ä½™é¢
     function balance(AuthUser storage user,address account) internal view returns(uint256){
-         require(has(user, account), "AuthUsers balance: Ö¸¶¨ÕË»§²»´æÔÚ£¡");
+         require(has(user, account), "AuthUsers balance: æŒ‡å®šè´¦æˆ·ä¸å­˜åœ¨ï¼");
        return user.bearer[account].balance;
     }
 }
