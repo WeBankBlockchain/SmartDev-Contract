@@ -48,4 +48,8 @@ contract TraceabilityFactory{
          Traceability category = getTraceability(goodsGroup);
          return category.getGoods(goodsId);
     }
+    
+    function getGoodsGroup(string memory name) public pure returns (bytes32) {
+        return keccak256(abi.encode(name));
+    }
 }

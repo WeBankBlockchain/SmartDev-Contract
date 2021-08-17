@@ -17,8 +17,7 @@ contract RedPacket {
     
     //构造函数：土豪执行，顺带将红包也发了
     constructor() public  {
-        proxyContract = new Proxy();//创建代理合约对象
-        
+      proxyContract = new Proxy();//创建代理合约对象    
     }
     
     //调用前，用户需要先调用积分合约的授权给本合约
@@ -33,6 +32,7 @@ contract RedPacket {
         require(proxyContract.balanceOf(msg.sender) > 0, "user's balance not enough");
         leftAmount = totalAmount = amount;
         theRich = msg.sender;
+
     }
     
     //抢红包
@@ -62,6 +62,7 @@ contract RedPacket {
             }
         }
         count --;
+
     }
     
     function getProxy() public view returns (address) {

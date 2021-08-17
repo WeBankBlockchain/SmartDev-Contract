@@ -9,21 +9,24 @@
 提供了三个合约：TraceabilityFactory合约，Traceability合约，Goods合约。
 
 TraceabilityFactory合约：对外服务的唯一接口。包含：
+    
     - createTraceability(bytes32  goodsGroup): 创建溯源商品类，goodsGroup： 为商品类hash码
     - createTraceGoods(bytes32  goodsGroup, uint64 goodsId): 创建需要溯源的商品，goodsId：唯一标识商品的Id
     - changeTraceGoods(bytes32  goodsGroup, uint64 goodsId, int16 goodsStatus, string remark)：商品状态改变，goodsStatus：商品流转的每一个环节可以用一个状态进行标识，remark：状态变更的摘要信息
     - getStatus(bytes32 goodsGroup, uint64 goodsId): 获取商品的当前状态
-	- getTraceInfo(bytes32 goodsGroup, uint64 goodsId) ：获取商品的全流程信息，包括每一个环节的状态、时间、操作员、摘要信息
+    - getTraceInfo(bytes32 goodsGroup, uint64 goodsId) ：获取商品的全流程信息，包括每一个环节的状态、时间、操作员、摘要信息
+    - getGoodsGroup(string memory name)：计算商品种类的哈希值，name：商品标识或名称
 ## 使用示例
 
 
 合约调用：
 
-    - 创建自己的溯源商品类  createTraceability(hash("商品标识"))
-    - 在商品类下创建商品    createTraceGoods(hash("商品标识"), "100000001")
-    - 商品状态变更          changeTraceGoods(hash("商品标识"), "100000001", 1, "环节信息")
-	- 查询商品的当前状态    getStatus(hash("商品标识"), "100000001")
-	- 查询商品的全流程信息  getTraceInfo(hash("商品标识"), "100000001")
+    - 获取商品分析哈希值  goodsGroup = getGoodsGroup("商品标识")
+    - 创建自己的溯源商品类  createTraceability(goodsGroup)
+    - 在商品类下创建商品    createTraceGoods(goodsGroup, "100000001")
+    - 商品状态变更          changeTraceGoods(goodsGroup, "100000001", 1, "环节信息")
+    - 查询商品的当前状态    getStatus(goodsGroup, "100000001")
+    - 查询商品的全流程信息  getTraceInfo(goodsGroup, "100000001")
 
 
 
