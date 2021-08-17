@@ -16,14 +16,14 @@ contract Goods{
     
     constructor(uint64 goodsId) public{
         _goodsId = goodsId;
-        _traceData.push(TraceData({addr:msg.sender, status:0, timestamp:now, remark:"create"}));
-        emit newStatus(msg.sender, 0, now, "create");
+        _traceData.push(TraceData({addr:tx.origin, status:0, timestamp:now, remark:"create"}));
+        emit newStatus(tx.origin, 0, now, "create");
     }
     
     function changeStatus(int16 goodsStatus, string memory remark) public {
         _status = goodsStatus;
-         _traceData.push(TraceData({addr:msg.sender, status:goodsStatus, timestamp:now, remark:remark}));
-          emit newStatus(msg.sender, goodsStatus, now, remark);
+         _traceData.push(TraceData({addr:tx.origin, status:goodsStatus, timestamp:now, remark:remark}));
+          emit newStatus(tx.origin, goodsStatus, now, remark);
     }
       
     function getStatus()public view returns(int16){
