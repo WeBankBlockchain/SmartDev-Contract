@@ -27,3 +27,38 @@
 在某些情况下如果我们在调用一个方法前必须要做某些准备操作，又或者再调用后要做某些善后工作，都可以使用这种代理的模式。
 
 
+## 测试合约
+在控制台中，可以测试本代理合约。
+### 创建Sing合约的实例。
+
+```
+[group:1]> deploy Sing
+transaction hash: 0xa956af77a8bccbf3957e8f0f7b13e284684dc096baf2f63e88d99d9df46ee760
+contract address: 0x75adfb58594242bda453f302eb695280cf856c72
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+```
+
+### 部署代理合约
+```
+[group:1]> deploy SingProxy 0x75adfb58594242bda453f302eb695280cf856c72
+transaction hash: 0xad6fb8b6568e3b575d5c4c4e96b0bf096c6fc5524330eaef6ba7f58dc4240436
+contract address: 0x8df5416339b0b55832dabfdf44cecdd81299102c
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+```
+
+### 调用代理合约
+```
+[group:1]> call SingProxy  0x8df5416339b0b55832dabfdf44cecdd81299102c proxySing
+transaction hash: 0x25ecc3d8584c7e8ac8d169848a4e71a8afce7051d3aacda6b39528f58be16771
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return values:[]
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {"ProxyLog":[["0x22fec9d7e121960e7972402789868962238d8037","before proxy do someting"],["0x22fec9d7e121960e7972402789868962238d8037","after proxy do someting"]]}
+```
+

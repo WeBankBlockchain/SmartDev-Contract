@@ -1,4 +1,4 @@
-pragma solidity ^0.6.10;
+pragma solidity ^0.4.25;
 
 import "./ISing.sol";
 
@@ -8,7 +8,7 @@ import "./ISing.sol";
  */
 contract SingProxy{  
 
-    event ProxyLog(address indexed singer,string indexed context);
+    event ProxyLog(address singer,string context);
 
     ISing iSing;
     constructor(address _sing) public{

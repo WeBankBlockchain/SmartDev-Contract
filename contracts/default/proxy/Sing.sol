@@ -1,4 +1,4 @@
-pragma solidity ^0.6.10;
+pragma solidity ^0.4.25;
 
 import "./ISing.sol";
 /**
@@ -7,9 +7,9 @@ import "./ISing.sol";
  */
 contract Sing is ISing{  
 
-    event SingLog(address indexed singer,uint256 indexed time);
+    event SingLog(address singer,uint256 time);
 
-    function singing(address _singer) public override{
+    function singing(address _singer) public {
         emit SingLog(_singer, now);
     }
 }
