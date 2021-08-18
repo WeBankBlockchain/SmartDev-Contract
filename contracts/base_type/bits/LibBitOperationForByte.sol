@@ -2,7 +2,7 @@ pragma solidity ^0.4.25;
 
 /**
 * @author wpzczbyqy <weipengzhen@czbyqy.com>
-* @title  byte类型位操作
+* @description  byte类型位操作
 * 提供solidity内置函数不包括的位操作方法，例如按位非、移位、取前/后n位等方法
 **/
 
