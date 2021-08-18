@@ -1,7 +1,7 @@
 pragma solidity^0.4.25;
 import "./LibSafeMathForUint256Utils.sol";
 
-library libSafeMathForFloatUtils {
+library LibSafeMathForFloatUtils {
     using LibSafeMathForUint256Utils for uint256;
     
     /*
@@ -68,7 +68,7 @@ library libSafeMathForFloatUtils {
     }
     
     /*
-        fsub：浮点数加法
+        fsub：浮点数减法
         a：被减数
         dA：被减数a的精度，若a = 1234，decimalsA=2，实际表示浮点型数为12.34 
         b：减数
