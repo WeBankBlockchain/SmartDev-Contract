@@ -1,4 +1,4 @@
-﻿# LibString.sol
+﻿# LibBits.sol
 
 LibBits 提供了常用的位操作.基于单字节操作
 
