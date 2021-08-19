@@ -11,8 +11,7 @@
 4 | *function getHour (uint timestamp ) public view returns (uint _hour)* |返回小时
 5 | *function getMinute (uint timestamp ) public view returns (uint _minute)* |返回分钟
 6 | *function getSecond (uint timestamp ) public view returns (uint _second)* |返回秒
-7 | *function getDateTime (uint timestamp ) public view returns (uint _year, uint _month,uint _days,uint _hours , uint _minute ,uint _second)* |分别返回年月日时分秒
-8 | *function timestampToDate(uint timestamp) private view returns (uint _year, uint _month,uint _days,uint _hours , uint _minute ,uint _second)* |timestampToDate()是一个private函数，将参数timestamp通过计算，输出年月日时分秒
+7 | *function timestampToDate(uint timestamp) public view returns (uint _year, uint _month,uint _days,uint _hours , uint _minute ,uint _second)* |将参数timestamp通过计算，输出年月日时分秒
 
 ## API描述
 
@@ -75,26 +74,10 @@
  - uint timestamp :block.timestamp时间戳
  #### 返回值
  - _second ： timestamp对应的秒数
- 
-  ### 7.getDateTime
- 分别返回年月日时分秒。
- ```
- function getDateTime (uint timestamp ) public view returns (uint _year, uint _month,uint _days,uint _hours , uint _minute ,uint _second)
- ````
- #### 参数
- - uint timestamp :block.timestamp时间戳
- #### 返回值
- - _year ： 年份
- - _month: 月份
- - _day: 日期
- - _hour: 小时
- - _minute: 分钟
- - _second: 秒
 
-### 8.timestampToDate
+### 7.timestampToDate
   
-timestampToDate()是一个private函数，将参数timestamp通过计算，输出年月日时分秒
-  
+将参数timestamp通过计算，输出年月日时分秒
  ```
 	function timestampToDate(uint timestamp) private view returns (uint _year, uint _month,uint _days,uint _hours , uint _minute ,uint _second)
  ````
