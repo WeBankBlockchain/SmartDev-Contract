@@ -1,6 +1,90 @@
 # DateTimeContract.sol -v1.0
 
-DateTimeContract.sol 基于block.timestamp 时间戳计算当前的日期，提供年份、月份、日期、小时、分钟、秒的计算函数，基于solidity0.6.10。
+DateTimeContract.sol 基于block.timestamp 时间戳计算当前的日期，提供年份、月份、日期、小时、分钟、秒的计算函数，基于solidity 0.4.25 到0.6.10之间。
+
+## 控制台测试
+在控制台中执行，可获得以下的结果。
+### 部署测试合约
+```
+[group:1]>  deploy DateTimeContract
+transaction hash: 0x6b4fde3da4c52df181a3ce69c999a56df7d294ae0429839ad936542f333aedb0
+contract address: 0x8c5295ce0f70772c538a07295069796887bee574
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+```
+
+### 测试将时间戳进行解析
+```
+[group:1]> call DateTimeContract 0x8c5295ce0f70772c538a07295069796887bee574 timestampToDate 1629731615
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:6
+Return types: (UINT, UINT, UINT, UINT, UINT, UINT)
+Return values:(2021, 8, 23, 23, 13, 35)
+---------------------------------------------------------------------------------------------
+```
+
+### 分别测试返回年月日
+```
+[group:1]>  call DateTimeContract 0x8c5295ce0f70772c538a07295069796887bee574 getYear 1629731615
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(2021)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call DateTimeContract 0x8c5295ce0f70772c538a07295069796887bee574 getMonth 1629731615
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(8)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call DateTimeContract 0x8c5295ce0f70772c538a07295069796887bee574 getDay 1629731615
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(23)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call DateTimeContract 0x8c5295ce0f70772c538a07295069796887bee574 getMinute 1629731615
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(13)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call DateTimeContract 0x8c5295ce0f70772c538a07295069796887bee574 getSecond 1629731615
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(35)
+---------------------------------------------------------------------------------------------
+```
+
+
 
 ## API列表
 
