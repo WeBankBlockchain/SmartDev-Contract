@@ -55,8 +55,7 @@ Solidity通常采用keccak256哈希函数 作为随机数的生成器，该函�
 * 智能合约中3<=η<=5, 因为η过大会导致参数q过大无法部署合约（solidity最大为int256，没有大数操作）
 
 ```shell
-go build -o dghv.exe ./ && chmod +x dghv.exe
-./dghv.exe 5		# 参数1：η （建议>=9, 合约中<=5）
+go run syn_DGHV.go 5		# 参数1：η （建议>=9, 合约中<=5）
 ```
 
 运行结果中包含：
