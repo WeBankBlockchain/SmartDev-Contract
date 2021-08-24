@@ -4,17 +4,21 @@ library LibBits {
     function and(bytes1 a, bytes1 b) internal pure returns (bytes1) {
         return a & b;
     }
+
     function or(bytes1 a, bytes1 b) internal pure returns (bytes1) {
-         return a | b;
+        return a | b;
     }
+
     function xor(bytes1 a, bytes1 b) internal pure returns (bytes1) {
         return a ^ b;
     }
+
     function negate(bytes1 a) internal pure returns (bytes1) {
         return a ^ allOnes();
     }
+
     function shiftLeft(bytes1 a, uint8 n) internal pure returns (bytes1) {
-        var shifted = uint8(a) <<n;
+        var shifted = uint8(a) << n;
         return bytes1(shifted);
     }
 
@@ -25,13 +29,13 @@ library LibBits {
 
     // get the high bit data and keep it on high
     function getFirstN(bytes1 a, uint8 n) internal pure returns (bytes1) {
-        var nOnes = bytes1(2 ** n - 1);
+        var nOnes = bytes1(2**n - 1);
         var mask = shiftLeft(nOnes, 8 - n); // Total 8 bits
         return a & mask;
     }
 
     function getLastN(bytes1 a, uint8 n) internal pure returns (bytes1) {
-        var lastN = uint8(a) % 2 ** n;
+        var lastN = uint8(a) % 2**n;
         return bytes1(lastN);
     }
 
@@ -41,19 +45,41 @@ library LibBits {
     }
 
     // Get bit value at position
-    function getBit(bytes1 a, uint8 n) internal pure returns (bool) {
+    function getBit(bytes1 a, uint8 n)
+        internal
+        pure
+        isValidPosition(n)
+        returns (bool)
+    {
+        n--;
         return a & shiftLeft(0x01, n) != 0;
     }
 
     // Set bit value at position
-    function setBit(bytes1 a, uint8 n) internal pure returns (bytes1) {
+    function setBit(bytes1 a, uint8 n)
+        internal
+        pure
+        isValidPosition(n)
+        returns (bytes1)
+    {
+        n--;
         return a | shiftLeft(0x01, n);
     }
 
     // Set the bit into state "false"
-    function clearBit(bytes1 a, uint8 n)  internal pure returns (bytes1) {
+    function clearBit(bytes1 a, uint8 n)
+        internal
+        pure
+        isValidPosition(n)
+        returns (bytes1)
+    {
+        n--;
         bytes1 mask = negate(shiftLeft(0x01, n));
         return a & mask;
     }
-}
 
+    modifier isValidPosition(uint8 n) {
+        require(n < 9 && n > 0, "Invalid Position: n start with 1, n <= 8");
+        _;
+    }
+}

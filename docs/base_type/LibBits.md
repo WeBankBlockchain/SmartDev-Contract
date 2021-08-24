@@ -13,13 +13,173 @@ import "./LibBits.sol";
 
 contract TestBits {
     
-    function f() public view returns(bytes1 ){
-        bytes1 memory a = 1;
-        bytes1 memory b = 5;
-        bytes1 result = LibBits.add(a, b);//Expected to be 1
+    function testAnd() public view returns(bytes1 ){
+        bytes1 a = 1;
+        bytes1 b = 5;
+        bytes1 result = LibBits.and(a, b);//Expected to be 1
         return result;
     }
 }
+```
+
+## 控制台测试
+在控制台中执行，可获得以下的结果。
+
+### 部署测试合约
+```
+deploy TestBits
+transaction hash: 0xf2c94c9905d70350df1ce324613b4757ddde5162047d1bb679e0e195232a9db9
+contract address: 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+```
+
+### 测试所有函数
+按照顺序测试12个函数：
+
+```
+[group:1]> call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testAnd
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x01)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testOr
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x07)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testXor
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x06)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testNegate
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0xfa)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testShiftLeft
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x10)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testShiftLeft
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x10)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testShiftRight
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x01)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testGetLastN
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x04)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 getFirstN
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x20)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testAllOnes
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0xff)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testGetBit
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BOOL)
+Return values:(true)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testSetBit
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x13)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call TestBits 0x02cc48aeab40785f6c3b2dc3b3fe71742e9a18e0 testClearBit
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x01)
+---------------------------------------------------------------------------------------------
+
 ```
 
 
@@ -58,10 +218,11 @@ contract TestBits {
 #### 实例
 
 ```
-    function f() public view returns(bytes1){
-        string memory str = "字符串";
-        uint len = LibString.lenOfChars(str);//Expected to be 3
-        return len;
+    function testAnd() public view returns(bytes1 ){
+        bytes1 a = 1; // 0x001
+        bytes1 b = 5; // 0x101
+        bytes1 result = LibBits.and(a, b);//Expected to be 1, 0x001
+        return result;
     }
 ```
 
@@ -81,10 +242,10 @@ contract TestBits {
 #### 实例
 
 ```
-    function f() public view returns(bytes1 ){
-        bytes1 memory a = 2;
-        bytes1 memory b = 5;
-        bytes1 result = LibBits.or(a, b);//Expected to be 7
+    function testOr() public view returns(bytes1 ){
+        bytes1 a = 2; // 0x010
+        bytes1 b = 5; // 0x101
+        bytes1 result = LibBits.or(a, b);//Expected to be 7, 0x111
         return result;
     }
 ```
@@ -105,10 +266,10 @@ contract TestBits {
 #### 实例
 
 ```
-    function f() public view returns(bytes1 ){
-        bytes1 memory a = 3;
-        bytes1 memory b = 5;
-        bytes1 result = LibBits.xor(a, b);//Expected to be 6
+    function testXor() public view returns(bytes1 ){
+        bytes1 a = 3; // 0x011
+        bytes1 b = 5; // 0x101
+        bytes1 result = LibBits.xor(a, b); //Expected to be 6, 0x110
         return result;
     }
 ```
@@ -127,7 +288,7 @@ contract TestBits {
 #### 实例
 
 ```
-    function f() public view returns(bytes1){
+    function testNegate() public view returns(bytes1){
         bytes1 r = LibBits.negate(5);//Expected to be -6
         return r;
     }
@@ -149,8 +310,8 @@ contract TestBits {
 #### 实例
 
 ```
-    function f() public view returns(bytes1){
-        bytes1 r = LibBits.shiftLeft(2,3);//Expected to be 16
+    function testShiftLeft() public view returns(bytes1){
+        bytes1 r = LibBits.shiftLeft(2,3);//Expected to be 16, 0x00000010 -> 0x00010000
         return r;
     }
 ```
@@ -166,18 +327,18 @@ contract TestBits {
 
 #### 返回值
 
-- bool: 将a右移n位
+- bytes1: 将a右移n位
 
 #### 实例
 
 ```
-      function f() public view returns(bytes1){
-          bytes1 r = LibBits.shiftRight(15,3);//Expected to be 1
+      function testShiftRight() public view returns(bytes1){
+          bytes1 r = LibBits.shiftRight(15,3);//Expected to be 1, 0x00001111 -> 0x00000001
           return r;
       }
 ```
 
-### ***7. getFirstN 方法***
+### ***7. getLastN 方法***
 
 获取高N位数据,保持在高位
 
@@ -193,14 +354,14 @@ contract TestBits {
 #### 实例
 
 ```
-  function f() public view returns(bytes1){
-      bytes1 r = LibBits.getLastN(60,3);//Expected to be 4
+  function testGetLastN() public view returns(bytes1){
+      bytes1 r = LibBits.getLastN(60,3);//Expected to be 4 0x00111100 -> 0x00000100
       return r;
   }
 ```
 
 
-### ***8. getLastN 方法***
+### ***8. getFirstN 方法***
 
 获取低N位数据
 
@@ -215,8 +376,8 @@ contract TestBits {
 #### 实例
 
 ```
-  function f() public view returns(bytes1){
-      bool r = LibBits.getFirstN(60,3);//Expected to be 32
+  function getFirstN() public view returns(bytes1){
+      byte r = LibBits.getFirstN(60,3);//Expected to be 32,  0x00111100 -> 0x00100000
       return r;
   }
 ```
@@ -235,8 +396,8 @@ contract TestBits {
 #### 实例
 
 ```
-  function f() public view returns(bytes1){
-      bool r = LibBits.allOnes();//Expected to be 255
+  function testAllOnes() public view returns(bytes1){
+      byte r = LibBits.allOnes();//Expected to be 255
       return r;
   }
 ```
@@ -256,10 +417,10 @@ contract TestBits {
 #### 实例
 
 ```
-  function f() public view returns(bytes1){
-      bool r = LibBits.getBit(17,2);//Expected to be 0
-      return r;
-  }
+    function testGetBit() public view returns(bool){
+        bool r = LibBits.getBit(3,2);//Expected to be 1
+        return r;
+    }
 ```
 
 ### ***11. setBit 方法***
@@ -278,8 +439,8 @@ contract TestBits {
 #### 实例
 
 ```
-  function f() public view returns(bytes1){
-      bool r = LibBits.setBit(17,2);//Expected to be 19
+  function testSetBit() public view returns(bytes1){
+      byte r = LibBits.setBit(17,2);//Expected to be 19, 0x00010001 -> 0x00010011
       return r;
   }
 ```
@@ -300,8 +461,8 @@ contract TestBits {
 #### 实例
 
 ```
-  function f() public view returns(bytes1){
-      bool r = LibBits.clearBit(17,5);//Expected to be 1
+  function testClearBit() public view returns(bytes1){
+      byte r = LibBits.clearBit(17,5);//Expected to be 1
       return r;
   }
 ```
