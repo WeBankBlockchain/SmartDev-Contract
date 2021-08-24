@@ -11,7 +11,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
@@ -22,6 +22,96 @@ contract UintSetTest{
 }
 ```
 
+## 控制台测试
+
+### 部署测试合约
+```
+[group:1]> deploy Uint256SetDemo
+transaction hash: 0x4c88711fe9703b23cd01e633770eb57fb5f467d80b4dd802a69e64f68805b471
+contract address: 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+```
+
+### 执行测试函数
+
+```
+[group:1]> call Uint256SetDemo 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff add
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BOOL)
+Return values:(true)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call Uint256SetDemo 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff contains
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BOOL)
+Return values:(true)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call Uint256SetDemo 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff getAll
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: ([UINT, UINT, UINT] )
+Return values:([1, 2, 3] )
+---------------------------------------------------------------------------------------------
+
+[group:1]> call Uint256SetDemo 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff remove 2
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:2
+Return types: (BOOL, [UINT, UINT] )
+Return values:(true, [1, 3] )
+---------------------------------------------------------------------------------------------
+
+[group:1]> call Uint256SetDemo 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff removeAndAtPositon 2 3
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:2
+Return types: (BOOL, UINT)
+Return values:(true, 1)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call Uint256SetDemo 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff getSize
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(3)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call Uint256SetDemo 0x67dd71d31bfcd20f3b959c02a23a5c87816194ff getByIndex 2
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(3)
+---------------------------------------------------------------------------------------------
+```
 
 ## API列表
 
@@ -57,7 +147,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
@@ -89,7 +179,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
@@ -120,7 +210,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
@@ -153,7 +243,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
@@ -185,7 +275,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
@@ -220,7 +310,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
@@ -254,7 +344,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
+contract Uint256SetDemo{
 
     using LibUint256Set for LibUint256Set.Uint256Set;
     LibUint256Set.Uint256Set private uintSet;
