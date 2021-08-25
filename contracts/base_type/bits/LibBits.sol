@@ -13,6 +13,15 @@ library LibBits {
         return a ^ b;
     }
 
+    /**
+    *按位非
+    *@param  a byte类型参数
+    *@return byte
+    **/
+    function invert(byte a) internal pure returns (byte) {
+        return a ^ 0xff;
+    }
+
     function negate(bytes1 a) internal pure returns (bytes1) {
         return a ^ allOnes();
     }
@@ -28,13 +37,13 @@ library LibBits {
     }
 
     // get the high bit data and keep it on high
-    function getFirstN(bytes1 a, uint8 n) internal pure returns (bytes1) {
+    function getFirstN(bytes1 a, uint8 n) internal pure isValidLength(n) returns (bytes1) {
         var nOnes = bytes1(2**n - 1);
         var mask = shiftLeft(nOnes, 8 - n); // Total 8 bits
         return a & mask;
     }
 
-    function getLastN(bytes1 a, uint8 n) internal pure returns (bytes1) {
+    function getLastN(bytes1 a, uint8 n) internal pure isValidLength(n) returns (bytes1) {
         var lastN = uint8(a) % 2**n;
         return bytes1(lastN);
     }
@@ -80,6 +89,12 @@ library LibBits {
 
     modifier isValidPosition(uint8 n) {
         require(n < 9 && n > 0, "Invalid Position: n start with 1, n <= 8");
+        _;
+    }
+
+    /*校验长度*/
+    modifier isValidLength(uint8 n) {
+        require(n < 9, "Invalid Length: byte is 8 bits");
         _;
     }
 }
