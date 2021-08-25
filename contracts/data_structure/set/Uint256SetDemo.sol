@@ -2,8 +2,7 @@ pragma solidity ^0.4.25;
 
 import "./LibUint256Set.sol";
 
-contract UintSetTest{
-
+contract Uint256SetDemo {
     using LibUint256Set for LibUint256Set.Uint256Set;
 
     LibUint256Set.Uint256Set private uintSet;
@@ -24,7 +23,7 @@ contract UintSetTest{
         return uintSet.getAll();
     }
 
-    function remove(uint del) public view returns (bool,uint256[]) {
+    function remove(uint256 del) public view returns (bool, uint256[]) {
         uintSet.add(1);
         uintSet.add(2);
         uintSet.add(3);
@@ -32,7 +31,11 @@ contract UintSetTest{
         return (b, uintSet.getAll());
     }
 
-    function removeAndAtPositon(uint256 del, uint256 key) public view returns (bool,uint256) {
+    function removeAndAtPositon(uint256 del, uint256 key)
+        public
+        view
+        returns (bool, uint256)
+    {
         uintSet.add(1);
         uintSet.add(2);
         uintSet.add(3);
@@ -53,5 +56,4 @@ contract UintSetTest{
         uintSet.add(3);
         return uintSet.getByIndex(index);
     }
-
 }

@@ -11,7 +11,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
@@ -22,6 +22,84 @@ contract BytesSetTest{
 }
 ```
 
+## 控制台测试
+
+### 部署测试合约
+```
+[group:1]> deploy Bytes32SetDemo
+transaction hash: 0xea2a56d12eef424325d963de9895eaff84023cc79d0d302a2b3393488ba94c35
+contract address: 0x265da37424917fa78740585c7b4fc58fdd59f11e
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+```
+
+### 执行测试函数
+```
+[group:1]> call Bytes32SetDemo 0x265da37424917fa78740585c7b4fc58fdd59f11e add
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BOOL)
+Return values:(true)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call Bytes32SetDemo 0x265da37424917fa78740585c7b4fc58fdd59f11e contains
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BOOL)
+Return values:(true)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call Bytes32SetDemo 0x265da37424917fa78740585c7b4fc58fdd59f11e getAll
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: ([BYTES, BYTES, BYTES] )
+Return values:([hex://0x111122223333444455556666777788889999aaaabbbbccccddddeeeeffffccca, hex://0x111122223333444455556666777788889999aaaabbbbccccddddeeeeffffcccb, hex://0x111122223333444455556666777788889999aaaabbbbccccddddeeeeffffcccc] )
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call Bytes32SetDemo 0x265da37424917fa78740585c7b4fc58fdd59f11e getSize
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(3)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call Bytes32SetDemo 0x265da37424917fa78740585c7b4fc58fdd59f11e getByIndex 0
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (BYTES)
+Return values:(hex://0x111122223333444455556666777788889999aaaabbbbccccddddeeeeffffccca)
+---------------------------------------------------------------------------------------------
+
+[group:1]>  call Bytes32SetDemo 0x265da37424917fa78740585c7b4fc58fdd59f11e atPosition
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:2
+Return types: (BOOL, UINT)
+Return values:(true, 2)
+---------------------------------------------------------------------------------------------
+```
 
 ## API列表
 
@@ -57,7 +135,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
@@ -89,7 +167,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
@@ -120,7 +198,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
@@ -153,7 +231,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
@@ -185,7 +263,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
@@ -220,7 +298,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
@@ -254,7 +332,7 @@ pragma solidity ^0.4.25;
 
 import "./LibBytes32Set.sol";
 
-contract BytesSetTest{
+contract Bytes32SetDemo{
 
     using LibBytes32Set for LibBytes32Set.Bytes32Set;
     LibBytes32Set.Bytes32Set private bytesSet;
