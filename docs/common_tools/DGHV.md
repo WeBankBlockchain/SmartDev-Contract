@@ -85,7 +85,77 @@ m0 = 0, m1 = 1
 
 ### step_2 部署合约，输入参数
 
-以remix IDE为例
+#### 以控制台为例
+```
+[group:1]> deploy DGHV_Homomorphic_Encryption
+deploy contract failed for  cannot encode in encodeMethodFromObject with appropriate interface ABI, cause:Arguments mismatch: arguments size, expected: 3, actual: 0
+
+[group:1]> deploy DGHV_Homomorphic_Encryption 5 42535295865117307932921825928971026418 31
+transaction hash: 0xbde9ee1278af7cf59f49fc3dda084852a3d0cf922d40c337b0b72daa063d2afc
+contract address: 0x6c0ca924fb69c4bbef81d710c1b2769dc568035b
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+
+[group:1]> call DGHV_Homomorphic_Encryption 0x6c0ca924fb69c4bbef81d710c1b2769dc568035b encrypto 1
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(1318594171818636545920576603798101818965)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call DGHV_Homomorphic_Encryption 0x6c0ca924fb69c4bbef81d710c1b2769dc568035b encrypto 0
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(1318594171818636545920576603798101818964)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call DGHV_Homomorphic_Encryption 0x6c0ca924fb69c4bbef81d710c1b2769dc568035b decrypto 131859417181863654592057
+6603798101818965
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(1)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call DGHV_Homomorphic_Encryption 0x6c0ca924fb69c4bbef81d710c1b2769dc568035b decrypto 131859417181863654592057
+6603798101818964
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(0)
+---------------------------------------------------------------------------------------------
+
+[group:1]> call DGHV_Homomorphic_Encryption 0x6c0ca924fb69c4bbef81d710c1b2769dc568035b HE_Add 13185941718186365459205766
+03798101818965 1318594171818636545920576603798101818964
+---------------------------------------------------------------------------------------------
+Return code: 0
+description: transaction executed successfully
+Return message: Success
+---------------------------------------------------------------------------------------------
+Return value size:1
+Return types: (UINT)
+Return values:(1)
+---------------------------------------------------------------------------------------------
+```
+
+
+#### 以remix IDE为例
 
 输出初始化参数：
 
