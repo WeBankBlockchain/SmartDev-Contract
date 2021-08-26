@@ -29,7 +29,7 @@ contract BillStorage is Ownable {
     string constant BillInfo_waitEndorseCmID = "waitEndorseCmID_";
 
     /**
-    * @notice 创建票据表
+    * 创建票据表
     * +----------------------+------------------------+-------------------------+
     * | Field                | Type                   | Desc                    |
     * +----------------------+------------------------+-------------------------+
@@ -62,7 +62,7 @@ contract BillStorage is Ownable {
 
     /**
     * BOC103,3000,11,20110101,20110105,11,11,11,11,11,11,BBB,BID
-    * @notice 插入数据
+    * 插入数据
     */
     function insert(string memory _s) public onlyOwner returns(int) {
 
@@ -106,29 +106,19 @@ contract BillStorage is Ownable {
         return count;
     }
 
-    /**
-    * @notice 通过infoID查询数据
-    */
+    /** 通过infoID查询数据 */
     function getDetail(string memory _infoID) public view returns(string memory _json){
         Entry entry = select(_infoID);
         _json = _returnData(entry);
     }
 
-    /**
-    * @notice 通过infoID获取HoldrCmID
-    */
+    /** 通过infoID获取HoldrCmID */
     function getHoldrCmID(string memory _infoID) public view returns(string memory _holdrCmID){
         Entry entry = select(_infoID);
         _holdrCmID = entry.getString("holdr_cm_id");
     }
 
-    /**
-    * @notice 更新背书人信息
-    * @param _infoID 
-    * @param _waitEndorseCmID 
-    * @param _waitEndorseAcct 
-    * @return int 提交成功数量
-    */
+    /** 更新背书人信息 */
     function updateEndorse(string memory _infoID, string memory _waitEndorseCmID, string memory _waitEndorseAcct) public onlyOwner returns(int256) {
         // 更改票据状态, 票据待背书人信息, 删除拒绝背书人信息
         Table table = tf.openTable(TABLE_NAME);
@@ -149,13 +139,7 @@ contract BillStorage is Ownable {
         return count;
     }
 
-    /**
-    * @notice 更新持票人信息
-    * @param _infoID 
-    * @param _holdrCmID 
-    * @param _holdrAcct 
-    * @return int 提交成功数量
-    */
+    /** 更新持票人信息 */
     function updateEccept(string memory _infoID, string memory _holdrCmID, string memory _holdrAcct) public onlyOwner returns(int256) {
         // 更改票据信息: 票据状态, 当前持票人信息, 待背书人信息
         Table table = tf.openTable(TABLE_NAME);
@@ -171,13 +155,7 @@ contract BillStorage is Ownable {
         return count;
     }
 
-    /**
-    * @notice 更新待背书人信息
-    * @param _infoID 
-    * @param _rejectEndorseCmID 
-    * @param _rejectEndorseAcct 
-    * @return int 提交成功数量
-    */
+    /** 更新待背书人信息 */
     function updateReject(string memory _infoID, string memory _rejectEndorseCmID, string memory _rejectEndorseAcct) public onlyOwner returns(int256) {
         // 修改票据信息: 票据状态, 待背书人信息, 拒绝背书人信息
         Table table = tf.openTable(TABLE_NAME);
@@ -193,9 +171,7 @@ contract BillStorage is Ownable {
         return count;
     }
 
-    /**
-    * @notice 通过holdrCmID查询数据
-    */
+    /** 通过holdrCmID查询数据 */
     function selectListByHoldrCmID(string memory _holdrCmID) public view returns(string[]){
         string memory key = BillInfo_holdrCmID;
         key = key.concat(_holdrCmID);
@@ -213,9 +189,7 @@ contract BillStorage is Ownable {
         return result;
     }
 
-    /**
-    * @notice 通过waitEndorseCmID查询数据
-    */
+    /** 通过waitEndorseCmID查询数据 */
     function selectListByWaitEndorseCmID(string memory _waitEndorseCmID) public view returns(string[]){
         string memory key = BillInfo_waitEndorseCmID;
         key = key.concat(_waitEndorseCmID);
@@ -233,9 +207,7 @@ contract BillStorage is Ownable {
         return result;
     }
 
-    /**
-    * @notice 通过infoID获取实体
-    */
+    /** 通过infoID获取实体 */
     function select(string memory _infoID) private view returns(Entry _entry){
         Table table = tf.openTable(TABLE_NAME);
         require(_isInfoIDExist(table, _infoID), "BillStorage: current infoID not exist");
