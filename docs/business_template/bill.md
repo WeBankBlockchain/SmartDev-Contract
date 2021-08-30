@@ -97,6 +97,80 @@ call Bill/BillController 0x9ae09665525be7affa51bac3e3cd0aa7ddefa27e endorse "BOC
 call Bill/BillController 0x9ae09665525be7affa51bac3e3cd0aa7ddefa27e queryBills "BID"
 ```
 
+## 控制台测试
+
+### 部署合约
+```
+[group:1]> deploy BillController
+transaction hash: 0x9436796448c65803c06ae15ffbbffeb34804684fea076d28390597449bec15fa
+contract address: 0x37949ce7937696dafffeac91411acbbf9ed7e86b
+currentAccount: 0x22fec9d7e121960e7972402789868962238d8037
+```
+
+### 函数调用
+```
+[group:1]>  call BillController 0x37949ce7937696dafffeac91411acbbf9ed7e86b issue "BOC104,4000,12,20110102,20110106,11,11
+,11,11,11,11,BBB,BID"
+transaction hash: 0x355b9aea0e9f7c931d2de941f58930380a1912c662aa9a3929e3ac7ae1b41c3b
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return value size:1
+Return types: (INT)
+Return values:(1)
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {"IssueResult":[[1]]}
+
+[group:1]>  call BillController 0x37949ce7937696dafffeac91411acbbf9ed7e86b queryBillByNo "BOC104"
+transaction hash: 0xc2b2b1432aafa847df481ebaf36752124fed56c595e4fef42e2817b5059a282b
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return value size:1
+Return types: (STRING)
+Return values:({'infoID':'BOC104','infoAmt':'4000','infoType':'12','infoIsseDate':'20110102','infoDueDate':'20110106','drwrAcct':'11','drwrCmID':'11','accptrAcct':'11','accptrCmID':'11','pyeeAcct':'11','pyeeCmID':'11','holdrAcct':'BBB','holdrCmID':'BID','waitEndorseAcct':'','waitEndorseCmID':'','rejectEndorseAcct':'','rejectEndorseCmID':'','state':'NewPublish'})
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {}
+
+[group:1]> call BillController 0x37949ce7937696dafffeac91411acbbf9ed7e86b endorse "BOC104" "13" "AAA"
+transaction hash: 0xcef2d7c74bc363b5bc7b81bbd15ba34aab5df5614f0ee47a249cfd53211796af
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return value size:1
+Return types: (BOOL)
+Return values:(true)
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {"EndorseResult":[[true]]}
+
+[group:1]>  call BillController 0x37949ce7937696dafffeac91411acbbf9ed7e86b queryBills "BID"
+transaction hash: 0x809ba2db31f8da04b53532b26430385cfd58276fe4d28c891270cbb7ba4c1ede
+---------------------------------------------------------------------------------------------
+transaction status: 0x0
+description: transaction executed successfully
+---------------------------------------------------------------------------------------------
+Receipt message: Success
+Return message: Success
+Return value size:1
+Return types: ([STRING] )
+Return values:([{'infoID':'BOC104','infoAmt':'4000','infoType':'12','infoIsseDate':'20110102','infoDueDate':'20110106','drwrAcct':'11','drwrCmID':'11','accptrAcct':'11','accptrCmID':'11','pyeeAcct':'11','pyeeCmID':'11','holdrAcct':'BBB','holdrCmID':'BID','waitEndorseAcct':'AAA','waitEndorseCmID':'13','rejectEndorseAcct':'','rejectEndorseCmID':'','state':'EndorseWaitSign'}] )
+---------------------------------------------------------------------------------------------
+Event logs
+Event: {}
+```
+
 ## 附 开发心得
 
 开发过程中，最主要是对整个票据流程的梳理，针对各个方法的开发，其实并不是很难，只是对过程的一种描述。
