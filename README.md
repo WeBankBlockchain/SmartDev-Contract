@@ -5,7 +5,6 @@
 
 智能合约库模板，涵盖了从基础类型到上层业务的常见代码，用户可根据实际需要进行参考、复用。
 
-[](https://toolkit-doc.readthedocs.io/zh_CN/latest/_images/wescott.png)
 
 ## 环境要求
 
@@ -15,8 +14,8 @@
 | Git | 下载需要使用Git | |
 
 ## 文档
-- [**中文**](https://toolkit-doc.readthedocs.io/zh_CN/latest/docs/WeBankBlockchain-SmartDev-Contract/index.html)
-- [**快速开始**](https://toolkit-doc.readthedocs.io/zh_CN/latest/docs/WeBankBlockchain-SmartDev-Contract/quick_start.html)
+- [**中文**](https://smartdev-doc.readthedocs.io/zh_CN/latest/docs/WeBankBlockchain-SmartDev-Contract/index.html)
+- [**快速开始**](https://smartdev-doc.readthedocs.io/zh_CN/latest/docs/WeBankBlockchain-SmartDev-Contract/quick_start.html)
 ## 贡献代码
 欢迎参与本项目的社区建设：
 - 如项目对您有帮助，欢迎点亮我们的小星星(点击项目左上方Star按钮)。
