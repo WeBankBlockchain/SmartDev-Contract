@@ -33,6 +33,8 @@ contract IMembersRepository {
         uint256 paidInAmount
     );
 
+    function isMember(address acct) external view returns (bool);
+
     function getMember(address acct)
         external
         view

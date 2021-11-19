@@ -134,6 +134,11 @@ interface IBookOfShares {
     /// @param state - 股票状态（0：正常，1：出质，2：查封，3：已设定信托，4：代持）
     function updateShareState(uint256 shareNumber, uint8 state) external;
 
+    /// @title 判断是否为“股东”
+    /// @param acct - 被查询账号
+    /// @return true - 是股东; false - 不是股东
+    function isMember(address acct) external view returns (bool);
+
     /// @title 查询“股东”信息
     /// @param acct - 股东账号
     /// @return 股东结构体所有成员

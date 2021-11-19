@@ -40,6 +40,9 @@ contract MembersRepository is IMembersRepository {
     address[] internal _memberAcctList;
 
     function _isMember(address acct) internal view returns (bool) {
+        if (acct == address(0)) {
+            return false;
+        }
         bool exist;
         uint256 index;
         (exist, index) = _memberAcctList.firstIndexOf(acct);
@@ -105,6 +108,10 @@ contract MembersRepository is IMembersRepository {
 
             emit RemoveShareFromMember(shareNumber, acct);
         }
+    }
+
+    function isMember(address acct) external view returns (bool) {
+        return _isMember(acct);
     }
 
     function getMember(address acct)
