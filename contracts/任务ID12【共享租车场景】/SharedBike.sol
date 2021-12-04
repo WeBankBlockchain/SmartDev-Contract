@@ -101,6 +101,7 @@ contract SharedBike{
         user_dic[_usersecretkey].bike_points[addressuser]-=10;
         return true;
     }
+    //查看用户信用积分
     function see(bytes32 _usersecretkey)public view returns(uint){
         return user_dic[_usersecretkey].bike_points[msg.sender];
     }
