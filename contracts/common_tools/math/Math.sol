@@ -5,7 +5,7 @@ pragma solidity ^0.4.25;
 * @description  数学方法：开方、指数运算、对数运算，暂时保留到整数位且为截取而不是四舍五入
 **/
 
-contract Math {
+library Math {
     /**
     *开方
     *@param  x, 对x进行开方
@@ -26,10 +26,10 @@ contract Math {
     *@param  x, 对x进行以2为底的对数运算
     *@return uint 返回整数位，小数位舍弃
     **/
-    function log2(uint x) public pure returns(int) {
+    function log2(uint x) public pure returns(uint) {
         for(int i = 0; ;i++) {
-            if(uint(exp2(i)) <= x && uint(exp2(i+1)) > x){
-                return i;
+            if(exp2(i) <= x && exp2(i+1) > x){
+                return uint(i);
             }
         }
         return 0;
@@ -53,11 +53,11 @@ contract Math {
     /**
     *2的N次幂运算
     *@param  n, 对n进行以m为底的对数运算
-    *@return int 返回结果
+    *@return uint 返回结果
     **/
-    function exp2(int n) public pure returns(int) {
+    function exp2(int n) public pure returns(uint) {
         if (n >= 0){
-            return(1 << n);
+            return uint((1 << n));
         }
         return 0;
     }
