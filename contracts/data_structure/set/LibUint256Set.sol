@@ -110,4 +110,70 @@ library LibUint256Set {
         require(index < set.values.length,"Index: index out of bounds");
         return set.values[index];
     }
+
+    /**
+    *@dev 求两个集合的并集 a ∪ b
+    *@param  set a uint256类型集合
+    *@param  set b uint256类型集合
+    *@return uint256[] 并集元素
+    **/
+    function union(Uint256Set storage a, Uint256Set storage b) internal view returns (uint256[]){
+        if(b.values.length == 0){
+            return a.values;
+        }
+        bool isIn;
+
+        for(uint i = 0; i < b.values.length; i++){
+            isIn = contains(a, b.values[i]);
+            if(!isIn){
+                add(a, b.values[i]);
+            }
+        }
+
+        return a.values;
+    }
+
+    /**
+    *@dev 求两个集合的差 a - b
+    *@param  set a uint256类型集合
+    *@param  set b uint256类型集合
+    *@return uint256[] 差集元素
+    **/
+    function relative(Uint256Set storage a, Uint256Set storage b) internal view returns (uint256[]){
+        if(b.values.length == 0){
+            return a.values;
+        }
+        bool isIn;
+
+        for(uint i = 0; i < b.values.length; i++){
+            isIn = contains(a, b.values[i]);
+            if(isIn){
+                remove(a,b.values[i]);
+            }
+        }
+
+        return a.values;
+    }
+
+    /**
+    *@dev 求两个集合的交集 a ∩ b
+    *@param  set a uint256类型集合
+    *@param  set b uint256类型集合
+    *@return uint256[] 交集元素
+    **/
+    function intersect(Uint256Set storage a, Uint256Set storage b) internal view returns (uint256[]){
+        if(b.values.length == 0){
+            return ;
+        }
+        bool isIn;
+
+        for(uint i = 0; i < a.values.length; i++){
+            isIn = contains(b, a.values[i]);
+            if(!isIn){
+                remove(a,a.values[i]);
+            }
+        }
+
+        return a.values;
+    }
 }
