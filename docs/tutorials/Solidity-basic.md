@@ -25,8 +25,9 @@
 
 上面简单的介绍了智能合约的运行过程，通过这些介绍，我们可以得出一个结论，Solidity智能合约若想运行，需要有Solc编译器和EVM，EVM依赖于区块链节点，只要是支持EVM的区块链系统都可以作为开发节点使用，例如FISCO-BCOS或Geth；至于编译器的问题，建议使用内嵌编译器的在线IDE环境，例如WeBase-Front（微众银行提供的FISCO-BCOS节点前置服务）或Remix。这两款IDE都内嵌了EOA（以太坊外部账户），方便对智能合约的执行进行签名。
 两个IDE的安装地址：
-[WeBase-Front安装使用教程](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE-Install/developer.html)
-[Remix在线IDE](http://remix.ethereum.org/)
+【[WeBase-Front安装使用教程](https://webasedoc.readthedocs.io/zh_CN/latest/docs/WeBASE-Install/developer.html)】
+
+【[Remix在线IDE](http://remix.ethereum.org/)】
 
 如果单纯学习Solidity开发，可能使用Remix也就够了，因为它内部也内嵌了EVM虚拟机，可以模拟智能合约的运行。如果要学习应用开发，则启动一个节点是有必要的。为了简化操作，下面的演示代码将使用Remix作为演示环境。
 
@@ -77,11 +78,11 @@ contract hello {
 
 若要切换编译器，可以点击【![image-20211209162029670](assets/4-solc.png)】按钮，在COMPLIER下面的下拉表中选择对应的编译器版本，如下图所示。
 
-![image-20211209163759541](C:\Users\95762\AppData\Roaming\Typora\typora-user-images\image-20211209163759541.png)
+![image-20211209163759541](assets/2-remix-complier.png)
 
 也可以在EVM版本位置选择某个特定版本，如下图所示。
 
-![image-20211209164259421](D:\gowork\src\github.com\yekai1003\SmartDev-Contract\docs\tutorials\assets\6-hello-4.png)
+![image-20211209164259421](assets/6-hello-4.png)
 
 默认情况后，保存代码后会自动编译，代码没有语法错误的话，就可以尝试运行了。点击【![image-20211209162117125](assets/5-run-ev.png)】按钮，可以切换到运行视图。如下图所示，点击【Deploy】按钮，便可以部署该合约。
 
@@ -93,7 +94,7 @@ contract hello {
 
 点击合约对象前的【![image-20211209165027624](assets/6-hello-7.png)】按钮，可以展开合约对象，如下图所示。之后，点击【Msg】按钮，可以看到hello world这个字符串内容。
 
-![image-20211209165153174](C:\Users\95762\AppData\Roaming\Typora\typora-user-images\image-20211209165153174.png)
+![image-20211209165153174](assets/6-hello-8.png)
 
 这就是智能合约部署到测试的全部流程，不要认为这仅仅是一次字符串的打印，这背后其实涉及到了复杂的区块链技术，客户端将字节码签名后发送给节点，全网共识后，节点EVM中运行该字节码，记录下这样的字符串。
 
@@ -386,7 +387,7 @@ contract struct_demo {
 }
 ```
 
-代码中pragma experimental ABIEncoderV2;的作用是用来返回结构化的数据对象，在0.6.x版本编译器时需要加上此句话，最新的0.8.x版本的编译器已经无需此句声明。
+代码中`pragma experimental ABIEncoderV2;`的作用是用来返回结构化的数据对象，在0.6.x版本编译器时需要加上此句话，最新的0.8.x版本的编译器已经无需此句声明。
 
 
 
