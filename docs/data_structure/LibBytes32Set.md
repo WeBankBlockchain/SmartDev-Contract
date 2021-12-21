@@ -112,6 +112,10 @@ Return values:(true, 2)
 5 | *getSize(Bytes32Set storage set) internal view returns (uint256)* | 返回Set中元素数。
 6 | *atPosition(Bytes32Set storage set, bytes32 val) internal view returns (bool, uint256)* | 返回某个元素的位置。
 7 | *getByIndex(Bytes32Set storage set, uint256 index) internal view returns (bytes32)* | 查找某个元素。
+8 | *union(Bytes32Set storage a, Bytes32Set storage b) internal view returns (bytes32[])* | 求并集。
+9 | *relative(Bytes32Set storage a, Bytes32Set storage b) internal view returns (bytes32[])* | 求差集。
+10 | *intersect(Bytes32Set storage a, Bytes32Set storage b) internal view returns (bytes32[])* | 求交集。
+
 
 ## API详情
 
@@ -312,7 +316,7 @@ contract Bytes32SetDemo{
 }
 ```
 
-### ***6. getByIndex 函数***
+### ***7. getByIndex 函数***
 
 获取Set中的某个元素
 
@@ -342,6 +346,123 @@ contract Bytes32SetDemo{
         bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCB);
         bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC);
         return bytesSet.getByIndex(index);
+    }
+}
+```
+
+### ***8. union 函数***
+
+求两个集合的并集
+
+#### 参数
+
+- Bytes32Set: bytes32类型Set
+- Bytes32Set: bytes32类型Set
+
+#### 返回值
+
+- bytes32[]: 并集元素
+
+#### 实例
+
+```
+pragma solidity ^0.4.25;
+
+import "./LibBytes32Set.sol";
+
+contract Bytes32SetDemo{
+
+    using LibBytes32Set for LibBytes32Set.Bytes32Set;
+    LibBytes32Set.Bytes32Set private bytesSet;
+    LibBytes32Set.Bytes32Set private bytesSet2;
+
+    function union() public view returns (bytes32[] memory) {
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCA);
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCB);
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC);
+
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC);
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCD);
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCE);
+        return bytesSet.union(bytesSet2);
+    }
+}
+```
+
+### ***9. relative 函数***
+
+求两个集合的差集
+
+#### 参数
+
+- Bytes32Set: bytes32类型Set
+- Bytes32Set: bytes32类型Set
+
+#### 返回值
+
+- bytes32[]: 差集元素
+
+#### 实例
+
+```
+pragma solidity ^0.4.25;
+
+import "./LibBytes32Set.sol";
+
+contract Bytes32SetDemo{
+
+    using LibBytes32Set for LibBytes32Set.Bytes32Set;
+    LibBytes32Set.Bytes32Set private bytesSet;
+    LibBytes32Set.Bytes32Set private bytesSet2;
+
+    function relative() public view returns (bytes32[] memory) {
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCA);
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCB);
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC);
+
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC);
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCD);
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCE);
+        return bytesSet.relative(bytesSet2);
+    }
+}
+```
+
+### ***9. intersect 函数***
+
+求两个集合的交集
+
+#### 参数
+
+- Bytes32Set: bytes32类型Set
+- Bytes32Set: bytes32类型Set
+
+#### 返回值
+
+- bytes32[]: 交集元素
+
+#### 实例
+
+```
+pragma solidity ^0.4.25;
+
+import "./LibBytes32Set.sol";
+
+contract Bytes32SetDemo{
+
+    using LibBytes32Set for LibBytes32Set.Bytes32Set;
+    LibBytes32Set.Bytes32Set private bytesSet;
+    LibBytes32Set.Bytes32Set private bytesSet2;
+
+    function intersect() public view returns (bytes32[] memory) {
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCA);
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCB);
+        bytesSet.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC);
+
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCC);
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCD);
+        bytesSet2.add(0x111122223333444455556666777788889999AAAABBBBCCCCDDDDEEEEFFFFCCCE);
+        return bytesSet.intersect(bytesSet2);
     }
 }
 ```

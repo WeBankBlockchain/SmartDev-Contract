@@ -124,6 +124,9 @@ Return values:(3)
 5 | *getSize(Uint256Set storage set) internal view returns (uint256)* | 返回Set中元素数。
 6 | *atPosition(Uint256Set storage set, bytes32 val) internal view returns (bool, uint256)* | 返回某个元素的位置。
 7 | *getByIndex(Uint256Set storage set, uint256 index) internal view returns (uint256)* | 查找某个元素。
+8 | *union(Uint256Set storage a, Uint256Set storage b) internal view returns (uint256[])* | 求并集。
+9 | *relative(Uint256Set storage a, Uint256Set storage b) internal view returns (uint256[])* | 求差集。
+10 | *intersect(Uint256Set storage a, Uint256Set storage b) internal view returns (uint256[])* | 求交集。
 
 ## API详情
 
@@ -324,7 +327,7 @@ contract Uint256SetDemo{
 }
 ```
 
-### ***6. getByIndex 函数***
+### ***7. getByIndex 函数***
 
 获取Set中的某个元素
 
@@ -354,6 +357,120 @@ contract Uint256SetDemo{
         uintSet.add(2);
         uintSet.add(3);
         return uintSet.getByIndex(index);
+    }
+}
+```
+
+### ***8. union 函数***
+
+求两个集合的并集
+
+#### 参数
+
+- Uint256Set: uint256类型Set
+- Uint256Set: uint256类型Set
+
+#### 返回值
+
+- uint256[]: 交集的元素
+
+#### 实例
+
+```
+pragma solidity ^0.4.25;
+
+import "./LibUint256Set.sol";
+
+contract Uint256SetDemo{
+
+    using LibUint256Set for LibUint256Set.Uint256Set;
+    LibUint256Set.Uint256Set private uintSet;
+    LibUint256Set.Uint256Set private uintSet2;
+
+    function union() public view returns (uint256[]){
+        uintSet.add(1);
+        uintSet.add(2);
+        uintSet.add(3);
+        uintSet2.add(3);
+        uintSet2.add(4);
+        uintSet2.add(5);
+        return uintSet.union(uintSet2);
+    }
+}
+```
+
+### ***9. relative 函数***
+
+求两个集合的差
+
+#### 参数
+
+- Uint256Set: uint256类型Set
+- Uint256Set: uint256类型Set
+
+#### 返回值
+
+- uint256[]: 差集的元素 a-b
+
+#### 实例
+
+```
+pragma solidity ^0.4.25;
+
+import "./LibUint256Set.sol";
+
+contract Uint256SetDemo{
+
+    using LibUint256Set for LibUint256Set.Uint256Set;
+    LibUint256Set.Uint256Set private uintSet;
+    LibUint256Set.Uint256Set private uintSet2;
+
+    function union() public view returns (uint256[]){
+        uintSet.add(1);
+        uintSet.add(2);
+        uintSet.add(3);
+        uintSet2.add(3);
+        uintSet2.add(4);
+        uintSet2.add(5);
+        return uintSet.relative(uintSet2);
+    }
+}
+```
+
+### ***10. intersect 函数***
+
+求两个集合的交集
+
+#### 参数
+
+- Uint256Set: uint256类型Set
+- Uint256Set: uint256类型Set
+
+#### 返回值
+
+- uint256[]: 交集元素
+
+#### 实例
+
+```
+pragma solidity ^0.4.25;
+
+import "./LibUint256Set.sol";
+
+contract Uint256SetDemo{
+
+    using LibUint256Set for LibUint256Set.Uint256Set;
+    LibUint256Set.Uint256Set private uintSet;
+    LibUint256Set.Uint256Set private uintSet2;
+
+    function union() public view returns (uint256[]){
+        uintSet.add(1);
+        uintSet.add(2);
+        uintSet.add(3);
+        uintSet2.add(3);
+        uintSet2.add(4);
+        uintSet2.add(5);
+        return uintSet.intersect(uintSet2);
     }
 }
 ```
