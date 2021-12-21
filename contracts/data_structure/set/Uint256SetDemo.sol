@@ -6,6 +6,7 @@ contract Uint256SetDemo {
     using LibUint256Set for LibUint256Set.Uint256Set;
 
     LibUint256Set.Uint256Set private uintSet;
+    LibUint256Set.Uint256Set private uintSet2;
 
     function add() public view returns (bool) {
         return uintSet.add(1);
@@ -55,5 +56,35 @@ contract Uint256SetDemo {
         uintSet.add(2);
         uintSet.add(3);
         return uintSet.getByIndex(index);
+    }
+
+    function union() public view returns (uint256[]){
+        uintSet.add(1);
+        uintSet.add(2);
+        uintSet.add(3);
+        uintSet2.add(3);
+        uintSet2.add(4);
+        uintSet2.add(5);
+        return uintSet.union(uintSet2);
+    }
+
+    function relative() public view returns (uint256[]){
+        uintSet.add(1);
+        uintSet.add(2);
+        uintSet.add(3);
+        uintSet2.add(3);
+        uintSet2.add(4);
+        uintSet2.add(5);
+        return uintSet.relative(uintSet2);
+    }
+
+    function intersect() public view returns (uint256[]){
+        uintSet.add(1);
+        uintSet.add(2);
+        uintSet.add(3);
+        uintSet2.add(3);
+        uintSet2.add(4);
+        uintSet2.add(5);
+        return uintSet.intersect(uintSet2);
     }
 }
