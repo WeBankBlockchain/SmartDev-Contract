@@ -17,7 +17,7 @@ contract AddressSetDemo {
         require(size == 1);
         // 获取指定index的元素
         address addr = addressSet.get(0);
-        require(addr == (address(1));
+        require(addr == (address(1)));
         // 返回set中所有的元素
         addressSet.getAll();
         // {0x1}
