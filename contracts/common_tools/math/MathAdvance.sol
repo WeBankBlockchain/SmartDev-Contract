@@ -5,7 +5,7 @@ pragma solidity ^0.4.25;
 * @description  数学方法：开方、指数运算、对数运算，暂时保留到整数位且为截取而不是四舍五入
 **/
 
-library Math {
+library MathAdvance {
     /**
     *开方
     *@param  x, 对x进行开方
