@@ -20,7 +20,7 @@ contract Divergence is IDivergence {
     // 控制玩家数量=2 
     uint8 userCount;
     // 记录玩家信息
-    Player[2] public playerlist;
+    Player[2] playerlist;
     // 游戏是否结束
     bool isFinished; // 默认值 false
     // 记录胜利玩家
