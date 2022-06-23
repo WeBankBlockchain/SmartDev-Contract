@@ -102,7 +102,7 @@ contract RewardPointController is BasicAuth {
     }
 
 
-    function issue(address account, uint256 value) public accountExist(account) returns (bool) {
+    function issue(address account, uint256 value) public onlyIssuer accountExist(account) returns (bool) {
         uint256 totalAmount = _rewardPointData._totalAmount();
         totalAmount = totalAmount.add(value);
         _rewardPointData.setTotalAmount(totalAmount);
