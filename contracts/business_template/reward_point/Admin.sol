@@ -32,12 +32,11 @@ contract Admin is BasicAuth {
         _controllerAddress = address(controller);
         data.upgradeVersion(_controllerAddress);
         data.addIssuer(msg.sender);
-        data.addIssuer(_controllerAddress);
     }
 
     function upgradeVersion(address newVersion) public {
+        _controllerAddress = newVersion;
         RewardPointData data = RewardPointData(_dataAddress);
         data.upgradeVersion(newVersion);
     }
-    
 }
