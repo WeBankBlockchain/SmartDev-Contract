@@ -294,7 +294,7 @@ GET http://localhost:8080/trigger/add
 
 这里调用`trigger`接口即可。
 
-![image-20230412021454103](C:/Users/27568/AppData/Roaming/Typora/typora-user-images/image-20230412021454103.png)
+![image-20230412021454103](https://blog-1304715799.cos.ap-nanjing.myqcloud.com/imgs/202304122247861.webp)
 
 返回交易成功。
 
