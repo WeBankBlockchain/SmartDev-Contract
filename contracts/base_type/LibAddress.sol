@@ -1,28 +1,9 @@
-/*
- * Copyright 2014-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * */
+// SPDX-License-Identifier: Apache-2.0
  
-pragma solidity ^0.4.25;
+pragma solidity >=0.4.25;
 
 library LibAddress{
     
-    /*
-     *@dev 
-     *@param
-     *@return
-     */
     function isContract(address account) internal view returns(bool) {
         uint256 size;
         assembly { size := extcodesize(account) }  
@@ -73,7 +54,7 @@ library LibAddress{
         return string(strBytes);
     }
 
-    function stringToAddress(string memory data) internal returns(address){
+    function stringToAddress(string memory data) internal pure returns(address){
         bytes memory strBytes = bytes(data);
         require(strBytes.length >= 39 && strBytes.length <= 42, "Not hex string");
         //Skip prefix
@@ -106,17 +87,17 @@ library LibAddress{
     //-----------HELPER METHOD--------------//
 
     //num represents a number from 0-15 and returns ascii representing [0-9A-Fa-f]
-    function encode(uint8 num) private pure returns(byte){
+    function encode(uint8 num) private pure returns(bytes1){
         //0-9 -> 0-9
         if(num >= 0 && num <= 9){
-            return byte(num + 48);
+            return bytes1(num + 48);
         }
         //10-15 -> a-f
-        return byte(num + 87);
+        return bytes1(num + 87);
     }
         
     //asc represents one of the char:[0-9A-Fa-f] and returns consperronding value from 0-15
-    function decode(byte asc) private pure returns(uint8){
+    function decode(bytes1 asc) private pure returns(uint8){
         uint8 val = uint8(asc);
         //0-9
         if(val >= 48 && val <= 57){
