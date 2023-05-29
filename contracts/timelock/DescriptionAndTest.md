@@ -260,7 +260,7 @@ contract TimelockTest{
 
     2. 调用结果如下：
 
-   ![image-20230528222407099](C:\Users\19647\AppData\Roaming\Typora\typora-user-images\image-20230528222407099.png)
+   ![image-20230528222407099.png](https://s2.loli.net/2023/05/29/v7ngVBKQA8cDwdG.png)
 
    返回的交易id为`0xa3047b770290f831953d4d1aa4fc67ec21958b69d6c25b9c60466babd5cff2d1`
 
@@ -270,7 +270,7 @@ contract TimelockTest{
 
    返回结果如下：
 
-   ![image-20230528222611142](C:\Users\19647\AppData\Roaming\Typora\typora-user-images\image-20230528222611142.png)
+   ![image-20230528222611142.png](https://s2.loli.net/2023/05/29/DzBXgvrZ28sLRAI.png)
 
    报异常: 该交易仍然在锁定期
 
@@ -280,11 +280,11 @@ contract TimelockTest{
 
    返回结果如下：
 
-   ![image-20230528223007115](C:\Users\19647\AppData\Roaming\Typora\typora-user-images\image-20230528223007115.png)
+   ![image-20230528223007115.png](https://s2.loli.net/2023/05/29/P7lEShNoesZDjCJ.png)
 
    在`TimelockTest`合约中调用`getUser()`函数查看结果：输入参数为1，结果如下：
 
-   ![image-20230528223110867](C:\Users\19647\AppData\Roaming\Typora\typora-user-images\image-20230528223110867.png)
+   ![image-20230528223110867.png](https://s2.loli.net/2023/05/29/oI9WtjBawxMbiND.png)
 
 4. **测试`cancelTransaction()`方法**
 
@@ -294,7 +294,7 @@ contract TimelockTest{
 
    然后调用`cancelTransaction()`方法，返回结果如下：
 
-   ![image-20230528223819325](C:\Users\19647\AppData\Roaming\Typora\typora-user-images\image-20230528223819325.png)
+   ![image-20230528223819325.png](https://s2.loli.net/2023/05/29/82uTh59gC6QD1cn.png)
 
 5. **测试`changeData()`方法**
 
@@ -304,10 +304,8 @@ contract TimelockTest{
 
    然后调用`changeData()`方法，输入参数为(3 , 陈六 , 59)，返回结果如下：
 
-   ![image-20230528224456565](C:\Users\19647\AppData\Roaming\Typora\typora-user-images\image-20230528224456565.png)
+   ![image-20230528224456565.png](https://s2.loli.net/2023/05/29/WaRKY6ld1Qu3VNe.png)
 
    等待5分钟后调用`executeTransaction()`并调用`getUser()`函数，返回结果如下：
 
-   ![image-20230528224950655](C:\Users\19647\AppData\Roaming\Typora\typora-user-images\image-20230528224950655.png)
-
-6. 
+   ![image-20230528224950655.png](https://s2.loli.net/2023/05/29/xFNfQyhJH3zROoT.png)
