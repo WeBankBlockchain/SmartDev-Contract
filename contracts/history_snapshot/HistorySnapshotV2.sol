@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 
 /**
  * @dev 历史状态快照合约：通过块高来查询某一个值任何历史状态
+ * @author ashinnotfound
  */
 contract HistorySnapshotV2{
 
