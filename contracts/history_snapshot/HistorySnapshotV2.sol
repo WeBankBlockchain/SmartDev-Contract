@@ -170,7 +170,7 @@ contract HistorySnapshotV2{
     }
 
     /**
-     * @dev 获取bytes类型的所有历史快照
+     * @dev 获取bytes类型的所有历史快照节点
      * @param _field 存储字段
      * @return blockNumbers 获取到的历史快照
      * @return values 获取到的历史快照对应的值
@@ -185,7 +185,7 @@ contract HistorySnapshotV2{
     }
 
     /**
-     * @dev 获取bytes32类型的所有历史快照
+     * @dev 获取bytes32类型的所有历史快照节点
      * @param _field 存储字段
      * @return blockNumbers 获取到的历史快照
      * @return values 获取到的历史快照对应的值
@@ -199,7 +199,7 @@ contract HistorySnapshotV2{
         }   
     }
     /**
-     * @dev 获取bytes类型的所有历史快照
+     * @dev 获取string类型的所有历史快照节点
      * @param _field 存储字段
      * @return blockNumbers 获取到的历史快照
      * @return values 获取到的历史快照对应的值
@@ -213,7 +213,7 @@ contract HistorySnapshotV2{
         }   
     }
     /**
-     * @dev 获取bytes类型的所有历史快照
+     * @dev 获取uint256类型的所有历史快照节点
      * @param _field 存储字段
      * @return blockNumbers 获取到的历史快照
      * @return values 获取到的历史快照对应的值
@@ -227,7 +227,7 @@ contract HistorySnapshotV2{
         }   
     }
     /**
-     * @dev 获取bytes类型的所有历史快照
+     * @dev 获取address类型的所有历史快照节点
      * @param _field 存储字段
      * @return blockNumbers 获取到的历史快照
      * @return values 获取到的历史快照对应的值
@@ -241,7 +241,7 @@ contract HistorySnapshotV2{
         }   
     }
     /**
-     * @dev 获取bytes类型的所有历史快照
+     * @dev 获取bool类型的所有历史快照节点
      * @param _field 存储字段
      * @return blockNumbers 获取到的历史快照
      * @return values 获取到的历史快照对应的值
