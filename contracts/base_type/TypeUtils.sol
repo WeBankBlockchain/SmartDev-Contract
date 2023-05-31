@@ -5,7 +5,7 @@ pragma solidity >=0.4.25;
  * @dev 提供类型转换的工具(bytes32 bytes string uint256 address)
  * @author ashinnotfound
  */
-contract TypeUtils{
+library TypeUtils{
 
     /**
      * @dev bytes32转string
