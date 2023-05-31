@@ -160,7 +160,7 @@ library TypeUtils{
      * @param _origin 待转换的值
      * @param result 转换后的值
      */
-    function AddressTobytes(address _origin) public pure returns (bytes memory result) {
+    function addressTobytes(address _origin) public pure returns (bytes memory result) {
         result = abi.encodePacked(_origin);
     }
 
