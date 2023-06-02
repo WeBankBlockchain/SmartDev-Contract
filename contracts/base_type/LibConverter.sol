@@ -1,4 +1,5 @@
-pragma solidity ^0.4.25;
+// SPDX-License-Identifier: Apache-2.0
+pragma solidity >=0.4.25;
 
 library LibConverter {
     function toUint128(uint256 value) internal pure returns (uint128) {
@@ -19,7 +20,7 @@ library LibConverter {
         while (v != 0) { 
             uint8 remainder = uint8(v % 10); 
             v = v / 10; 
-            reversed[i % maxlength] = byte(48 + remainder); 
+            reversed[i % maxlength] = bytes1(48 + remainder); 
             i++;
         } 
         bytes memory s = new bytes(i + 1); 
@@ -47,7 +48,7 @@ library LibConverter {
             uint8 c = uint8(b[i]); 
             if (c >= 48 && c <= 57) { 
                 result *= 10;
-                result = result + int(c - 48);
+                result = result + int8(c - 48);
             }
         }
         if(sign) {
@@ -67,7 +68,7 @@ library LibConverter {
         while (x != 0) { 
             uint8 remainder = uint8(x % 10); 
             x = x / 10; 
-            reversed[i % maxlength] = byte(48 + remainder); 
+            reversed[i % maxlength] = bytes1(48 + remainder); 
             i++;
         }
         if(v < 0)

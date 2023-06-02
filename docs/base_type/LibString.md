@@ -26,22 +26,22 @@ contract TestString {
 
 编号 | API | API描述
 ---|---|---
-1 | *lenOfChars(string src) internal pure returns(uint)* | 获取字符个数
-2 | *lenOfBytes(string src) internal pure returns(uint)* | 获取字节个数
-3 | *startWith(string src, string prefix) internal pure returns(bool)* | 前缀串判断
-4 | *endWith(string src, string tail) internal pure returns(bool)* | 尾缀串判断
-5 | *equal(string self, string other)* | 两字符串是否相等
-6 | *equalNocase(string self, string other)* | 两字符串是否相等, 忽视大小写
-7 | *empty(string src) public pure returns(bool)* | 字符串是否为空
-8 | *concat(string self, string str) public returns (string _ret)* | 字符串拼接
-9 | *substrByCharIndex(string self, uint start, uint len) public returns (string)* | 取子字符串，下标是字符下标
-10 | *compare(string self, string other) internal pure returns (int)* | 比较两个字符串的大小
-11 | *compareNocase(string self, string other) internal pure returns (int)* | 比较两个字符串的大小，忽视大小写
-12 | *toUppercase(string src) internal pure returns(string)* | 转换为大写
-13 | *toLowercase(string src) internal pure returns(string)* | 转换为小写
-14 | *indexOf(string src, string value) internal pure returns (int)* | 查找字符串中是否含有子字符串
-15 | *indexOf(string src, string value, uint offset) internal pure returns (int)* | 查找字符串中是否含有子字符串
-16 | *split(string src, string separator) internal pure returns (string[])* | 字符串根据分隔符拆分成数组
+1 | *lenOfChars(string memory src) internal pure returns(uint)* | 获取字符个数
+2 | *lenOfBytes(string memory src) internal pure returns(uint)* | 获取字节个数
+3 | *startWith(string memory src, string memory prefix) internal pure returns(bool)* | 前缀串判断
+4 | *endWith(string memory src, string memory tail) internal pure returns(bool)* | 尾缀串判断
+5 | *equal(string memory self, string memory other)* | 两字符串是否相等
+6 | *equalNocase(string memory self, string memory other)* | 两字符串是否相等, 忽视大小写
+7 | *empty(string memory src) public pure returns(bool)* | 字符串是否为空
+8 | *concat(string memory self, string memory str) public pure returns (string memory _ret)* | 字符串拼接
+9 | *substrByCharIndex(string memory self, uint start, uint len) public pure returns (string memory)* | 取子字符串，下标是字符下标
+10 | *compare(string memory self, string memory other) internal pure returns (int)* | 比较两个字符串的大小
+11 | *compareNocase(string memory self, string memory other) internal pure returns (int)* | 比较两个字符串的大小，忽视大小写
+12 | *toUppercase(string memory src) internal pure returns(string memory)* | 转换为大写
+13 | *toLowercase(string memory src) internal pure returns(string memory)* | 转换为小写
+14 | *indexOf(string memory src, string memory value) internal pure returns (int)* | 查找字符串中是否含有子字符串
+15 | *indexOf(string memory src, string memory value, uint offset) internal pure returns (int)* | 查找字符串中是否含有子字符串
+16 | *split(string memory src, string memory separator) internal pure returns (string[])* | 字符串根据分隔符拆分成数组
 
 ## API详情
 
