@@ -28,12 +28,12 @@ contract test {
 
 编号 | API | API描述
 ---|---|---
-1 | *addValue(uint256[][] storage array,uint256[] value)* | 对一个二维数组添加一个数组元素
-2 | *getValue(uint256[][] storage array, uint256 row, uint256 col) internal returns (uint256)* |查找指定位置的值
-3 | *setValue(uint256[][] storage array, uint256 row, uint256 col, uint256 val) internal returns (uint256[][])* |修改指定位置的值
-4 | *firstIndexOf(uint256[][] storage array, uint256 val) internal returns (bool, uint256, uint256)* | 查找第一个匹配的元素的位置
-5 | *removeByIndex(uint256[][] storage array, uint256 index) internal returns(uint256[][])* | 根据索引删除数组元素
-6 | *extend(uint256[][] storage array1, uint256[][] storage array2) internal returns(uint256[][])* | 合并两个二维数组，将第二个数组合并在第一个数组上
+1 | *addValue(uint256[][] storage array,uint256[] memory value)* | 对一个二维数组添加一个数组元素
+2 | *getValue(uint256[][] storage array, uint256 row, uint256 col) internal view returns (uint256)* |查找指定位置的值
+3 | *setValue(uint256[][] storage array, uint256 row, uint256 col, uint256 val) internal returns (uint256[][] memory)* |修改指定位置的值
+4 | *firstIndexOf(uint256[][] storage array, uint256 val) internal view returns (bool, uint256, uint256)* | 查找第一个匹配的元素的位置
+5 | *removeByIndex(uint256[][] storage array, uint256 index) internal returns(uint256[][] memory)* | 根据索引删除数组元素
+6 | *extend(uint256[][] storage array1, uint256[][] storage array2) internal returns(uint256[][] memory)* | 合并两个二维数组，将第二个数组合并在第一个数组上
 
 
 ## API详情

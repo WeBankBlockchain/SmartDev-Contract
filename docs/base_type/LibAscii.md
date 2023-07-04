@@ -4,13 +4,13 @@ LibAscii 提供ascii与字符串之间的转换
 
 
 ## 函数说明
-1. decAscii2str(string data)：10进制ascii转字符串
+1. decAscii2str(string memory data)：10进制ascii转字符串
 - data：10进制ascii字符串 0至127
 
-2. hexAscii2str(string data)：16进制ascii转字符串
+2. hexAscii2str(string memory data)：16进制ascii转字符串
 - data：16进制ascii字符串 00至7f(不限大小写)
 
-3. str2ascii(string ascii)：ascii字符串转10进制字符串
+3. str2ascii(string memory ascii)：ascii字符串转10进制字符串
 - ascii：ascii字符串
 
 ## 使用方法

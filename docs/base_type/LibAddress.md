@@ -29,9 +29,9 @@ contract test {
 1 | *isContract(address account) internal view returns(bool)* | 判断地址是否为合约地址
 2 | *isEmptyAddress(address addr) internal pure returns(bool)* |判断地址是否为空地址
 3 | *addressToBytes(address addr) internal pure returns (bytes memory)* |将address转化为bytes类型
-4 | *bytesToAddress(bytes addrBytes) internal pure returns (address)* | 将bytes类型转化为地址类型
-5 | *addressToString(address addr) internal pure returns(string)* | 将地址类型转化为string类型
-6 | *stringToAddress(string data) internal returns(address)* | 将string类型转化为address类型
+4 | *bytesToAddress(bytes memory addrBytes) internal pure returns (address)* | 将bytes类型转化为地址类型
+5 | *addressToString(address addr) internal pure returns(string memory)* | 将地址类型转化为string类型
+6 | *stringToAddress(string data) internal pure returns(address)* | 将string类型转化为address类型
 
 ## API详情
 
