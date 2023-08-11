@@ -25,10 +25,17 @@ contract UserStorage{
     event RegisterUser(address indexed addr, string name, string contact);
 
     function registerUser(string memory name, string memory contact) external {
+        //if status==0,is new User
         require(!exists(msg.sender), "user existed");
         User storage user = registeredUsers[msg.sender];
         user.name = name;
         user.contact = contact;
+        
+        
+        // add an code ,update the status,1 is old,0 is new fish.
+        //when register a user ,we need change the status
+        user.status = 1;
+
         emit RegisterUser(msg.sender, name, contact);
     }
 
