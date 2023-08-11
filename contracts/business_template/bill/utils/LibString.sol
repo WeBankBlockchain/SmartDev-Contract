@@ -23,7 +23,6 @@ library LibString{
     
 
     function lenOfChars(string memory src) internal pure returns(uint){
-        uint w=1;
         uint i=0;
         uint length = 0;
         bytes memory string_rep = bytes(src);
