@@ -25,18 +25,20 @@ contract SharedBikes {
     }
 
     modifier userRegistered(address user){
+        //用户是否存在
         require(userStorage.exists(user), "user not registered");
         _;
     }
 
     modifier requireStatus(uint256 bikeId, BikeStatus bikeStatus){
+        //判断单车状态
         require(_bikes[bikeId].status == bikeStatus, "bad bike status");
         _;
     }
 
-/**
- * 定义单车状态对象
- */
+    /**
+     * 定义单车状态对象
+     */
     struct Bike {
         BikeStatus status;
     }
@@ -70,25 +72,17 @@ contract SharedBikes {
     //存储用户借用
     mapping(address=>uint256) private _borrows;
 
-    // Business functions
     //增
     function registerBike() external onlyAdmin returns(uint256 bikeId) {
+        //自增Id
         _bikeCount++;
         bikeId = _bikeCount;
+        //修改自行车状态
         Bike storage bike = _bikes[bikeId];
         bike.status = BikeStatus.Available;
         emit RegisterBike(bikeId);
     }
 
-//  function getUser() external returns (string memory, string memory, uint32, uint32) {
-//     require(userStorage.exists(msg.sender), "user not exists");
-//     (string memory name, string memory contact, uint32 creditPoints, uint32 status) = userStorage.getUser();
-//     return (name, contact, creditPoints, status);
-// }
-//  function ex() external view returns(bool){
-//     bool b= userStorage.exists(msg.sender);
-//     return b;
-//  }
 
     //删
     function revokeBike(uint256 bikeId) external onlyAdmin requireStatus(bikeId, BikeStatus.Available){
@@ -115,40 +109,51 @@ contract SharedBikes {
     //还
     function returnBike(uint256 bikeId) external  userRegistered(msg.sender) requireStatus(bikeId, BikeStatus.InBorrow){
         require(_borrows[msg.sender] == bikeId, "not borrowing this one");
+        //修改借用者状态
         _borrows[msg.sender] = 0;
+        //修改自行车状态
         Bike storage bike = _bikes[bikeId];
         bike.status = BikeStatus.Available;
         emit ReturnBike(msg.sender, bikeId);
     }
 
+    //报告损坏
     function reportDamge(uint256 bikeId) external  userRegistered(msg.sender) requireStatus(bikeId, BikeStatus.Available){
+        //修改自行车状态
         Bike storage bike = _bikes[bikeId];
         bike.status = BikeStatus.InRepair;
         emit ReportDamage(msg.sender, bikeId);
     }
 
+    //修理损坏
     function fixDamge(uint256 bikeId) external onlyAdmin requireStatus(bikeId, BikeStatus.InRepair){
+        //修改自行车状态
         Bike storage bike = _bikes[bikeId];
         bike.status = BikeStatus.Available;
         emit FixDamage(bikeId);
     }
     
+    //奖励
     function reward(address user, uint32 credits) external userRegistered(user) onlyAdmin{
+        //调用addCredits方法
         userStorage.addCredits(user, credits);
         emit Reward(user, credits);
     }
 
+    //惩罚
     function punish(address user, uint32 credits) external userRegistered(user) onlyAdmin{
+        //调用subCredits
         userStorage.subCredits(user, credits);
         emit Punish(user, credits);
     }
 
-    // Governance functions
+    //设置信誉分阈值
     function setCreditThreshold(uint32 newThreshold) external onlyAdmin {
         userCreditThreshold = newThreshold;
         emit SetCreditThreshold(newThreshold);
     }
 
+    //转让管理员
     function transferAdmin(address newAdmin) external onlyAdmin {
         address oldAdmin = admin;
         admin = newAdmin;
