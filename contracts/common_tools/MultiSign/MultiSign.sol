@@ -1,208 +1,152 @@
-// SPDX-License-Identifier： MIT
-pragma solidity ^0.6.10;
+// SPDX-License-Identifier: UNLICENSED
+// 合约许可声明：此合约未受许可，没有特定的使用许可。
+// 作者：Steve Jin
+// 合约作者注释：此合约的作者是Steve Jin。
 
-许可证是授予自然人（例如您）或法人（例如公司）的有限且临时的权限，可以根据法律框架做一些本来是非法的事情
-// 政府负责许可证的颁发和管理。然而，维护和共享这些数据可能很复杂且效率低下
-// 许可证的授予通常需要提交纸质申请表、人工监督适用的立法和将数据输入注册表，以及颁发纸质许可证
-// 如果个人希望查看有关许可证登记处的信息，他们通常需要到政府办公室并填写进一步​​的纸质查询表格，以便访问该数据（如果公开可用）
-// Licences合约允许通过智能合约授予和/或管理许可证。其动机本质上是为了解决当前许可系统固有的低效率问题
-// 基于EIP-1753协议实现，参考 https://eips.ethereum.org/EIPS/eip-1753
+pragma solidity >=0.8.0;
 
-//IEIP1753 接口：定义了一组函数，包括授权、撤销授权、发放许可证、撤销许可证、检查许可证是否有效等
-interface IEIP1753 {
-    function grantAuthority(address who) external; 
-    function revokeAuthority(address who) external;
-    function hasAuthority(address who) external view returns (bool);
-    
-    function issue(address who, uint256 from, uint256 to) external;
-    function revoke(address who) external;
-    
-    function hasValid(address who) external view returns (bool);
-    function purchase(address who, uint256 validFrom, uint256 validTo) external;
-    function getName() external view returns (string memory);
-    function getTotalSupply() external view returns(uint);
-}
+// 引入Solidity版本声明：此合约需要Solidity版本大于或等于0.8.0。
 
-// EIP1753 合约：实现了 IEIP1753 接口，提供了授权、撤销授权、发放许可证、撤销许可证、检查许可证是否有效等功能。合约中包括 Permit 结构体，用于存储许可证信息。合约还实现了 onlyOwner 和 onlyAuthority 修饰符，用于限制某些函数只能由所有者或授权者调用。
-contract EIP1753 is IEIP1753 {
-    // 返回许可证的名称 - 例如“MyPermit”。
-    string public name;
-    // 返回许可证总数量
-    uint256 public totalSupply;
+// 这是一个抽象合约，定义了多签名合约的核心逻辑和数据结构
+abstract contract MultiSign {
 
-    address private _owner;
-    mapping(address => bool) private _authorities;
-    mapping(address => Permit) private _holders;
+    // 存储多签名合约的签名者地址数组
+    address[] internal signers;
 
-    struct Permit {
-        address issuer;
-        uint256 validFrom;
-        uint256 validTo;
-        bool forever;
+    // 用于跟踪交易索引，每次提交交易后递增
+    uint internal transactionIdx;
+
+    // 用于存储交易信息的结构体，包括交易发起者、接收者、数据、签名者数组、已签名标记、签名数等信息
+    struct Transaction {
+        address from;
+        address to;
+        bytes data;
+        address[] signers;
+        mapping(address => uint) hasSign;
+        uint signCount;
     }
 
-    constructor(address owner, string memory _name) public {
-        _owner = owner;
-        name = _name;
-    }
+    // 存储待处理交易的交易ID数组
+    uint[] internal pendingTransactions;
 
-    // 将地址添加到有权修改许可的地址白名单中
-    function grantAuthority(address who) override public onlyOwner {
-        _authorities[who] = true;
-    }
+    // 辅助数组，在处理待处理交易时使用
+    uint[] internal newPT;
 
-    // 从有权修改许可的地址白名单中删除地址
-    function revokeAuthority(address who) override public onlyOwner {
-        delete _authorities[who];
-    }
+    // 用于存储交易ID与对应的交易信息之间的映射
+    mapping(uint => Transaction) internal transactions;
 
-    // 检查地址是否有权授予或撤销许可
-    function hasAuthority(address who) override public view returns (bool) {
-        return _authorities[who] == true;
-    }
+    // 要求的最小签名数
+    uint internal minSignatures;
 
-    // 在指定的日期范围内向地址颁发许可证
-    function issue(address who, uint256 start, uint256 end) override public onlyAuthority {
-        if (start == 0 && end == 0) {
-            _holders[who] = Permit(_owner, start, end, true);
-        } else {
-            _holders[who] = Permit(_owner, start, end, false);
-        }
-        totalSupply += 1;
-    }
-
-    // 从地址撤销许可
-    function revoke(address who) override public onlyAuthority {
-        delete _holders[who];
-    }
-
-    // 检查地址是否具有有效许可
-    function hasValid(address who) override public view returns (bool) {
-        return (_holders[who].validFrom > block.timestamp && _holders[who].validTo < block.timestamp && !_holders[who].forever) || (_holders[who].forever);
-    }
-
-    // 允许用户自行购买许可证
-    function purchase(address who, uint256 validFrom, uint256 validTo) override external {
-        issue(who, validFrom, validTo);
-    }
-
-    function getName() public override view returns (string memory) {
-        return name;
-    }
-
-    function getTotalSupply() public override view returns(uint) {
-        return totalSupply;
-    }
-
-    modifier onlyOwner() {
-        require(msg.sender == _owner, "Only owner can perform this function");
-        _;
-    }
-
-    modifier onlyAuthority() {
-        require(hasAuthority(msg.sender), "Only an authority can perform this function");
-        _;
-    }
-}
-
-// 在EIP-1753上进行了改进：增加了许可证可永久授权，适配更多应用场景
-// Licences 合约：基于 EIP1753 合约的功能进行了扩展。它提供了添加和撤销授权、购买许可证、以及授权颁发等功能。合约的构造函数初始化了 licences 实例，并将合约自身和合约创建者添加为授权者。
-contract Licences {
-    enum LicencesMode {
-        DeadlineLicence,
-        ForeverLicence
-    }
-
-    IEIP1753 public licences;
-    // Licences 合约的构造函数。它初始化了许可证系统，为合约创建者（msg.sender）添加了修改权限。构造函数接受一个字符串参数 _name，用于指定许可证的名称。
-    constructor(string memory _name) public {
-        // 初始化许可证协议
-        licences = IEIP1753(new EIP1753(msg.sender, _name));
-
-        // 合约默认具备修改权限
-        licences.grantAuthority(address(this));
-        licences.grantAuthority(address(msg.sender));
-    }
-
-    // 这个函数用于添加授权者，可以一次性添加多个授权者。它接受一个地址数组作为参数，将数组中的每个地址都添加到许可证系统的授权者列表中。
-    function addAuthority(address[] calldata authors) public {
-        require(authors[0] != address(0), "The wrong address");
-
-        if (authors.length == 1) licences.grantAuthority(authors[0]);
-        for (uint i = 0; i < authors.length; i++) {
-            require(authors[i] != address(0), "The wrong address");
-            licences.grantAuthority(authors[i]);
-        }
-    }
-
-    // 类似于 addAuthority，这个函数用于撤销授权者的权限。
-    function revokeAuthority(address[] calldata authors) public {
-        require(authors[0] != address(0), "The wrong address");
-
-        if (authors.length == 1) licences.revokeAuthority(authors[0]);
-        for (uint i = 0; i < authors.length; i++) {
-            require(authors[i] != address(0), "The wrong address");
-            licences.revokeAuthority(authors[i]);
-        }
-    }
-
-    // 这个函数允许用户购买许可证。根据参数 mode 的值，可以购买有时限的许可证或永久许可证。
-    function purchase(uint256 validFrom, uint256 validTo, uint mode) public {
-        if (mode == uint(LicencesMode.DeadlineLicence)) {
-            licences.purchase(msg.sender, validFrom, validTo);
-        } else if (mode == uint(LicencesMode.ForeverLicence)) {
-            licences.purchase(msg.sender, 0, 0);
-        } else {
-            revert("The wrong licence mode");
-        }
-    }
-
-    // 这个函数用于批量颁发许可证给一组用户。根据 mode 参数的值，可以选择颁发有时限的许可证或永久许可证。
-    function authorityIssue(
-        address[] calldata users,
-        uint256[] calldata validFrom,
-        uint256[] calldata validTo,
-        uint256[] calldata mode
-    ) public {
-        require(
-            users.length == validFrom.length &&
-            users.length == validTo.length &&
-            users.length == mode.length,
-            "The wrong number of users and wrong number of mode"
-        );
-
-        if (users.length == 1) {
-            if (mode[0] == uint(LicencesMode.DeadlineLicence)) licences.issue(users[0], validFrom[0], validTo[0]);
-            licences.issue(users[0], 0, 0);
-        }
-        for (uint i = 0; i < users.length; i++) {
-            // 如果`mode`为0
-            // 则当前许可证颁发为有效期限，则设置时间期限[start: end]
-            if (mode[i] == uint(LicencesMode.DeadlineLicence)) {
-                licences.issue(users[i], validFrom[i], validTo[i]);
-            // 如果`mode` 为1
-            // 当前许可证为永久颁发，则不需要设置时间期限[0: 0]
-            } else if (mode[i] == uint(LicencesMode.ForeverLicence)) {
-                licences.issue(users[i], 0, 0);
-            } else {
-                revert("The wrong licence mode");
+    // 修饰符，限制只有合约中的签名者才能执行受限函数
+    modifier signerOnly() {
+        bool flag = false;
+        for (uint i = 0; i < signers.length; i++) {
+            if (msg.sender == signers[i]) {
+                flag = true;
+                break;
             }
         }
+        require(flag, "Only signers are allowed to operate.");
+        _;
     }
 
-    // 这个函数用于检查给定地址的许可证是否有效。
-    function hasValid(address who) public view returns (bool) {
-        // 如果许可证类型为永久，直接返回
-        return licences.hasValid(who);
+    // 构造函数，初始化多签名合约。构造函数接受一个签名者地址数组和最小签名数作为参数
+    constructor(address[] memory addressParams, uint minSignaturesParam) {
+        // 要求最小签名数不大于签名者地址数组长度加1
+        require(minSignaturesParam <= addressParams.length + 1, "The number of signatures cannot be greater than the signers.");
+        for (uint i = 0; i < addressParams.length; i++) {
+            // 确保合约创建者不会被传递为参数
+            require(msg.sender != addressParams[i], "Contract creator cannot be passed in as a parameter.");
+        }
+        signers = addressParams;
+        signers.push(msg.sender); // 将合约创建者添加为签名者之一
+        transactionIdx = 0;
+        minSignatures = minSignaturesParam;
     }
 
-    // 这个函数返回许可证系统的名称。
-    function name() public view returns (string memory) {
-        return licences.getName();
+    // 公开函数，返回签名者的地址数组
+    function showSigner() public view returns (address[] memory) {
+        return signers;
     }
 
-    // 这个函数返回许可证系统中许可证的总数量。
-    function totalSupply() public view returns (uint) {
-        return licences.getTotalSupply();
+    // 公开函数，返回下一个可用的交易ID
+    function showNextTransactionIdx() public view returns (uint) {
+        return transactionIdx;
     }
+
+    // 公开函数，返回待处理交易的交易ID数组
+    function showPendingTransactions() public view returns (uint[] memory) {
+        return pendingTransactions;
+    }
+
+    // 公开函数，用于创建一个新的交易。将交易信息添加到 transactions 映射中，将交易ID添加到 pendingTransactions 数组中
+    function transfer(address to, bytes memory data) public signerOnly returns (uint) {
+        uint transactionId = transactionIdx;
+        Transaction storage transaction = transactions[transactionId];
+        transaction.from = msg.sender;
+        transaction.to = to;
+        transaction.data = data;
+        transaction.signers.push(msg.sender);
+        transaction.hasSign[msg.sender] = 0;
+        transaction.signCount = 1;
+        pendingTransactions.push(transactionId);
+        transactionIdx++;
+        return transactionId;
+    }
+
+    // 公开函数，签名者使用此函数对特定交易进行签名。如果达到了最小签名要求，交易将被标记为已完成
+    function signTransaction(uint transactionId) public signerOnly returns (bool) {
+        Transaction storage transaction = transactions[transactionId];
+        require(address(0) != transaction.from, "Transaction id does not exist.");
+        require(msg.sender != transaction.from, "Signer cannot be initiator.");
+        require(transaction.hasSign[msg.sender] != 1, "Cannot duplicate signature.");
+
+        if (signFinished(transactionId)) {
+            transaction.signers.push(msg.sender);
+            transaction.hasSign[msg.sender] = 1;
+            transaction.signCount++;
+            return true;
+        }
+
+        transaction.signers.push(msg.sender);
+        transaction.hasSign[msg.sender] = 1;
+        transaction.signCount++;
+
+        if (transaction.signCount >= minSignatures) {
+            removePendingTransactions(transactionId);
+            signFinishedCallBack(transaction);
+            return true;
+        }
+        return false;
+    }
+
+    // 公开函数，检查特定交易是否已达到要求的最小签名数
+    function signFinished(uint transactionId) public view returns (bool) {
+        Transaction storage transaction = transactions[transactionId];
+        if (transaction.signCount >= minSignatures) {
+            return true;
+        }
+        return false;
+    }
+
+    // 内部函数，用于移除已完成的待处理交易
+    function removePendingTransactions(uint transactionId) internal returns (uint[] memory) {
+        delete newPT;
+        for (uint i = 0; i < pendingTransactions.length; i++) {
+            if (pendingTransactions[i] != transactionId) {
+                newPT.push(pendingTransactions[i]);
+            }
+        }
+        delete pendingTransactions;
+        pendingTransactions = newPT;
+        delete newPT;
+        return pendingTransactions;
+    }
+
+    // 内部虚函数，用于在交易完成时执行回调操作。这个函数应该在继承合约中被实现
+    function signFinishedCallBack(Transaction storage transaction) internal virtual;
 }
+//这个合约实现了一个多签名逻辑，确保在一定数量的签名者对交易进行签名后，交易才能被执行。签名者可以使用 signTransaction 函数
+对交易进行签名，当达到最小签名要求时，交易将被标记为已完成。这是一个常用的多签名合约模式，用于确保多个授权者的参与。注意，这
+只是合约的逻辑分析，实际应用中还需要进行测试和适当的安全性评估。
