@@ -35,6 +35,4 @@ function signFinishedCallBack(Transaction storage transaction) override internal
     signFinishedCallBackCount++;
 }
 }
-//简而言之，这段代码定义了一个名为 MultiSignDemo 的 Solidity 智能合约，它继承了 MultiSign 合约的功能。它引入了一个名为 MultiSignLog 的事件，用于记录
-与交易相关的信息，并在签名过程完成时跟踪回调次数。合约构造函数初始化了所有者的地址，并从父合约设置了必要的参数。覆盖的 signFinishedCallBack 函数在交易
-签名过程完成时触发一个事件，并增加回调次数的计数。
+//简而言之，这段代码定义了一个名为 MultiSignDemo 的 Solidity 智能合约，它继承了 MultiSign 合约的功能。它引入了一个名为 MultiSignLog 的事件，用于记录与交易相关的信息，并在签名过程完成时跟踪回调次数。合约构造函数初始化了所有者的地址，并从父合约设置了必要的参数。覆盖的 signFinishedCallBack 函数在交易签名过程完成时触发一个事件，并增加回调次数的计数。
