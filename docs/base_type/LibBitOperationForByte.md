@@ -1,4 +1,5 @@
 # LibBitOperationForByte.sol
+> 在 0.8.0 之前, byte 用作为 bytes1 的别名。
 
 LibBitOperationForByte提供solidity内置函数不包括的位操作方法，例如按位非、移位、取前/后n位等方法
 
@@ -24,13 +25,13 @@ contract test {
 
 编号 | API | API描述
 ---|---|---
-1 | *invert(byte a) internal pure returns (byte)* | 按位非
-2 | *leftShift(byte a, uint n) internal pure returns (byte)* | 向左移动n位
-3 | *rightShift(byte a, uint n) internal pure returns (byte)* | 向右移动n位
-4 | *getFirstN(byte a, uint8 n) internal pure isValidLength(n) returns (byte)* | 取前n位
-5 | *getLastN(byte a, uint8 n) internal pure isValidLength(n) returns (byte)* | 取后n位
-6 | *getBitAtPositionN(byte a, uint8 n) internal pure isValidPosition(n) returns (uint8)* | 获取第n位
-7 | *invertBitAtPositionN(byte a, uint8 n) internal pure isValidPosition(n) returns (byte)* | 将第n位反转
+1 | *invert(bytes1 a) internal pure returns (bytes1)* | 按位非
+2 | *leftShift(bytes1 a, uint n) internal pure returns (bytes1)* | 向左移动n位
+3 | *rightShift(bytes1 a, uint n) internal pure returns (bytes1)* | 向右移动n位
+4 | *getFirstN(bytes1 a, uint8 n) internal pure isValidLength(n) returns (bytes1)* | 取前n位
+5 | *getLastN(bytes1 a, uint8 n) internal pure isValidLength(n) returns (bytes1)* | 取后n位
+6 | *getBitAtPositionN(bytes1 a, uint8 n) internal pure isValidPosition(n) returns (uint8)* | 获取第n位
+7 | *invertBitAtPositionN(bytes1 a, uint8 n) internal pure isValidPosition(n) returns (bytes1)* | 将第n位反转
 
 ## API详情
 
@@ -50,8 +51,8 @@ contract test {
 
 ```
 function f() public view{
-    byte a = 0xa1;
-    byte res = LibBitOperationForByte.invert(a);
+    bytes1 a = 0xa1;
+    bytes1 res = LibBitOperationForByte.invert(a);
     //TODO:
 }
 ```
@@ -72,8 +73,8 @@ function f() public view{
 
 ```
 function f() public view{
-    byte a = 0xa1;
-    byte res = LibBitOperationForByte.leftShift(a, 2);
+    bytes1 a = 0xa1;
+    bytes1 res = LibBitOperationForByte.leftShift(a, 2);
     //TODO:
 }
 ```
@@ -94,8 +95,8 @@ function f() public view{
 
 ```
 function f() public view{
-    byte a = 0xa1;
-    byte res = LibBitOperationForByte.rightShift(a, 2);
+    bytes1 a = 0xa1;
+    bytes1 res = LibBitOperationForByte.rightShift(a, 2);
     //TODO:
 }
 ```
@@ -117,8 +118,8 @@ function f() public view{
 
 ```
 function f() public view{
-    byte a = 0xa1;
-    byte res = LibBitOperationForByte.getFirstN(a, 2);
+    bytes1 a = 0xa1;
+    bytes1 res = LibBitOperationForByte.getFirstN(a, 2);
     //TODO:
 }
 ```
@@ -140,8 +141,8 @@ function f() public view{
 
 ```
 function f() public view{
-    byte a = 0xa1;
-    byte res = LibBitOperationForByte.getLastN(a, 2);
+    bytes1 a = 0xa1;
+    bytes1 res = LibBitOperationForByte.getLastN(a, 2);
     //TODO:
 }
 ```
@@ -163,8 +164,8 @@ function f() public view{
 
 ```
 function f() public view{
-    byte a = 0xa1;
-    byte res = LibBitOperationForByte.getBitAtPositionN(a, 2);
+    bytes1 a = 0xa1;
+    bytes1 res = LibBitOperationForByte.getBitAtPositionN(a, 2);
     //TODO:
 }
 ```
@@ -186,8 +187,8 @@ function f() public view{
 
 ```
 function f() public view{
-    byte a = 0xa1;
-    byte res = LibBitOperationForByte.invertBitAtPositionN(a, 2);
+    bytes1 a = 0xa1;
+    bytes1 res = LibBitOperationForByte.invertBitAtPositionN(a, 2);
     //TODO:
 }
 ```
