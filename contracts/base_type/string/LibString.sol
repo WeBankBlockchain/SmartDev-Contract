@@ -1,20 +1,5 @@
-/*
- * Copyright 2014-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * */
- 
-pragma solidity ^0.4.25;
+// SPDX-License-Identifier: Apache-2.0
+pragma solidity >=0.4.25;
 
 library LibString{
     
@@ -94,14 +79,14 @@ library LibString{
         if(src_rep.length == 0) return true;
 
         for(uint i=0;i<src_rep.length;i++){
-            byte b = src_rep[i];
-            if(b != 0x20 && b != byte(0x09) && b!=byte(0x0A) && b!=byte(0x0D)) return false;
+            bytes1 b = src_rep[i];
+            if(b != 0x20 && b != bytes1(0x09) && b!=bytes1(0x0A) && b!=bytes1(0x0D)) return false;
         }
 
         return true;
     }
 
-    function concat(string memory self, string memory str) internal returns (string memory  _ret)  {
+    function concat(string memory self, string memory str) internal pure returns (string memory  _ret)  {
         _ret = new string(bytes(self).length + bytes(str).length);
 
         uint selfptr;
@@ -117,8 +102,8 @@ library LibString{
         memcpy(retptr+bytes(self).length, strptr, bytes(str).length);
     }
     
-    //start is char index, not byte index
-    function substrByCharIndex(string memory self, uint start, uint len) internal returns (string memory) {
+    //start is char index, not bytes1 index
+    function substrByCharIndex(string memory self, uint start, uint len) internal pure returns (string memory) {
         if(len == 0) return "";
         //start - bytePos
         //len - byteLen
@@ -163,10 +148,10 @@ library LibString{
     function compare(string memory self, string memory other) internal pure returns(int8){
         bytes memory selfb = bytes(self);
         bytes memory otherb = bytes(other);
-        //byte by byte
+        //bytes1 by bytes1
         for(uint i=0;i<selfb.length && i<otherb.length;i++){
-            byte b1 = selfb[i];
-            byte b2 = otherb[i];
+            bytes1 b1 = selfb[i];
+            bytes1 b2 = otherb[i];
             if(b1 > b2) return 1;
             if(b1 < b2) return -1;
         }
@@ -180,10 +165,10 @@ library LibString{
         bytes memory selfb = bytes(self);
         bytes memory otherb = bytes(other);
         for(uint i=0;i<selfb.length && i<otherb.length;i++){
-            byte b1 = selfb[i];
-            byte b2 = otherb[i];
-            byte ch1 = b1 | 0x20;
-            byte ch2 = b2 | 0x20;
+            bytes1 b1 = selfb[i];
+            bytes1 b2 = otherb[i];
+            bytes1 ch1 = b1 | 0x20;
+            bytes1 ch2 = b2 | 0x20;
             if(ch1 >= 'a' && ch1 <= 'z' && ch2 >= 'a' && ch2 <= 'z'){
                 if(ch1 > ch2) return 1;
                 if(ch1 < ch2) return -1;
@@ -202,9 +187,9 @@ library LibString{
     function toUppercase(string memory src) internal pure returns(string memory){
         bytes memory srcb = bytes(src);
         for(uint i=0;i<srcb.length;i++){
-            byte b = srcb[i];
+            bytes1 b = srcb[i];
             if(b >= 'a' && b <= 'z'){
-                b &= byte(0xDF);// -32
+                b &= bytes1(0xDF);// -32
                 srcb[i] = b ;
             }
         }
@@ -214,7 +199,7 @@ library LibString{
     function toLowercase(string memory src) internal pure returns(string memory){
         bytes memory srcb = bytes(src);
         for(uint i=0;i<srcb.length;i++){
-            byte b = srcb[i];
+            bytes1 b = srcb[i];
             if(b >= 'A' && b <= 'Z'){
                 b |= 0x20;
                 srcb[i] = b;
@@ -324,18 +309,18 @@ library LibString{
     
     function utf8CharBytesLength(bytes memory stringRep, uint ptr) internal pure returns(uint){
             
-            if ((stringRep[ptr]>>7)==byte(0))
+            if ((stringRep[ptr]>>7)==bytes1(0))
                 return 1;
-            if ((stringRep[ptr]>>5)==byte(0x06))
+            if ((stringRep[ptr]>>5)==bytes1(0x06))
                 return 2;
-            if ((stringRep[ptr]>>4)==byte(0x0e))
+            if ((stringRep[ptr]>>4)==bytes1(0x0e))
                 return 3;
-            if ((stringRep[ptr]>>3)==byte(0x1e))
+            if ((stringRep[ptr]>>3)==bytes1(0x1e))
                 return 4;
             return 1;
     }
 
-    function memcpy(uint dest, uint src, uint len) private {
+    function memcpy(uint dest, uint src, uint len) private pure{
         // Copy word-length chunks while possible
         for(; len >= 32; len -= 32) {
             assembly {

@@ -33,39 +33,39 @@ contract RewardPointController is BasicAuth {
         _rewardPointData = RewardPointData(dataAddress);
     }
 
-    modifier accountExist(address addr) { 
+    modifier accountExist(address addr) {
         require(_rewardPointData.hasAccount(addr)==true && addr != address(0), "Only existed account!");
-        _; 
-    } 
+        _;
+    }
 
-    modifier accountNotExist(address account) { 
+    modifier accountNotExist(address account) {
         require(_rewardPointData.hasAccount(account)==false, "Account already existed!");
-        _; 
-    } 
+        _;
+    }
 
-    modifier canUnregister(address account) { 
+    modifier canUnregister(address account) {
         require(_rewardPointData.hasAccount(account)==true && _rewardPointData.getBalance(account) == 0 , "Cann't unregister!");
-        _; 
-    } 
+        _;
+    }
 
-    modifier checkAccount(address sender) { 
+    modifier checkAccount(address sender) {
         require(msg.sender != sender && sender != address(0), "Can't transfer to illegal address!");
-        _; 
-    } 
+        _;
+    }
 
     modifier onlyIssuer() {
         require(_rewardPointData.isIssuer(msg.sender), "IssuerRole: caller does not have the Issuer role");
         _;
     }
 
-    function register() accountNotExist(msg.sender) public returns (address) {
+    function register() accountNotExist(msg.sender) public {
         _rewardPointData.setAccount(msg.sender, true);
         // init balances
         _rewardPointData.setBalance(msg.sender, 0);
         emit LogRegister(msg.sender);
     }
 
-    function unregister() canUnregister(msg.sender) public returns (address) {
+    function unregister() canUnregister(msg.sender) public {
         _rewardPointData.setAccount(msg.sender, false);
         emit LogUnregister(msg.sender);
     }

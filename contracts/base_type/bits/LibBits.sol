@@ -1,4 +1,4 @@
-pragma solidity ^0.4.25;
+pragma solidity >=0.4.25;
 
 library LibBits {
     function and(bytes1 a, bytes1 b) internal pure returns (bytes1) {
@@ -15,10 +15,10 @@ library LibBits {
 
     /**
     *按位非
-    *@param  a byte类型参数
-    *@return byte
+    *@param  a bytes1类型参数
+    *@return bytes1
     **/
-    function invert(byte a) internal pure returns (byte) {
+    function invert(bytes1 a) internal pure returns (bytes1) {
         return a ^ 0xff;
     }
 
@@ -27,30 +27,30 @@ library LibBits {
     }
 
     function shiftLeft(bytes1 a, uint8 n) internal pure returns (bytes1) {
-        var shifted = uint8(a) << n;
+        uint8 shifted = uint8(a) << n;
         return bytes1(shifted);
     }
 
     function shiftRight(bytes1 a, uint8 n) internal pure returns (bytes1) {
-        var shifted = uint8(a) >> n;
+        uint8 shifted = uint8(a) >> n;
         return bytes1(shifted);
     }
 
     // get the high bit data and keep it on high
     function getFirstN(bytes1 a, uint8 n) internal pure isValidLength(n) returns (bytes1) {
-        var nOnes = bytes1(2**n - 1);
-        var mask = shiftLeft(nOnes, 8 - n); // Total 8 bits
+        bytes1 nOnes = bytes1(uint8(2)**n - 1);
+        bytes1 mask = shiftLeft(nOnes, 8 - n); // Total 8 bits
         return a & mask;
     }
 
     function getLastN(bytes1 a, uint8 n) internal pure isValidLength(n) returns (bytes1) {
-        var lastN = uint8(a) % 2**n;
+        uint8 lastN = uint8(a) % uint8(2)**n;
         return bytes1(lastN);
     }
 
     // Sets all bits to 1
     function allOnes() internal pure returns (bytes1) {
-        return bytes1(-1); // 0 - 1, since data type is unsigned, this results in all 1s.
+        return bytes1(0xff);
     }
 
     // Get bit value at position
