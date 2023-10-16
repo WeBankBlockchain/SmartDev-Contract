@@ -109,4 +109,70 @@ library LibBytes32Set {
         require(index < set.values.length,"Index: index out of bounds");
         return set.values[index];
     }
+
+    /**
+    *@dev 求两个集合的并集 a ∪ b
+    *@param  set a bytes32类型集合
+    *@param  set b bytes32类型集合
+    *@return bytes32[] 并集元素
+    **/
+    function union(Bytes32Set storage a, Bytes32Set storage b) internal view returns (bytes32[]){
+        if(b.values.length == 0){
+            return a.values;
+        }
+        bool isIn;
+
+        for(uint i = 0; i < b.values.length; i++){
+            isIn = contains(a, b.values[i]);
+            if(!isIn){
+                add(a, b.values[i]);
+            }
+        }
+
+        return a.values;
+    }
+
+    /**
+    *@dev 求两个集合的差 a - b
+    *@param  set a bytes32类型集合
+    *@param  set b bytes32类型集合
+    *@return bytes32[] 差集元素
+    **/
+    function relative(Bytes32Set storage a, Bytes32Set storage b) internal view returns (bytes32[]){
+        if(b.values.length == 0){
+            return a.values;
+        }
+        bool isIn;
+
+        for(uint i = 0; i < b.values.length; i++){
+            isIn = contains(a, b.values[i]);
+            if(isIn){
+                remove(a,b.values[i]);
+            }
+        }
+
+        return a.values;
+    }
+
+    /**
+    *@dev 求两个集合的交集 a ∩ b
+    *@param  set a bytes32类型集合
+    *@param  set b bytes32类型集合
+    *@return bytes32[] 交集元素
+    **/
+    function intersect(Bytes32Set storage a, Bytes32Set storage b) internal view returns (bytes32[]){
+        if(b.values.length == 0){
+            return ;
+        }
+        bool isIn;
+
+        for(uint i = 0; i < a.values.length; i++){
+            isIn = contains(b, a.values[i]);
+            if(!isIn){
+                remove(a,a.values[i]);
+            }
+        }
+
+        return a.values;
+    }
 }

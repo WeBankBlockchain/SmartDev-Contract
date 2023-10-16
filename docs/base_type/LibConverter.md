@@ -31,9 +31,9 @@ contract test {
 3 | *toUint32(uint256 value) internal pure returns (uint32)* | 将uint256转为uint32类型
 4 | *toUint16(uint256 value) internal pure returns (uint16)* | 将uint256转为uint16类型
 5 | *toUint8(uint256 value) internal pure returns (uint8)* | 将uint256转为uint8类型
-6 | *uintToBytes(uint v) internal pure returns (bytes)* | 将uint转为bytes类型
-7 | *bytesToInt(bytes b) internal pure returns (int result)* | 将bytes转为int类型
-8 | *intToBytes(int v) internal pure returns (bytes)* | 将int转为bytes类型
+6 | *uintToBytes(uint v) internal pure returns (bytes memory)* | 将uint转为bytes类型
+7 | *bytesToInt(bytes memory b) internal pure returns (int result)* | 将bytes转为int类型
+8 | *intToBytes(int v) internal pure returns (bytes memory)* | 将int转为bytes类型
 
 ## API详情
 
