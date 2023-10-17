@@ -87,7 +87,6 @@ struct Certificate {
     string studentName;
     string degreeType;
     string issuingInstitution;
-    // 其他证书信息字段
 }
 
 mapping(uint => Certificate) public certificates; // 以证书ID为键，存储证书信息
@@ -130,7 +129,6 @@ contract CertificateManager {
         string studentName;
         string degreeType;
         string issuingInstitution;
-        // Other certificate info fields
     }
     
     mapping(uint => Certificate) public certificates;
@@ -139,28 +137,23 @@ contract CertificateManager {
     event CertificateRecalled(uint indexed certificateId, string reason);
 
     function grantCertificate(uint _certificateId, string memory _studentName, string memory _degreeType, string memory _issuingInstitution) public {
-        // Check permissions: only authorized institution
-        
+  
         certificates[_certificateId] = Certificate({
             certificateId: _certificateId,
             studentName: _studentName,
             degreeType: _degreeType,
             issuingInstitution: _issuingInstitution
-            // Initialize other certificate info fields
-        });
+  });
 
         emit CertificateGranted(_certificateId, _studentName, _degreeType, _issuingInstitution);
     }
 
     function recallCertificate(uint _certificateId, string memory _reason) public {
-        // Check permissions: only authorized institution
 
         delete certificates[_certificateId];
 
         emit CertificateRecalled(_certificateId, _reason);
     }
-
-    // Other methods for managing certificates, like querying, updating, etc.
 }
 
 ```
