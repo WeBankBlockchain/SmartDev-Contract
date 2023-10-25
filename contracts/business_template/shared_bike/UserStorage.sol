@@ -1,7 +1,5 @@
 pragma solidity ^0.6.10;
 
-
-
 contract UserStorage{
 
     address public admin;
@@ -53,26 +51,26 @@ contract UserStorage{
 
     //加分
     function addCredits(address user, uint32 credits) public  {
-        
-        require(exists(user), "user not exists");   
+        require(credits > 0, "credits zero");
+        require(exists(user), "user not exists");  
+         
+        uint32 oldPoint=registeredUsers[user].creditPoints;
         
         uint32 newPoint = registeredUsers[user].creditPoints + credits;
+        require(newPoint > oldPoint, "overflow");
         registeredUsers[user].creditPoints= newPoint;
     }
 
     //减分
     function subCredits(address user, uint32 credits) public  {
-        require(exists(user), "user not exists");   
         require(credits > 0, "credits zero");
-        
-        //添加if判断，防止溢出
-        uint32 newPoint=0;
-        if (registeredUsers[user].creditPoints > credits) {
-            newPoint = registeredUsers[user].creditPoints - credits;
-        } else {
-            newPoint = 0;
-        }
-        
+        require(exists(user), "user not exists");   
+
+        uint32 oldPoint=registeredUsers[user].creditPoints;
+        require(credits <= oldPoint,"overflow");
+        uint32 newPoint = registeredUsers[user].creditPoints - credits;
+        require(newPoint < oldPoint, "overflow");
+
         registeredUsers[user].creditPoints= newPoint;
     }
 }
