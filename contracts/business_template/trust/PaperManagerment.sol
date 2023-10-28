@@ -2,8 +2,8 @@
 pragma solidity ^0.6.10;
 pragma experimental ABIEncoderV2;
 
-import "Ownable.sol";
-import "Enum.sol";
+import "./utils/Ownable.sol";
+import "./Enum.sol";
 // 问题:
 // 在比赛前夜，有关比赛试题的疑似泄露情况引发了广泛讨论。
 // 更令人担忧的是，原定发放的纸质试卷在比赛当天被临时换成了U盘方式发放，引发了一些参赛者的不安
@@ -51,7 +51,7 @@ contract PaperManagerment is Ownable {
     }
 
     // 查看所有已验证过的题库
-    function showRightQuestion() private view returns(Question[] memory) {
+    function showRightQuestion() public view returns(Question[] memory) {
         require(block.timestamp >= endTime, "info: That time does not arrive");
         Question[] memory _questions = new Question[](verifyCount);
         uint256 start = 0;

@@ -2,23 +2,17 @@
 pragma solidity ^0.6.10;
 pragma experimental ABIEncoderV2;
 
-import "AppealManagerment.sol";
-import "MarkingManagerment.sol";
-import "JudgeManagerment.sol";
-import "PaperManagerment.sol";
-import "Enum.sol";
+import "./AppealManagerment.sol";
+import "./MarkingManagerment.sol";
+import "./JudgeManagerment.sol";
+import "./PaperManagerment.sol";
+import "./PlayerManagerment.sol";
+
 
 contract Main is JudgeManagerment{
 
     using Roles for Roles.Role;
 
-    struct Player {
-        string ID; // 加密后的身份码，需要特定的密钥进行解密，解密后获得选手最终号码
-        uint256 A; // A 模块分数
-        uint256 B; // B 模块分数
-        uint256 C; // C 模块分数
-        uint256 updateCount; // 更新次数
-    }
 
     /** @dev
      * 1. 各院校注册获得独一无二得地址
@@ -41,13 +35,12 @@ contract Main is JudgeManagerment{
     // TODO 评分合约生成
     function _newMarkingMgr() private onlyOwner {
         require(legalCount >= 18, "info: legalCount < 18, can't start"); // 裁判不够无法开始
-        address[] memory judgeAddrs = showLegalJudgeAdrrList(); 
-        address markingMgr = address(new MarkingManagerment(judgeAddrs)); // 申诉管理合约
+        address markingMgr = address(new MarkingManagerment()); // 申诉管理合约
         markingMgrs[start] = markingMgr;
     }
 
     // TODO 申诉合约生成
-    function _newAppealMgr(address[] _schools) private onlyOwner {
+    function _newAppealMgr(address[] memory _schools) private onlyOwner {
         address appealMgr = address(new AppealManagerment(_schools)); // 申诉管理合约
         appealMgrs[start] = appealMgr;
     }
@@ -55,17 +48,17 @@ contract Main is JudgeManagerment{
     // TODO 选手合约生成
     function _newPlayerMgr() private onlyOwner {
         address playerMgr = address(new PlayerManagerment()); 
-        playerMgrs[start] = appealMgr;
+        playerMgrs[start] = playerMgr;
     }
 
     // TODO 试卷合约生成
-    function _newPaperMgr() private onlyOnwer {
-        address paperMgr = addresss(new PaperManagerment());
+    function _newPaperMgr() private onlyOwner {
+        address paperMgr = address(new PaperManagerment());
         paperMgrs[start] = paperMgr;
     }
 
     // 开始比赛
-    function startCompetition(address[] _schools) public onlyOwner returns(uint256) {
+    function startCompetition(address[] memory _schools) public onlyOwner returns(uint256) {
         _newMarkingMgr();
         _newAppealMgr(_schools);
         _newPlayerMgr();
@@ -73,14 +66,15 @@ contract Main is JudgeManagerment{
         return start;
     }
     
-    /**
-     * 裁判评分
-     * @param
-     * string memory _playerID,
-        uint256 _score, // 分数需已进行倍增
-        uint256 _questionIndex,
-        address _judgeAddr
-     */
+    // /**
+    //  * @dev
+    //  * 裁判评分
+    //  * @param
+    //  * string memory _playerID,
+    //     uint256 _score, // 分数需已进行倍增
+    //     uint256 _questionIndex,
+    //     address _judgeAddr
+    //  */
     function giveMarking(
         string memory _playerID,
         uint256 _score,
@@ -91,22 +85,27 @@ contract Main is JudgeManagerment{
     }
 
 
-    /**
-     * 汇总选手分数
-     * @param
-     * string memory _playerID
-     */
+    // /**
+    //  * 汇总选手分数
+    //  * @param
+    //  * string memory _playerID
+    //  */
     function sendPlayerMgrScore(string memory _playerID, uint256 index) public onlyJudge(msg.sender) {
         require(PlayerManagerment(playerMgrs[start - 1]).validataPlayerIndex(_playerID, index), "error: _playerID binding index does not different");
         (uint256 scoreA, uint256 scoreB, uint256 scoreC) = MarkingManagerment(markingMgrs[start - 1]).sendModuleScore(_playerID); // 需要除10;
-        PlayerManagerment(playerMgrs[start - 1]).setPlayerScore([scoreA, scoreB, scoreC]);
+        uint256[] memory scores = new uint256[](3);
+        scores[0] = scoreA;
+        scores[1] = scoreB;
+        scores[2] = scoreC;
+
+        PlayerManagerment(playerMgrs[start - 1]).setPlayerScore(index, scores);
     }
 
-    /**
-     * 添加选手
-     * @param
-     * stirng memory _playerID
-     */
+    // /**
+    //  * 添加选手
+    //  * @param
+    //  * stirng memory _playerID
+    //  */
     function addPlayer(string memory _playerID) public onlyOwner returns(uint256) {
         uint256 playerIndex = PlayerManagerment(playerMgrs[start - 1]).addPlayer(_playerID);
         return playerIndex;
@@ -115,7 +114,7 @@ contract Main is JudgeManagerment{
     /**
      * 查询所有选手分数
      */
-    function getAllPlayerScore() public view returns(Player[] memory _players) {
+    function getAllPlayerScore() public returns(PlayerManagerment.Player[] memory _players) {
         return PlayerManagerment(playerMgrs[start - 1]).getAllPlayerScore();
     }
 
@@ -123,7 +122,7 @@ contract Main is JudgeManagerment{
      /**
      * 查询某个选手分数
      */
-    function getPalyerByIndex(uint256 index) public returns(Player memory) {
+    function getPalyerByIndex(uint256 index) public returns(PlayerManagerment.Player memory) {
         return PlayerManagerment(playerMgrs[start - 1]).getPalyerByIndex(index);
     }
 
@@ -131,7 +130,7 @@ contract Main is JudgeManagerment{
      * 查询所有选手索引
      */
     function getAllIndexs() public view returns(uint256[] memory) {
-        return PlayerManagerment(playerMgrs[start - 1]).indexs();
+        return PlayerManagerment(playerMgrs[start - 1]).getAllIndexs();
     }
 
     /**
@@ -143,8 +142,6 @@ contract Main is JudgeManagerment{
 
     /**
      * 添加题目
-     * @param
-     * addQuestion(string memory title, string memory answer)
      */
     function addQuestion(string memory title, string memory answer) public onlyOwner {
         PaperManagerment(paperMgrs[start - 1]).addQuestion(title, answer);
@@ -152,8 +149,6 @@ contract Main is JudgeManagerment{
 
     /**
      * 验证题目
-     * @param
-     * verifyQuestion(uint256 _questionIndex, Enum.QuestionStatus _questionStatus)
      */
     function verifyQuestion(uint256 _questionIndex, Enum.QuestionStatus _questionStatus) public onlyOwner{
         PaperManagerment(paperMgrs[start - 1]).verifyQuestion(_questionIndex, _questionStatus);
@@ -161,10 +156,8 @@ contract Main is JudgeManagerment{
 
     /**
      * 查看所有已验证得题目
-     * @param
-     * function showRightQuestion() private view returns(Question[] memory) {
      */
-    function showRightQuestion() private view returns(Question[] memory) { 
+    function showRightQuestion() public view returns(PaperManagerment.Question[] memory) { 
         return PaperManagerment(paperMgrs[start - 1]).showRightQuestion();
     }
 }

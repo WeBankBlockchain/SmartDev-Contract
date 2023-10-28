@@ -2,8 +2,8 @@
 pragma solidity ^0.6.10;
 pragma experimental ABIEncoderV2;
 
-import "Ownable.sol";
-import "Roles.sol";
+import "./utils/Ownable.sol";
+import "./utils/Roles.sol";
 // 申诉管理
 // 问题：
 // 1. 各参赛队提出合理诉求，如何以最快解决诉求
