@@ -1,0 +1,16 @@
+|--------------------------------------|-----------------|--------|--------|--------|---------|
+| Deployment Cost                      | Deployment Size |        |        |        |         |
+| 1756190                              | 9130            |        |        |        |         |
+| Function Name                        | min             | avg    | median | max    | # calls |
+| acceptOrder                          | 3457            | 3695   | 3457   | 5125   | 7       |
+| cancelOrder                          | 6296            | 6296   | 6296   | 6296   | 1       |
+| completeOrder                        | 20429           | 20486  | 20486  | 20543  | 2       |
+| createOrder                          | 1083            | 148641 | 167086 | 167086 | 9       |
+| createUser                           | 1823            | 48148  | 51694  | 51698  | 19      |
+| depositEscrowFundWithClient          | 24649           | 24649  | 24649  | 24649  | 6       |
+| getOrderId                           | 622             | 622    | 622    | 622    | 2       |
+| getOrderNonce                        | 693             | 1818   | 2693   | 2693   | 16      |
+| getUserProfile                       | 1675            | 1675   | 1675   | 1675   | 1       |
+| setFee                               | 953             | 953    | 953    | 953    | 1       |
+| setFeeConfig                         | 48458           | 48458  | 48458  | 48458  | 1       |
+| submitOrder                          | 3912            | 4569   | 4569   | 5227   | 2       |
