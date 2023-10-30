@@ -1,0 +1,391 @@
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  margin: 0;
+  background: #faf8ef;
+  color: #776e65;
+}
+
+h1 {
+  font-size: 4rem;
+  margin: 0;
+}
+
+button {
+  background: #8f7a66;
+  color: white;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  transition: var(--animation-duration) ease-in-out all;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled):hover {
+    opacity: 0.8;
+  }
+}
+
+.page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 20px;
+  font-size: 1.1rem;
+}
+
+.header {
+  padding: 2rem 0;
+  font-size: 1.1rem;
+
+  &-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      margin-left: 5px;
+    }
+  }
+
+  &-buttons {
+    min-width: max-content;
+  }
+
+  &-scores {
+    display: flex;
+
+    &-score {
+      position: relative;
+      background: #bbada0;
+      padding: 1px 25px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+      margin-left: 5px;
+
+      div:first-child {
+        color: #eee4da;
+        text-transform: uppercase;
+        font-size: 0.8rem;
+        margin-top: 5px;
+      }
+
+      div:nth-child(2) {
+        color: white;
+        margin-top: -5px;
+        font-size: 1.6rem;
+      }
+
+      &-increase {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 1.6rem;
+        opacity: 0;
+        animation: score-increase 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+.sign-contanier {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign {
+  margin-bottom: 25px;
+  padding: 10px 14px;
+  margin-top: 20px;
+  width: 90%;
+  background-color: #8f7a66;
+  border-radius: 8px;
+
+  &-input {
+    width: 100%;
+  }
+}
+
+.rank {
+  margin: 0;
+  color: #776e65;
+  height: 800px;
+
+  &-column {
+    overflow-y: auto;
+    padding: 15px 15px;
+    background-color: #bbada0;
+    height: 600px;
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  &-player-card {
+    /**  hidding top player rank card scroll bar. */
+    // FireFox
+    scrollbar-width: none;
+    // IE & Edge
+    -ms-overflow-style: none;
+
+    display: flex;
+    justify-content: space-around;
+    background-color: #eee4da;
+    border-radius: 8px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+
+  // hidding top player rank card scroll bar.
+  // Chrome & Safari
+  &-column::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.info {
+  line-height: 1.65;
+  color: #776e65;
+  font-weight: 500;
+
+  a {
+    color: #776e65;
+    font-weight: bold;
+  }
+}
+
+.size-picker {
+  display: flex;
+  margin: 0 -5px;
+
+  button {
+    flex: 1;
+    margin: 0 5px;
+  }
+}
+
+.board {
+  position: relative;
+  background: #bbada0;
+  border-radius: 6px;
+  display: grid;
+  grid-template-columns: repeat(var(--board-size), 1fr);
+  grid-gap: var(--grid-gap);
+  padding: var(--grid-gap);
+  user-select: none;
+  touch-action: none;
+
+  &-tile {
+    position: relative;
+    border-radius: 3px;
+    padding-bottom: 100%;
+    background: #cdc1b4;
+    line-height: 0;
+    font-size: 1.6rem;
+
+    &-value {
+      background: #3c3a32;
+      color: #f9f6f2;
+
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 0;
+      border-radius: 3px;
+      z-index: 9;
+    }
+
+    &-new {
+      animation: tile-new var(--animation-duration) ease-in-out;
+    }
+
+    &-merge {
+      animation: tile-merge var(--animation-duration) ease-in-out;
+    }
+
+    &-2 {
+      background: #eee4da;
+      color: #776e65;
+      font-size: 1.7em;
+    }
+
+    &-4 {
+      background: #ede0c8;
+      color: #776e65;
+      font-size: 1.7em;
+    }
+
+    &-8 {
+      background: #f2b179;
+      font-size: 1.7em;
+    }
+
+    &-16 {
+      background: #f59563;
+      font-size: 1.7em;
+    }
+
+    &-32 {
+      background: #f67c5f;
+      font-size: 1.7em;
+    }
+
+    &-64 {
+      background: #f65e3b;
+      font-size: 1.7em;
+    }
+
+    &-128 {
+      background: #edcf72;
+      font-size: 1.3em;
+    }
+
+    &-256 {
+      background: #edcc61;
+      font-size: 1.3em;
+    }
+
+    &-512 {
+      background: #edc850;
+      font-size: 1.3em;
+    }
+
+    &-1024 {
+      background: #edc53f;
+    }
+
+    &-2048 {
+      background: #edc22e;
+    }
+  }
+
+  &.board-5,
+  &.board-6 {
+    .board-tile {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(238, 228, 218, 0.73);
+  animation: reveal 0.4s ease-in-out;
+
+  &-defeat {
+    background: rgba(238, 228, 218, 0.73);
+  }
+
+  &-victory {
+    background: rgba(237, 194, 46, 0.5);
+    color: #f9f6f2;
+  }
+
+  &-buttons {
+    margin-left: 80px;
+    button {
+      margin: 0 5px;
+    }
+  }
+
+  h1 {
+    margin-bottom: 0.5em;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes tile-new {
+  0% {
+    transform: scale(0.5);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes tile-merge {
+  0% {
+    transform: scale(0.7);
+  }
+
+  80% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes score-increase {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-4rem);
+  }
+}
+
+@media screen and (min-width: 610px) {
+  .board {
+    &-tile {
+      font-size: 2rem;
+    }
+
+    &.board-5,
+    &.board-6 {
+      .board-tile {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
