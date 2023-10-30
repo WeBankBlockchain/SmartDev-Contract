@@ -3,16 +3,6 @@
 pragma solidity >=0.4.25;
 
 library LibAddress{
-    
-    function isContract(address account) internal view returns(bool) {
-        require(msg.sender == tx.origin);
-        uint256 size;
-  	//获取账户的合约代码大小
-        assembly { size := extcodesize(account) }  
-	//如果合约代码大小大于0，则认为该地址是一个合约地址，返回true；否则返回false
-        return size > 0;    
-    }
-
     function isEmptyAddress(address addr) internal pure returns(bool){
         return addr == address(0);
     }
