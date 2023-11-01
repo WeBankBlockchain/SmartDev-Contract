@@ -16,6 +16,8 @@
 
 pragma solidity ^0.4.25;
 
+
+//权限辅助操作
 contract BasicAuth {
     address public _owner;
 

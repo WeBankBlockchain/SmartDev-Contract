@@ -19,13 +19,14 @@ pragma solidity ^0.4.25;
 import "./BasicAuth.sol";
 import "./IssuerRole.sol";
 
+//积分数据合约
 contract RewardPointData is BasicAuth, IssuerRole {
 
-    mapping(address => uint256) private _balances;
-    mapping(address => bool) private _accounts;
-    uint256 public _totalAmount;
-    string public _description;
-    address _latestVersion; 
+    mapping(address => uint256) private _balances;  //保证注册账号数据
+    mapping(address => bool) private _accounts; //保存账户余额数据
+    uint256 public _totalAmount; //发行积分总额
+    string public _description;  //描述信息
+    address _latestVersion;  //最新的版本
 
     constructor(string memory description) public {
         _description = description;
@@ -36,35 +37,42 @@ contract RewardPointData is BasicAuth, IssuerRole {
         _;
     }
 
+    //升级版本
     function upgradeVersion(address newVersion) public {
         require(msg.sender == _owner);
         _latestVersion = newVersion;
     }
     
 
+    //设置账户的积分余额
     function setBalance(address a, uint256 value) onlyLatestVersion public returns (bool) {
         _balances[a] = value;
         return true;
     }
 
+    //设置账户的状态值为true，代表已经注册
     function setAccount(address a, bool b) onlyLatestVersion public returns (bool) {
         _accounts[a] = b;
         return true;
     }
 
+    //设置积分总额度
     function setTotalAmount(uint256 amount) onlyLatestVersion public returns (bool) {
         _totalAmount = amount;
         return true;
     }
 
+    //获取账户的状态，及积分余额
     function getAccountInfo(address account) public view returns (bool, uint256) {
         return (_accounts[account], _balances[account]);
     }
 
+    //返回账户是否已经注册
     function hasAccount(address account) public view returns(bool) {
          return _accounts[account];
     }
 
+   //获取账户的余额
     function getBalance(address account) public view returns (uint256) {
         return _balances[account];
     }
