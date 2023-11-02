@@ -372,6 +372,8 @@ contract BasicAuth {
 
 ### 部署ADMIN合约
 
+编译ADMIN合约并部署.
+
 ![image-20231031173316037](D:/data/typora-user-images/image-20231031173316037.png)
 
 获取 ADMIN合约中部署的RewardPointController 合约地址。
@@ -380,20 +382,20 @@ contract BasicAuth {
 
 获取RewardPointController 合约地址后，使用remix At Address功能，获取已部署的RewardPointController 合约实例，如下：
 
-![image-20231031173520479](D:/data/typora-user-images/image-20231031173520479.png)
+![image-20231031173520479](assets/image-20231031173520479.png)
 
 ### 发行积分
 
-![image-20231031173816253](D:/data/typora-user-images/image-20231031173816253.png)
+![image-20231031173816253](assets/image-20231031173816253.png)
 
 ### 查询余额
 
-![image-20231031173902504](D:/data/typora-user-images/image-20231031173902504.png)
+![image-20231031173902504](assets/image-20231031173902504.png)
 
 ### 注册用户
 
-![image-20231031174015453](D:/data/typora-user-images/image-20231031174015453.png)
+![image-20231031174015453](assets/image-20231031174015453.png)
 
 ### 积分转账
 
-![image-20231031174033385](D:/data/typora-user-images/image-20231031174033385.png)
+![image-20231031174033385](assets/image-20231031174033385.png)
