@@ -24,19 +24,19 @@ contract AuthService{
   
    
     modifier onlyAdmin(){
-        require(tx.origin == _admin, "AuthService onlyAdmin：你不是超级管理员，无法进行对应操作！");      
+        require(msg.sender == _admin, "AuthService onlyAdmin：你不是超级管理员，无法进行对应操作！");      
         _;
     }
     modifier onlyManager(){
-        require(permitManagerMapping[tx.origin] ==true, "AuthService onlyManager：你不是授权管理者，无法进行对应操作！");      
+        require(permitManagerMapping[msg.sender] ==true, "AuthService onlyManager：你不是授权管理者，无法进行对应操作！");      
         _;
     }
     
 
     constructor() public {
    
-       _admin = tx.origin;
-       changePermitManager(tx.origin,true);
+       _admin = msg.sender;
+       changePermitManager(msg.sender,true);
     }
 
    
@@ -93,7 +93,7 @@ contract AuthService{
             }else{
                stateMessage="AuthService addAuthUser:授权状态修改失败!";
          }
-          emit  SetPermitUserEvent(tx.origin,userAddress,state,permitState,now,stateMessage);
+          emit  SetPermitUserEvent(msg.sender,userAddress,state,permitState,now,stateMessage);
           return state;
     }
 }

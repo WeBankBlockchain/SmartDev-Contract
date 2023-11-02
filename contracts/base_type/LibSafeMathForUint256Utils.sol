@@ -1,76 +1,61 @@
-/*
- * Copyright 2014-2019 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- * */
- 
 pragma solidity ^0.4.25;
 
 library LibSafeMathForUint256Utils {
 
     function add(uint256 a, uint256 b) internal pure returns (uint256) {
-        uint256 c = a + b;
-        require(c >= a, "SafeMathForUint256: addition overflow");
-        return c;
+        uint256 c = a + b;  //将 a 和 b 相加，结果存储在变量 c 中
+        require(c >= a, "SafeMathForUint256: addition overflow");  //检查相加结果是否溢出
+        return c;  //返回相加结果
     }
 
     function sub(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b <= a, "SafeMathForUint256: subtraction overflow");
-        uint256 c = a - b;
-        return c;
+        require(b <= a, "SafeMathForUint256: subtraction overflow");  //检查相减结果是否溢出
+        uint256 c = a - b;  //将 a 和 b 相减，结果存储在变量 c 中
+        return c;  //返回相减结果
     }
 
     function mul(uint256 a, uint256 b) internal pure returns (uint256) {
         if (a == 0 || b == 0) {
-            return 0;
+            return 0;  //如果 a 或 b 为 0，则乘积为 0
         }
 
-        uint256 c = a * b;
-        require(c / a == b, "SafeMathForUint256: multiplication overflow");
-        return c;
+        uint256 c = a * b;  //将 a 和 b 相乘，结果存储在变量 c 中
+        require(c / a == b, "SafeMathForUint256: multiplication overflow");  //检查相乘结果是否溢出
+        return c;  //返回相乘结果
     }
 
     function div(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b > 0, "SafeMathForUint256: division by zero");
-        uint256 c = a / b;
-        return c;
+        require(b > 0, "SafeMathForUint256: division by zero");  //检查除数是否为 0
+        uint256 c = a / b;  //将 a 和 b 相除，结果存储在变量 c 中
+        return c;  //返回相除结果
     }
 
     function mod(uint256 a, uint256 b) internal pure returns (uint256) {
-        require(b != 0, "SafeMathForUint256: modulo by zero");
-        return a % b;
+        require(b != 0, "SafeMathForUint256: modulo by zero");  //检查除数是否为 0
+        return a % b;  //返回 a 对 b 取模的结果
     }
 
-    function power(uint256 a, uint256 b) internal pure returns (uint256){
+    function power(uint256 a, uint256 b) internal pure returns (uint256) {
 
-        if(a == 0) return 0;
-        if(b == 0) return 1;
+        if(a == 0) return 0;  //如果底数 a 为 0，则结果为 0
+        if(b == 0) return 1;  //如果指数 b 为 0，则结果为 1
 
-        uint256 c = 1;
-        for(uint256 i = 0; i < b; i++){
-            c = mul(c, a);
+        uint256 c = 1;  //初始化变量 c 为 1
+        for(uint256 i = 0; i < b; i++){  // 循环计算底数 a 的指数次幂
+            c = mul(c, a);  //将 c 乘以 a，结果重新赋值给 c
         }
+        return c;  //返回底数 a 的指数次幂的结果
     }
 
     function max(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a >= b ? a : b;
-    }
+        return a >= b ? a : b;  //返回较大的数值
+    
 
     function min(uint256 a, uint256 b) internal pure returns (uint256) {
-        return a < b ? a : b;
+        return a < b ? a : b;  //返回较小的数值
     }
 
     function average(uint256 a, uint256 b) internal pure returns (uint256) {
-        return (a / 2) + (b / 2) + ((a % 2 + b % 2) / 2);
+        return (a / 2) + (b / 2) + ((a % 2 + b % 2) / 2);  //返回两个数值的平均值
     }
 }

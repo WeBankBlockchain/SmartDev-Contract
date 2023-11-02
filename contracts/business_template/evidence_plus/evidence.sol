@@ -26,10 +26,10 @@ contract Evidence{
 
    constructor(string evi, address addr)  {
        factoryAddr = addr;
-       if(CallVerify(tx.origin))
+       if(CallVerify(msg.sender))
        {
            evidence = evi;
-           signers.push(tx.origin);
+           signers.push(msg.sender);
            newSignaturesEvent(evi,addr);
        }
        else
@@ -51,21 +51,21 @@ contract Evidence{
     function addSignatures() public returns(bool) {
         for(uint i= 0 ;i<signers.length ;i++)
         {
-            if(tx.origin == signers[i])
+            if(msg.sender == signers[i])
             {
                 addRepeatSignaturesEvent(evidence);
                 return true;
             }
         }
-       if(CallVerify(tx.origin))
+       if(CallVerify(msg.sender))
        {
-            signers.push(tx.origin);
+            signers.push(msg.sender);
             addSignaturesEvent(evidence);
             return true;
        }
        else
        {
-           errorAddSignaturesEvent(evidence,tx.origin);
+           errorAddSignaturesEvent(evidence,msg.sender);
            return false;
        }
     }

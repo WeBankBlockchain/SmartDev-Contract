@@ -28,19 +28,25 @@ contract BasicDemo {
 
     function convertDemo() public view{
         uint256 a = 25;
+	//转换为字节数组并赋值
         bytes memory b = LibConverter.uintToBytes(a);
     }
 
     function convertDemo2() public view{
         bytes memory a = "25";
+	//转换为整数并赋值
         int b = LibConverter.bytesToInt(a);
     }
-
+	//地址转换操作
     function addressDemo() public view{
         address addr = 0xE0f5206BBD039e7b0592d8918820024e2a7437b9;
+	//转为字节数组赋值
         bytes memory bs=LibAddress.addressToBytes(addr);
+	//设置长度为20
         bs = new bytes(20);
+	//调用函数将数组转为地址
         addr = LibAddress.bytesToAddress(bs);
+	//更换地址变量
         addr = 0xE0f5206BBD039e7b0592d8918820024e2a7437b9;
         string memory addrStr = LibAddress.addressToString(addr);
         string memory str="0xE0f5206BBD039e7b0592d8918820024e2a7437b9";
