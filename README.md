@@ -90,7 +90,7 @@
 |SharedBikes|共享单车|实现共享单车的案例|[API](./api/business_template/shared_bike.html)|
 |GovOffice|政府办公|实现政府办公的案例|[API](./api/business_template/gov_office.html)|
 
-### 完整应用
+### 全栈应用
 | 库 | 功能 | 说明 | 文档 | 代码|
 | --- | --- | --- | --- | --- |
 
