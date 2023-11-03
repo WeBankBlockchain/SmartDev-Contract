@@ -1,0 +1,347 @@
+.shop-container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 16;
+  /* background-color: antiquewhite; */
+background-image: url(../assets/v2.png);
+background-position: center center;
+    /* 背景图不平铺 */
+    background-repeat: no-repeat;
+    /* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+    background-attachment: fixed;
+    /* 让背景图基于容器大小伸缩 */
+    background-size: cover;
+}
+
+.shop-main-title{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.shop-refresh-btn{
+  position: absolute;
+  right: 205px;
+  top: 60px;
+  width: 200px;
+  height: 60px;
+  border: 1px solid pink;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all .2s;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.shop-refresh-btn:hover{
+  background-color: pink;
+  color: #fff;
+}
+
+.shop-list-container{
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  height: 300px;
+}
+
+.shop-item-origin{
+  float: left;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 18px;
+  width: 150px;
+  height: 90%;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #fff;
+  transition: all .2s;
+}
+
+.shop-item-legend{
+  width: 90%;
+  height: 90%;
+  animation: leg 6s infinite linear;
+  transition: all .2s;
+  border: 2px dashed rgb(251, 127, 10);
+}
+
+@keyframes leg {
+	0% {
+    border: 2px solid rgb(255, 89, 0);
+  }
+  10% {
+    border: 2px solid rgb(245, 149, 6);
+  }
+  20% {
+    border: 2px solid rgb(183, 255, 0);
+  }
+  30% {
+    border: 2px solid rgb(0, 255, 51);
+  }
+  40% {
+    border: 2px solid rgb(0, 255, 136);
+  }
+  50% {
+    border: 2px solid rgb(2, 209, 255);
+  }
+  60% {
+    border: 2px solid rgb(0, 72, 255);
+  }
+  70% {
+    border: 2px solid rgb(51, 0, 255);
+  }
+  80% {
+    border: 2px solid rgb(174, 0, 255);
+  }
+  90% {
+    border: 2px solid rgb(255, 0, 195);
+  }
+  100% {
+    border: 2px solid rgba(254, 2, 61, 0.991);
+  }
+}
+
+.shop-item-origin div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shop-item-mythology{
+  width: 90%;
+  height: 90%;
+  transition: all .2s;
+  border: 2px dashed red;
+}
+
+.shop-item-epic{
+  width: 90%;
+  height: 90%;
+  transition: all .2s;
+  border: 2px dashed blueviolet;
+}
+
+.shop-item-rare{
+  width: 90%;
+  height: 90%;
+  transition: all .2s;
+  border: 2px dashed blue;
+}
+
+.shop-item-normal{
+  width: 90%;
+  height: 90%;
+  transition: all .2s;
+  border: 2px dashed black;
+}
+
+.shop-title-span{
+  position: absolute;
+  top: 15px;
+}
+
+.shop-qua-span{
+  position: absolute;
+  top: 35px;
+}
+
+.shop-desc-span{
+  font-size: 12px;
+  word-wrap:break-word;
+}
+
+/* @keyframes move{
+  50%{
+    transform: translateY(-2px);
+  }
+
+  100%{
+    transform: translateY(2px);
+  }
+} */
+
+.shop-item-origin:hover{
+  /* animation: move .5s 1 linear; */
+  transform: translateY(-3px);
+}
+
+.shop-cost-span{
+  position: absolute;
+  font-size: 14px;
+  bottom: 15px;
+}
+
+.shop-buy-btn{
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  bottom: -35px;
+  border: 1px solid pink;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all .2s;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.shop-buy-btn:hover{
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.shop-lock-btn{
+  position: absolute;
+  width: 100px;
+  height: 30px;
+  bottom: -68px;
+  border: 1px solid pink;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all .2s;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.shop-lock-btn:hover{
+  font-size: 20px;
+  font-weight: 900;
+}
+
+.shop-gold{
+  position: absolute;
+  font-size: 24px;
+  font-weight: 600;
+  left: 405px;
+  top: 80px;
+}
+
+.shop-hasgot-things{
+  position: absolute;
+  bottom: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  border-radius: 25px;
+  box-shadow:inset 0 0 6px rgba(255, 255, 255, 0.2);
+}
+
+.shop-cost-span2{
+  position: absolute;
+  font-size: 14px;
+  bottom: 36px;
+}
+
+.shop-hasgot-things{
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 950px;
+  height: 200px;
+  border: 1px solid black;
+}
+
+.shop-equ-container{
+  position: absolute;
+  left: 0;
+  width: 350px;
+  height: 100%;
+  border-right: 1px solid black;
+  overflow: auto;
+}
+
+.shop-equ-item{
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 5px;
+  width: 120px;
+  height: 30px;
+  left: 30px;
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  border-right: 1px solid black;
+}
+
+.shop-detail-container{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 19;
+  background-color: rgba(15, 14, 14, 0.5);
+}
+
+.shop-skill-container{
+  position: absolute;
+  left: 350px;
+  width: 350px;
+  height: 100%;
+  border-right: 1px solid black;
+  overflow: auto;
+}
+
+.shop-skill-item{
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 5px;
+  width: 120px;
+  height: 30px;
+  left: 30px;
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 400;
+  font-size: 16px;
+  border-right: 1px solid black;
+}
+
+.shop-attr-container{
+  position: absolute;
+  left: 750px;
+  position: absolute;
+  right: 0;
+  width: 150px;
+  height: 100%;
+}
+
+.shop-start-btn{
+  position: absolute;
+  right: 205px;
+  bottom: 60px;
+  width: 200px;
+  height: 60px;
+  border: 1px solid pink;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all .2s;
+  font-size: 20px;
+  font-weight: 600;
+  background-color: #fff;
+}
+
+.shop-start-btn:hover{
+  background-color: pink;
+  color: #fff;
+}
+
+.shop-attr-item{
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
