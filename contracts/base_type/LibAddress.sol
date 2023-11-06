@@ -3,13 +3,11 @@
 pragma solidity >=0.4.25;
 
 library LibAddress{
+
     function isEmptyAddress(address addr) internal pure returns(bool){
         return addr == address(0);
     }
 
-    function equal(address addr1, address addr2) internal pure returns(bool) {
-        return addr1 == addr2;
-    }
 
     function addressToBytes(address addr) internal pure returns (bytes memory){
         bytes20 addrBytes = bytes20(uint160(addr));   //将地址addr转换为bytes20类型的变量
