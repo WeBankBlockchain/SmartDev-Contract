@@ -32,19 +32,19 @@
 
 | 库 | 功能 | 说明 | 文档 | 代码|
 | --- | --- | --- | --- | --- |
-|LibMaxHeapUint256|堆|最大堆相关操作，取最值、插入、删除等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibMaxHeapUint256.html)| |
-|LibMinHeapUint256|堆|最小堆相关操作，取最值、插入、删除等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibMinHeapUint256.html)| |
-|LibStack|栈|提供栈相关操作，如进栈、出栈等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibStack.html) | |
-|LibQueue|队列|单向队列相关操作，入队、出队等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibQueue.html)| |
-|LibDeque|队列|双向队列相关操作，入队、出队等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibDeque.html)| |
-|LibAddressSet|address类型集合|集合操作，增删改查等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibAddressSet.html)| |
-|LibBytes32Set|bytes32类型集合|提供了存储Bytes32类型的Set数据结构，支持包括add, remove, contains, getAll等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibBytes32Set.html)| |
-|LibBytesMap|映射|映射操作，存、取、移除等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibBytesMap.html)| |
-|LibLinkedList|双向链表|链表相关操作|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibLinkedList.html)| |
-|LibSingleList|单向链表|包括链表更新、查询、迭代等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibSingleList.html)| |
-|DataTable|模拟数据库表的实现|提供了模拟row、table等实现|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/DataTable.html)| |
-|Map|模拟映射的实现|提供了基于bytes32主键、自定义类型值的可迭代、可查询的映射|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/Map.html)| |
-|LibMerkleTree|默克尔树实现|提供了默克尔树的生成和验证方法|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibMerkleTree.html)| |
+|LibMaxHeapUint256|堆|最大堆相关操作，取最值、插入、删除等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibMaxHeapUint256.html)|[代码](./contracts/data_structure/heap/LibMaxHeapUint256.sol) |
+|LibMinHeapUint256|堆|最小堆相关操作，取最值、插入、删除等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibMinHeapUint256.html)| [代码](./contracts/data_structure/heap/LibMinHeapUint256.sol) |
+|LibStack|栈|提供栈相关操作，如进栈、出栈等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibStack.html) |[代码](./contracts/data_structure/LibStack.sol) |
+|LibQueue|队列|单向队列相关操作，入队、出队等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibQueue.html)| [代码](./contracts/data_structure/LibQueue.sol)|
+|LibDeque|队列|双向队列相关操作，入队、出队等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibDeque.html)| [代码](./contracts/data_structure/LibDeque.sol)|
+|LibAddressSet|address类型集合|集合操作，增删改查等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibAddressSet.html)|[代码](./contracts/data_structure/set/LibAddressSet.sol) |
+|LibBytes32Set|bytes32类型集合|提供了存储Bytes32类型的Set数据结构，支持包括add, remove, contains, getAll等| [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibBytes32Set.html)|[代码](./contracts/data_structure/set/LibBytes32Set.sol) |
+|LibBytesMap|映射|映射操作，存、取、移除等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibBytesMap.html)| [代码](./contracts/data_structure/map/LibBytesMap.sol)|
+|LibLinkedList|双向链表|链表相关操作|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibLinkedList.html)| [代码](./contracts/data_structure/list/LibLinkedList.sol)|
+|LibSingleList|单向链表|包括链表更新、查询、迭代等|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibSingleList.html)| [代码](./contracts/data_structure/list/LibSingleList.sol)|
+|DataTable|模拟数据库表的实现|提供了模拟row、table等实现|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/DataTable.html)| [代码](./contracts/data_structure/table/DataTable.sol)|
+|Map|模拟映射的实现|提供了基于bytes32主键、自定义类型值的可迭代、可查询的映射|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/Map.html)|[代码](./contracts/data_structure/table/Map.sol) |
+|LibMerkleTree|默克尔树实现|提供了默克尔树的生成和验证方法|[API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/data_structure/LibMerkleTree.html)| [代码](./contracts/data_structure/merkle_tree/LibMerkleTree.sol)|
 
 ### 通用功能
 
@@ -96,10 +96,16 @@
 
 ### 合约杂谈
 
-| 文章 | 说明 | 链接 | 
+| 类型 | 说明 | 链接 | 
 | --- | --- | --- |
-|SmartBasics|智能合约入门|[链接](./docs/miscs/tutorial/Solidity-basic.md)| |
-|ContractTips|合约开发杂谈|[链接](./docs/miscs/tutorial/Contract-tips.md)| |
+|语言基础|Solidity智能合约入门|[链接](./tutorials/Solidity-basic.md)| 
+|语言技巧|Solidity智能合约开发杂谈|[链接](./tutorials/Contract-tips.md)| 
+|语言进阶|Solidity智能合约开发进阶|[链接](./tutorials/Solidity-advance.md)| 
+|合约优化|Solidity智能合约大小限制优化方案|[链接](./tutorials/Solidity智能合约大小限制优化方案.md)| 
+|合约测试|一文搞懂Truffle如何测试自己的智能合约|[链接](./tutorials/一文搞懂Truffle如何测试自己的智能合约.md)| 
+|解决方案|日本排核污水海鲜类产品溯源追踪解决方案|[链接](./tutorials/日本排核污水海鲜类产品溯源追踪解决方案.md)| 
+|解决方案|日本排核污水监测海洋数据指标解决方案|[链接](./tutorials/日本排核污水监测海洋数据指标解决方案.md)| 
+
 
 ## 文档
 - [**中文**](https://smartdev-doc.readthedocs.io/zh_CN/latest/docs/WeBankBlockchain-SmartDev-Contract/index.html)
