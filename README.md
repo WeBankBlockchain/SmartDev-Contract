@@ -93,6 +93,7 @@
 ### 全栈应用
 | 库 | 功能 | 说明 | 文档 | 代码|
 | --- | --- | --- | --- | --- |
+| WonderJob | web3远程办公平台 | 实现remote远程办公的案例 | [API](https://smartdev-doc.readthedocs.io/zh-cn/latest/docs/WeBankBlockchain-SmartDev-Contract/api/business_template/WonderJob.html)| |
 
 ### 合约杂谈
 
